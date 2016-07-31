@@ -1,0 +1,663 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="操作系统,基础知识," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="3.2 处理机管理3.2.1 进程的基本概念
+进程是资源分配和独立运行的基本单位;
+进程通常由程序,数据和进程控制块(PCB)组成;
+进程的状态及其状态间的切换1)三态模型运行:当一个进程在处理机上运行时,则称该进程处于运行状态;就绪:一个进程获得了除处理机外的一切所需资源,一旦得到处理机即可运行,则称此进程处于就绪状态;阻塞:一个进程正在等待某一事件发生而暂停运行,这时即使把处理机分配给进程也">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统基础知识">
+<meta property="og:url" content="http://chuzhiyan.com/2015/06/16/操作系统基础知识/index.html">
+<meta property="og:site_name" content="Happy">
+<meta property="og:description" content="3.2 处理机管理3.2.1 进程的基本概念
+进程是资源分配和独立运行的基本单位;
+进程通常由程序,数据和进程控制块(PCB)组成;
+进程的状态及其状态间的切换1)三态模型运行:当一个进程在处理机上运行时,则称该进程处于运行状态;就绪:一个进程获得了除处理机外的一切所需资源,一旦得到处理机即可运行,则称此进程处于就绪状态;阻塞:一个进程正在等待某一事件发生而暂停运行,这时即使把处理机分配给进程也">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/OS/%E7%AC%AC%203%20%E7%AB%A0%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86.png">
+<meta property="og:updated_time" content="2016-07-31T10:42:13.243Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="操作系统基础知识">
+<meta name="twitter:description" content="3.2 处理机管理3.2.1 进程的基本概念
+进程是资源分配和独立运行的基本单位;
+进程通常由程序,数据和进程控制块(PCB)组成;
+进程的状态及其状态间的切换1)三态模型运行:当一个进程在处理机上运行时,则称该进程处于运行状态;就绪:一个进程获得了除处理机外的一切所需资源,一旦得到处理机即可运行,则称此进程处于就绪状态;阻塞:一个进程正在等待某一事件发生而暂停运行,这时即使把处理机分配给进程也">
+<meta name="twitter:image" content="http://7xiijb.com1.z0.glb.clouddn.com/OS/%E7%AC%AC%203%20%E7%AB%A0%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Happy'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://chuzhiyan.com/2015/06/16/操作系统基础知识/"/>
+
+  <title> 操作系统基础知识 | Happy </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?6d76f69e75aa302278f6807f3b3ccfdb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Happy</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">灵魂和肉体，总要有一个上工地。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                操作系统基础知识
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-06-16T20:25:56+08:00" content="2015-06-16">
+              2015-06-16
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/06/16/操作系统基础知识/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/16/操作系统基础知识/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://7xiijb.com1.z0.glb.clouddn.com/OS/%E7%AC%AC%203%20%E7%AB%A0%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86.png" alt="此处输入图片的描述"></p>
+<h2 id="3-2-处理机管理"><a href="#3-2-处理机管理" class="headerlink" title="3.2 处理机管理"></a>3.2 处理机管理</h2><h3 id="3-2-1-进程的基本概念"><a href="#3-2-1-进程的基本概念" class="headerlink" title="3.2.1 进程的基本概念"></a>3.2.1 进程的基本概念</h3><ol>
+<li>进程是资源分配和独立运行的基本单位;</li>
+<li>进程通常由程序,数据和进程控制块(PCB)组成;</li>
+<li>进程的状态及其状态间的切换<br>1)三态模型<br>运行:当一个进程在处理机上运行时,则称该进程处于运行状态;<br>就绪:一个进程获得了除处理机外的一切所需资源,一旦得到处理机即可运行,则称此进程处于就绪状态;<br>阻塞:一个进程正在等待某一事件发生而暂停运行,这时即使把处理机分配给进程也无法运行,鼓称该进程处于阻塞状态;</li>
+</ol>
+<h3 id="3-2-2-进程的控制"><a href="#3-2-2-进程的控制" class="headerlink" title="3.2.2 进程的控制"></a>3.2.2 进程的控制</h3><h3 id="3-2-3-进程间的通信"><a href="#3-2-3-进程间的通信" class="headerlink" title="3.2.3 进程间的通信"></a>3.2.3 进程间的通信</h3><h3 id="3-2-4-管程"><a href="#3-2-4-管程" class="headerlink" title="3.2.4 管程"></a>3.2.4 管程</h3><h3 id="3-2-5-进程调度"><a href="#3-2-5-进程调度" class="headerlink" title="3.2.5 进程调度"></a>3.2.5 进程调度</h3><p>进程调度的方式是指当有更高优先级的进程到来时如何分配CPU。调度方式分为可剥夺和不可剥夺两种。</p>
+<ol>
+<li>三级调度<br>(1) 高级调度<br>(2) 中级调度<br>(3) 低级调度</li>
+<li>调度算法<br>常用的进程调度算法有先来先服务、时间片轮转、优先级调度和多级反馈调度算法。<br>(1) 先来先服务(FCFS)<br>(2) 时间片轮转<pre><code>a. 固定时间片
+b. 可变时间片
+</code></pre>(3) 优先级调度<pre><code>a. 静态优先级
+b. 动态优先级
+</code></pre>(4) 多级反馈调度</li>
+</ol>
+<h3 id="3-2-6-死锁"><a href="#3-2-6-死锁" class="headerlink" title="3.2.6 死锁"></a>3.2.6 死锁</h3><p>死锁是指两个以上的进程互相都要求对方已经占有的资源导致无法继续运行下去的现象。</p>
+<ol>
+<li>死锁产生的原因<br>产生死锁的原因是因为竞争资源及进程推进顺序非法。</li>
+<li>产生死锁的4个必要条件<br><strong>互斥条件</strong>、<strong>请求保持条件</strong>、<strong>不可剥夺条件</strong>和<strong>环路条件</strong>。</li>
+<li>死锁的处理<br>死锁预防，死锁避免，死锁检测和死锁解除。</li>
+</ol>
+<h3 id="3-2-7-线程"><a href="#3-2-7-线程" class="headerlink" title="3.2.7 线程"></a>3.2.7 线程</h3><ol>
+<li>传统的进程有两个基本属性：<strong>可拥有资源的独立单位</strong>；<strong>可独立调度和分配的基本单位</strong>。</li>
+<li>由于在进程的闯进啊，撤销和切换过程中，系统必须为之付出较大的时空开销，因此在系统中设置的进程数目不宜过多，进程切换频率不宜太高，这就限制了并发程度的提高。</li>
+<li>引入线程之后，将传统进程的两个基本属性分开。线程作为调度和分配的基本单位，进程最为独立分配资源的单位。</li>
+<li>线程是进程中的一个实体，是被系统独立分配和调度的基本单位</li>
+<li>线程被称为“轻型进程”；传统进程被称为“重型进程”。线程可创建另一个线程，同一个进程中的多个线程可以并发执行。</li>
+<li>线程分为用户级线程和内核级线程。用户级线程不依赖于内核。内核级线程依赖于内核。与线程不同的是，不管是系统进程还是用户进程，在进行切换时，都需要依赖于内核中的进程调度。</li>
+</ol>
+<h2 id="3-3-存储管理"><a href="#3-3-存储管理" class="headerlink" title="3.3 存储管理"></a>3.3 存储管理</h2><h3 id="3-3-1-基本概念"><a href="#3-3-1-基本概念" class="headerlink" title="3.3.1 基本概念"></a>3.3.1 基本概念</h3><ol>
+<li>存储器的结构<br>一般的存储器的结构有“寄存器–主存–外存”结构和“寄存器–缓存–主存–外存”结构。</li>
+<li>地址重定位<br>地址重定位是指将逻辑地址变换成主存物理地址的过程。</li>
+</ol>
+<h3 id="3-3-2-存储管理方案"><a href="#3-3-2-存储管理方案" class="headerlink" title="3.3.2 存储管理方案"></a>3.3.2 存储管理方案</h3><h3 id="3-3-3-分页存储管理"><a href="#3-3-3-分页存储管理" class="headerlink" title="3.3.3 分页存储管理"></a>3.3.3 分页存储管理</h3><h3 id="3-3-4-分段存储管理"><a href="#3-3-4-分段存储管理" class="headerlink" title="3.3.4 分段存储管理"></a>3.3.4 分段存储管理</h3><h3 id="3-3-5-段页式存储管理"><a href="#3-3-5-段页式存储管理" class="headerlink" title="3.3.5 段页式存储管理"></a>3.3.5 段页式存储管理</h3><h3 id="3-3-6-虚拟存储管理"><a href="#3-3-6-虚拟存储管理" class="headerlink" title="3.3.6 虚拟存储管理"></a>3.3.6 虚拟存储管理</h3>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/操作系统/" rel="tag">#操作系统</a>
+          
+            <a href="/tags/基础知识/" rel="tag">#基础知识</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/06/05/在Ubuntu-14-10-下安装-FFmpeg/" rel="next" title="在Ubuntu 14.10 下安装 FFmpeg">
+                <i class="fa fa-chevron-left"></i> 在Ubuntu 14.10 下安装 FFmpeg
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/06/21/在-Ubuntu-下处理视频/" rel="prev" title="在 Ubuntu 下处理视频">
+                在 Ubuntu 下处理视频 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/06/16/操作系统基础知识/"
+           data-title="操作系统基础知识" data-url="http://chuzhiyan.com/2015/06/16/操作系统基础知识/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Happy.Zhang" />
+          <p class="site-author-name" itemprop="name">Happy.Zhang</p>
+          <p class="site-description motion-element" itemprop="description">ihzlpy blog</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-处理机管理"><span class="nav-number">1.</span> <span class="nav-text">3.2 处理机管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-进程的基本概念"><span class="nav-number">1.1.</span> <span class="nav-text">3.2.1 进程的基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-进程的控制"><span class="nav-number">1.2.</span> <span class="nav-text">3.2.2 进程的控制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-3-进程间的通信"><span class="nav-number">1.3.</span> <span class="nav-text">3.2.3 进程间的通信</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-4-管程"><span class="nav-number">1.4.</span> <span class="nav-text">3.2.4 管程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-5-进程调度"><span class="nav-number">1.5.</span> <span class="nav-text">3.2.5 进程调度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-6-死锁"><span class="nav-number">1.6.</span> <span class="nav-text">3.2.6 死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-7-线程"><span class="nav-number">1.7.</span> <span class="nav-text">3.2.7 线程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-存储管理"><span class="nav-number">2.</span> <span class="nav-text">3.3 存储管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1-基本概念"><span class="nav-number">2.1.</span> <span class="nav-text">3.3.1 基本概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-2-存储管理方案"><span class="nav-number">2.2.</span> <span class="nav-text">3.3.2 存储管理方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-3-分页存储管理"><span class="nav-number">2.3.</span> <span class="nav-text">3.3.3 分页存储管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-4-分段存储管理"><span class="nav-number">2.4.</span> <span class="nav-text">3.3.4 分段存储管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-5-段页式存储管理"><span class="nav-number">2.5.</span> <span class="nav-text">3.3.5 段页式存储管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-6-虚拟存储管理"><span class="nav-number">2.6.</span> <span class="nav-text">3.3.6 虚拟存储管理</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Happy.Zhang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"Hzlpy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

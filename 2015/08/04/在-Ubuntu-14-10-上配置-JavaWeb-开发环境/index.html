@@ -1,0 +1,694 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="配置 JavaWeb 开发环境主要由以下几个步骤:安装 JDK, 安装 Tomcatm, 安装IDE, 安装数据库
+##安装 JDKJDK 是进行 JavaWeb 开发的基础.
+##安装 Tomcat
+
+准备安装包在官方网站下载 linux 下的安装包;
+安装
+对安装包进行解压缩. 
+可以复制解压缩后的 tomcat 文件夹到其他位置. mv tomcat6/ /usr/ 
+
+
+配置 JAVA_H">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在 Ubuntu 14.10 上配置 JavaWeb 开发环境">
+<meta property="og:url" content="http://chuzhiyan.com/2015/08/04/在-Ubuntu-14-10-上配置-JavaWeb-开发环境/index.html">
+<meta property="og:site_name" content="Happy">
+<meta property="og:description" content="配置 JavaWeb 开发环境主要由以下几个步骤:安装 JDK, 安装 Tomcatm, 安装IDE, 安装数据库
+##安装 JDKJDK 是进行 JavaWeb 开发的基础.
+##安装 Tomcat
+
+准备安装包在官方网站下载 linux 下的安装包;
+安装
+对安装包进行解压缩. 
+可以复制解压缩后的 tomcat 文件夹到其他位置. mv tomcat6/ /usr/ 
+
+
+配置 JAVA_H">
+<meta property="og:updated_time" content="2015-08-04T14:06:57.710Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在 Ubuntu 14.10 上配置 JavaWeb 开发环境">
+<meta name="twitter:description" content="配置 JavaWeb 开发环境主要由以下几个步骤:安装 JDK, 安装 Tomcatm, 安装IDE, 安装数据库
+##安装 JDKJDK 是进行 JavaWeb 开发的基础.
+##安装 Tomcat
+
+准备安装包在官方网站下载 linux 下的安装包;
+安装
+对安装包进行解压缩. 
+可以复制解压缩后的 tomcat 文件夹到其他位置. mv tomcat6/ /usr/ 
+
+
+配置 JAVA_H">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Happy'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://chuzhiyan.com/2015/08/04/在-Ubuntu-14-10-上配置-JavaWeb-开发环境/"/>
+
+  <title> 在 Ubuntu 14.10 上配置 JavaWeb 开发环境 | Happy </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?6d76f69e75aa302278f6807f3b3ccfdb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Happy</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">灵魂和肉体，总要有一个上工地。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                在 Ubuntu 14.10 上配置 JavaWeb 开发环境
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-08-04T22:06:30+08:00" content="2015-08-04">
+              2015-08-04
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/08/04/在-Ubuntu-14-10-上配置-JavaWeb-开发环境/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/04/在-Ubuntu-14-10-上配置-JavaWeb-开发环境/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>配置 JavaWeb 开发环境主要由以下几个步骤:安装 JDK, 安装 Tomcatm, 安装IDE, 安装数据库</p>
+<p>##安装 JDK<br>JDK 是进行 JavaWeb 开发的基础.</p>
+<p>##安装 Tomcat</p>
+<ol>
+<li>准备安装包<br>在官方网站下载 linux 下的安装包;</li>
+<li>安装<ul>
+<li>对安装包进行解压缩. </li>
+<li>可以复制解压缩后的 tomcat 文件夹到其他位置. <code>mv tomcat6/ /usr/</code> </li>
+</ul>
+</li>
+<li>配置<br> <code>JAVA_HOME=/usr/java/jdk1.6.0_45</code><br> <code>JAVA_OPTS=&quot;-server -Xms512m -Xmx1024m -XX:PermSize=600M -XX:MaxPermSize=600m -Dcom.sun.management.jmxremote&quot;</code></li>
+<li><p>检查安装是否成功</p>
+<ul>
+<li>进入到 tomcat6 下的 bin 文件夹,运行 startup.sh, 检查安装是否成功. <code>sh startup.sh</code><br><code>zhangle@Happy:/usr/tomcat6/bin$ sh startup.sh</code><blockquote>
+<p>Using CATALINA_BASE:    /usr/tomcat6<br>Using CATALINA_HOME:    /usr/tomcat6<br>Using CATALINA_TMPDIR: /usr/tomcat6/temp<br>Using JRE_HOME:     /usr/java/jdk1.6.0_45/jre<br>Using CLASSPATH:    /usr/tomcat6/bin/bootstrap.jar</p>
+</blockquote>
+</li>
+<li><p>执行 <code>startup</code> 时可能有错</p>
+<blockquote>
+<p>zhangle@Happy:~/tomcat6/bin$ sh startup.sh Cannot find ./catalina.sh<br>The file is absent or does not have execute permission<br>This file is needed to run this program </p>
+</blockquote>
+<p>执行<code>zhangle@Happy:~/tomcat6/bin$ chmod +x bin/*.sh</code></p>
+</li>
+<li>或者,在浏览器中输入 <a href="http://localhost:8080/" target="_blank" rel="external">http://localhost:8080/</a> 查看</li>
+</ul>
+</li>
+</ol>
+<p>##安装 MySQL<br>安装 MySQL 比较简单,下面是使用过程中可能用到的一些基本命令.</p>
+<ol>
+<li>安装 <code>sudo apt-get install mysql-server</code></li>
+<li>登录 <code>mysql -u root -p</code></li>
+<li>创建数据库 <code>create database bs;</code></li>
+<li>使用制定的数据库 <code>use bs;</code></li>
+<li>导入 sql 到数据库 <code>source bs.sql;</code></li>
+<li>显示表 <code>show tables;</code></li>
+</ol>
+<p>##安装 Eclipse</p>
+<ol>
+<li>准备<a href="http://pan.baidu.com/s/1c0CsqJ2" target="_blank" rel="external">安装包</a>;</li>
+<li>解压缩;</li>
+<li>拷贝至 /usr/share/ 目录下 <code>sudo mv eclipse /usr/share/</code> ;</li>
+<li><p>在 usr/share/applications 中新建 eclipse.desktop, 内容为:</p>
+<blockquote>
+<p>[Desktop Entry]<br>Name=Eclipse Java EE<br>Comment=Eclipse SDK for Java EE<br>Encoding=UTF-8<br>Exec=/usr/bin/eclipse<br>Icon=/usr/share/eclipse/icon.xpm<br>Terminal=false<br>Type=Application<br>Categories=Application;Development;</p>
+</blockquote>
+</li>
+<li><p>在 usr/bin 中新建 eclipse 并编辑, 内容为:</p>
+<blockquote>
+<p><code>#!/bin/sh</code><br><code>export ECLIPSE_HOME=&quot;/usr/share/eclipse&quot;</code><br><code>$ECLIPSE_HOME/eclipse $*</code></p>
+</blockquote>
+</li>
+</ol>
+<p>##例子：利用 Eclipse 创建一个 JavaWeb 项目<br>参考　<a href="http://cyxinda.blog.163.com/blog/static/36596186201291034457106/" target="_blank" rel="external">用eclipse创建java web工程</a>  </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/06/21/在-Ubuntu-下处理视频/" rel="next" title="在 Ubuntu 下处理视频">
+                <i class="fa fa-chevron-left"></i> 在 Ubuntu 下处理视频
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/06/C-知识点记录/" rel="prev" title="C++ 知识点记录">
+                C++ 知识点记录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/08/04/在-Ubuntu-14-10-上配置-JavaWeb-开发环境/"
+           data-title="在 Ubuntu 14.10 上配置 JavaWeb 开发环境" data-url="http://chuzhiyan.com/2015/08/04/在-Ubuntu-14-10-上配置-JavaWeb-开发环境/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Happy.Zhang" />
+          <p class="site-author-name" itemprop="name">Happy.Zhang</p>
+          <p class="site-description motion-element" itemprop="description">ihzlpy blog</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Happy.Zhang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"Hzlpy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

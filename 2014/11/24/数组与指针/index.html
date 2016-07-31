@@ -1,0 +1,717 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="C,数组,指针," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="数组指针一维数组与指针//求数组中元素之和
+int sum(int a[], int n)
+{
+    int i = 0;                  //循环标记
+    int total = 0;              //和
+    for ( i = 0; i &amp;lt; n; i++) {    //求和
+        total += a[i];
+    }
+    pr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数组与指针">
+<meta property="og:url" content="http://chuzhiyan.com/2014/11/24/数组与指针/index.html">
+<meta property="og:site_name" content="Happy">
+<meta property="og:description" content="数组指针一维数组与指针//求数组中元素之和
+int sum(int a[], int n)
+{
+    int i = 0;                  //循环标记
+    int total = 0;              //和
+    for ( i = 0; i &amp;lt; n; i++) {    //求和
+        total += a[i];
+    }
+    pr">
+<meta property="og:updated_time" content="2016-07-31T10:43:23.533Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数组与指针">
+<meta name="twitter:description" content="数组指针一维数组与指针//求数组中元素之和
+int sum(int a[], int n)
+{
+    int i = 0;                  //循环标记
+    int total = 0;              //和
+    for ( i = 0; i &amp;lt; n; i++) {    //求和
+        total += a[i];
+    }
+    pr">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Happy'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://chuzhiyan.com/2014/11/24/数组与指针/"/>
+
+  <title> 数组与指针 | Happy </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?6d76f69e75aa302278f6807f3b3ccfdb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Happy</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">灵魂和肉体，总要有一个上工地。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                数组与指针
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-11-24T20:51:07+08:00" content="2014-11-24">
+              2014-11-24
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/11/24/数组与指针/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/24/数组与指针/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><h2 id="一维数组与指针"><a href="#一维数组与指针" class="headerlink" title="一维数组与指针"></a>一维数组与指针</h2><pre><code>//求数组中元素之和
+int sum(int a[], int n)
+{
+    int i = 0;                  //循环标记
+    int total = 0;              //和
+    for ( i = 0; i &lt; n; i++) {    //求和
+        total += a[i];
+    }
+    printf(&quot;The size of a is %u bytes. \n&quot;, sizeof(a));
+    return total;                //返回 和
+}
+</code></pre><p>上面<a href="https://github.com/iamhappy/C/blob/master/C%20Primer%20Plus/%E7%AC%AC10%E7%AB%A0%20%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/%E4%BE%8B%E5%AD%90/sum_arr.c" target="_blank" rel="external">代码</a>表示对数组元素求和，利用数组的下标取数组中每个元素的值。</p>
+<pre><code>//求数组元素之和
+int sump(int *start, int *end)
+{
+int total = 0;                    //和
+while (start &lt; end) {
+    total += (*start);          //把值累加的total上
+    start++;                    //把指针指向下一个元素
+    }
+    return total;
+}
+</code></pre><p>上面代码表示对数组元素求和，利用指针取数组中每个元素的值。</p>
+<h2 id="二维数组与指针"><a href="#二维数组与指针" class="headerlink" title="二维数组与指针"></a>二维数组与指针</h2><pre><code>//统计所有年份的总降水量
+float getYearsTotalRainfall(float rain[][MONTHS])
+{
+    int y,m;    //循环标记
+    float total = 0;
+    float temp;
+    for (y = 0; y &lt; YEARS; y++) {
+        for (m = 0; m &lt; MONTHS; m++) {
+            //temp = rain[y][m];
+            //temp = *(&amp;rain[0][0] + y*MONTHS + m);
+            temp = *(*(rain+y)+m);
+            total += temp;
+        }
+    }
+    return total;
+}
+
+float getYearsTotalRainfall2(float *prain, int years, int months)
+{
+    int y,m;    //循环标记
+    float total = 0;
+    float temp;
+    for (y = 0; y &lt; years; y++) {
+        for (m = 0; m &lt; months; m++) {
+            //temp = rain[y][m];
+            //temp = *(&amp;rain[0][0] + y*months + m);
+            temp = *prain++;
+            total += temp;
+        }
+    }
+    return total;
+} 
+</code></pre><p>在<a href="https://github.com/iamhappy/C/blob/master/C%20Primer%20Plus/%E7%AC%AC10%E7%AB%A0%20%E6%95%B0%E7%BB%84%E5%92%8C%E6%8C%87%E9%92%88/%E7%BC%96%E7%A8%8B%E7%BB%83%E4%B9%A0/exec1.c" target="_blank" rel="external">代码</a>中列出了3种基本取二维数组(i,j)处的值的表示方法</p>
+<pre><code>temp = rain[y][m];                      //1. 用下标取(i,j)处的值
+temp = *(&amp;rain[0][0] + y*MONTHS + m);   //2. 用指针来取值
+temp = *(*(rain+y)+m);                  //3. 用指针来取值
+</code></pre><blockquote>
+<p>通过地址来引用二维数组元素若有以下定义：<br> int a[3][4],i,j;且当0≤i＜3、0≤j＜4，则a数组元素可用以下五种表达式来引用：   </p>
+<ol>
+<li>a[i][j]   </li>
+<li>*(a[i]+j)   </li>
+<li><em>(</em>(a+i)+j)   </li>
+<li>(*(a+i))[j]   </li>
+<li><em>(&amp;a[0][0]+4</em>i+j)   </li>
+</ol>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="http://blog.sina.com.cn/s/blog_5fb4e7540100ctns.html" target="_blank" rel="external">二维数组和指针(C语言）</a></li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/C/" rel="tag">#C</a>
+          
+            <a href="/tags/数组/" rel="tag">#数组</a>
+          
+            <a href="/tags/指针/" rel="tag">#指针</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/11/19/利用Hexo搭建博客/" rel="next" title="利用Hexo搭建博客">
+                <i class="fa fa-chevron-left"></i> 利用Hexo搭建博客
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2014/11/30/字符串与字符串函数/" rel="prev" title="字符串与字符串函数">
+                字符串与字符串函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2014/11/24/数组与指针/"
+           data-title="数组与指针" data-url="http://chuzhiyan.com/2014/11/24/数组与指针/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Happy.Zhang" />
+          <p class="site-author-name" itemprop="name">Happy.Zhang</p>
+          <p class="site-description motion-element" itemprop="description">ihzlpy blog</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#数组"><span class="nav-number">1.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指针"><span class="nav-number">2.</span> <span class="nav-text">指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一维数组与指针"><span class="nav-number">3.</span> <span class="nav-text">一维数组与指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二维数组与指针"><span class="nav-number">4.</span> <span class="nav-text">二维数组与指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Happy.Zhang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"Hzlpy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
