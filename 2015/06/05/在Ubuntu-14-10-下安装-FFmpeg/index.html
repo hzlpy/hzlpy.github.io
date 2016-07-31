@@ -84,22 +84,16 @@
 
 
 
-<meta name="description" content="前两天尝试在 Ubuntu 下安装 FFmpeg 和 avidemux.由于整个安装过程中,遇见不少问题,故记录之.
-安装过程安装环境: Ubuntu 14.10安装资源: ffmpeg-2.6.3, ysam-1.3.0安装条件: 需要先安装 yasm
-安装 ysam安装包是 yasm-1.3.0.tar.gz.在安装之前需要对安装包进行解压缩.解压缩命令为 tar xzvf yasm-1.3.">
+<meta name="description" content="前两天尝试在 Ubuntu 下安装 FFmpeg 和 avidemux.由于整个安装过程中,遇见不少问题,故记录之.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="在Ubuntu 14.10 下安装 FFmpeg">
 <meta property="og:url" content="http://chuzhiyan.com/2015/06/05/在Ubuntu-14-10-下安装-FFmpeg/index.html">
 <meta property="og:site_name" content="Happy">
-<meta property="og:description" content="前两天尝试在 Ubuntu 下安装 FFmpeg 和 avidemux.由于整个安装过程中,遇见不少问题,故记录之.
-安装过程安装环境: Ubuntu 14.10安装资源: ffmpeg-2.6.3, ysam-1.3.0安装条件: 需要先安装 yasm
-安装 ysam安装包是 yasm-1.3.0.tar.gz.在安装之前需要对安装包进行解压缩.解压缩命令为 tar xzvf yasm-1.3.">
-<meta property="og:updated_time" content="2016-07-31T10:43:44.236Z">
+<meta property="og:description" content="前两天尝试在 Ubuntu 下安装 FFmpeg 和 avidemux.由于整个安装过程中,遇见不少问题,故记录之.">
+<meta property="og:updated_time" content="2016-07-31T12:05:11.442Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Ubuntu 14.10 下安装 FFmpeg">
-<meta name="twitter:description" content="前两天尝试在 Ubuntu 下安装 FFmpeg 和 avidemux.由于整个安装过程中,遇见不少问题,故记录之.
-安装过程安装环境: Ubuntu 14.10安装资源: ffmpeg-2.6.3, ysam-1.3.0安装条件: 需要先安装 yasm
-安装 ysam安装包是 yasm-1.3.0.tar.gz.在安装之前需要对安装包进行解压缩.解压缩命令为 tar xzvf yasm-1.3.">
+<meta name="twitter:description" content="前两天尝试在 Ubuntu 下安装 FFmpeg 和 avidemux.由于整个安装过程中,遇见不少问题,故记录之.">
 
 
 
@@ -319,6 +313,7 @@
 
       
         <p>前两天尝试在 Ubuntu 下安装 FFmpeg 和 avidemux.由于整个安装过程中,遇见不少问题,故记录之.</p>
+<a id="more"></a>
 <h2 id="安装过程"><a href="#安装过程" class="headerlink" title="安装过程"></a>安装过程</h2><p>安装环境: Ubuntu 14.10<br>安装资源: ffmpeg-2.6.3, ysam-1.3.0<br>安装条件: 需要先安装 yasm</p>
 <h2 id="安装-ysam"><a href="#安装-ysam" class="headerlink" title="安装 ysam"></a>安装 ysam</h2><p>安装包是 yasm-1.3.0.tar.gz.<br>在安装之前需要对安装包进行解压缩.解压缩命令为 <code>tar xzvf yasm-1.3.0.tar.gz</code>;<br>解压完成之后,进入到 yasm-1.3.0 文件夹中.命令为 <code>cd yasm-1.3.0</code>;<br>下一步就是在终端中输入 <code>./configure</code>. <strong>这里注意不要使用prefix制定安装路径</strong>;<br>接着,进行编译和安装,依次在终端中输入命令 <code>make</code> 和 <code>make install</code>.<br>至此, yasm 安装完成.</p>
 <h2 id="安装-FFmpeg"><a href="#安装-FFmpeg" class="headerlink" title="安装 FFmpeg"></a>安装 FFmpeg</h2><p>安装包是 ffmpeg-2.6.3.tar.bz2.<br>同样地,在安装之前用命令 <code>tar xzvf ffmpeg-2.6.3.tar.bz2</code> 对其进行解压缩;<br>然后,进入解压后的文件夹 <code>ffmpeg-2.6.3</code>;<br>接着,在终端中依次输入命令 <code>./configure</code>, <code>make</code>, <code>make install</code>,完成 ffmpeg 的安装.</p>

@@ -84,26 +84,17 @@
 
 
 
-<meta name="description" content="3.2 处理机管理3.2.1 进程的基本概念
-进程是资源分配和独立运行的基本单位;
-进程通常由程序,数据和进程控制块(PCB)组成;
-进程的状态及其状态间的切换1)三态模型运行:当一个进程在处理机上运行时,则称该进程处于运行状态;就绪:一个进程获得了除处理机外的一切所需资源,一旦得到处理机即可运行,则称此进程处于就绪状态;阻塞:一个进程正在等待某一事件发生而暂停运行,这时即使把处理机分配给进程也">
+<meta name="description" content="3.2 处理机管理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="操作系统基础知识">
 <meta property="og:url" content="http://chuzhiyan.com/2015/06/16/操作系统基础知识/index.html">
 <meta property="og:site_name" content="Happy">
-<meta property="og:description" content="3.2 处理机管理3.2.1 进程的基本概念
-进程是资源分配和独立运行的基本单位;
-进程通常由程序,数据和进程控制块(PCB)组成;
-进程的状态及其状态间的切换1)三态模型运行:当一个进程在处理机上运行时,则称该进程处于运行状态;就绪:一个进程获得了除处理机外的一切所需资源,一旦得到处理机即可运行,则称此进程处于就绪状态;阻塞:一个进程正在等待某一事件发生而暂停运行,这时即使把处理机分配给进程也">
+<meta property="og:description" content="3.2 处理机管理">
 <meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/OS/%E7%AC%AC%203%20%E7%AB%A0%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86.png">
-<meta property="og:updated_time" content="2016-07-31T10:42:13.243Z">
+<meta property="og:updated_time" content="2016-07-31T12:07:07.594Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="操作系统基础知识">
-<meta name="twitter:description" content="3.2 处理机管理3.2.1 进程的基本概念
-进程是资源分配和独立运行的基本单位;
-进程通常由程序,数据和进程控制块(PCB)组成;
-进程的状态及其状态间的切换1)三态模型运行:当一个进程在处理机上运行时,则称该进程处于运行状态;就绪:一个进程获得了除处理机外的一切所需资源,一旦得到处理机即可运行,则称此进程处于就绪状态;阻塞:一个进程正在等待某一事件发生而暂停运行,这时即使把处理机分配给进程也">
+<meta name="twitter:description" content="3.2 处理机管理">
 <meta name="twitter:image" content="http://7xiijb.com1.z0.glb.clouddn.com/OS/%E7%AC%AC%203%20%E7%AB%A0%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86.png">
 
 
@@ -324,7 +315,8 @@
 
       
         <p><img src="http://7xiijb.com1.z0.glb.clouddn.com/OS/%E7%AC%AC%203%20%E7%AB%A0%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9F%A5%E8%AF%86.png" alt="此处输入图片的描述"></p>
-<h2 id="3-2-处理机管理"><a href="#3-2-处理机管理" class="headerlink" title="3.2 处理机管理"></a>3.2 处理机管理</h2><h3 id="3-2-1-进程的基本概念"><a href="#3-2-1-进程的基本概念" class="headerlink" title="3.2.1 进程的基本概念"></a>3.2.1 进程的基本概念</h3><ol>
+<h2 id="3-2-处理机管理"><a href="#3-2-处理机管理" class="headerlink" title="3.2 处理机管理"></a>3.2 处理机管理</h2><a id="more"></a>
+<h3 id="3-2-1-进程的基本概念"><a href="#3-2-1-进程的基本概念" class="headerlink" title="3.2.1 进程的基本概念"></a>3.2.1 进程的基本概念</h3><ol>
 <li>进程是资源分配和独立运行的基本单位;</li>
 <li>进程通常由程序,数据和进程控制块(PCB)组成;</li>
 <li>进程的状态及其状态间的切换<br>1)三态模型<br>运行:当一个进程在处理机上运行时,则称该进程处于运行状态;<br>就绪:一个进程获得了除处理机外的一切所需资源,一旦得到处理机即可运行,则称此进程处于就绪状态;<br>阻塞:一个进程正在等待某一事件发生而暂停运行,这时即使把处理机分配给进程也无法运行,鼓称该进程处于阻塞状态;</li>
