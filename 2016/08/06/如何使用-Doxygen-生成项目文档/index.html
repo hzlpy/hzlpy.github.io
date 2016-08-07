@@ -84,14 +84,12 @@
 
 
 
-<meta name="description" content="�����ڿ�һ��������Ŀ�Ĵ��룬������Ŀ����û��ʲôע�͡�����һ�����µ�ʱ���Ķ����룬��Ϊ��������һ���ĵ�������Ȼ�Ҿ��뵽��������û�п����Զ������ĵ��Ĺ��ߡ����ѹ������ҵ���Doxygen�������ͽ�������ʹ�� Doxygen ������Ŀ�ĵ���
-��װ����Doxygen �">
+<meta name="description" content="最近在看一个现有项目的代码，整个项目几乎没有什么注释。花了一个多月的时间阅读代码，想为它整理出一份文档。很自然我就想到了现在有没有可以自动生成文档的工具。不费功夫便找到了Doxygen。下面就介绍如何使用 Doxygen 生成项目文档。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="����ʹ�� Doxygen ������Ŀ�ĵ�">
+<meta property="og:title" content="如何使用 Doxygen 生成项目文档">
 <meta property="og:url" content="http://chuzhiyan.com/2016/08/06/如何使用-Doxygen-生成项目文档/index.html">
 <meta property="og:site_name" content="Happy">
-<meta property="og:description" content="�����ڿ�һ��������Ŀ�Ĵ��룬������Ŀ����û��ʲôע�͡�����һ�����µ�ʱ���Ķ����룬��Ϊ��������һ���ĵ�������Ȼ�Ҿ��뵽��������û�п����Զ������ĵ��Ĺ��ߡ����ѹ������ҵ���Doxygen�������ͽ�������ʹ�� Doxygen ������Ŀ�ĵ���
-��װ����Doxygen �">
+<meta property="og:description" content="最近在看一个现有项目的代码，整个项目几乎没有什么注释。花了一个多月的时间阅读代码，想为它整理出一份文档。很自然我就想到了现在有没有可以自动生成文档的工具。不费功夫便找到了Doxygen。下面就介绍如何使用 Doxygen 生成项目文档。">
 <meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/1.png">
 <meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/2.png">
 <meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/3.png">
@@ -102,11 +100,10 @@
 <meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/8.png">
 <meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/9.png">
 <meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/10.png">
-<meta property="og:updated_time" content="2016-08-07T02:50:34.964Z">
+<meta property="og:updated_time" content="2016-08-07T03:07:49.974Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="����ʹ�� Doxygen ������Ŀ�ĵ�">
-<meta name="twitter:description" content="�����ڿ�һ��������Ŀ�Ĵ��룬������Ŀ����û��ʲôע�͡�����һ�����µ�ʱ���Ķ����룬��Ϊ��������һ���ĵ�������Ȼ�Ҿ��뵽��������û�п����Զ������ĵ��Ĺ��ߡ����ѹ������ҵ���Doxygen�������ͽ�������ʹ�� Doxygen ������Ŀ�ĵ���
-��װ����Doxygen �">
+<meta name="twitter:title" content="如何使用 Doxygen 生成项目文档">
+<meta name="twitter:description" content="最近在看一个现有项目的代码，整个项目几乎没有什么注释。花了一个多月的时间阅读代码，想为它整理出一份文档。很自然我就想到了现在有没有可以自动生成文档的工具。不费功夫便找到了Doxygen。下面就介绍如何使用 Doxygen 生成项目文档。">
 <meta name="twitter:image" content="http://7xiijb.com1.z0.glb.clouddn.com/1.png">
 
 
@@ -130,7 +127,7 @@
 
   <link rel="canonical" href="http://chuzhiyan.com/2016/08/06/如何使用-Doxygen-生成项目文档/"/>
 
-  <title> ����ʹ�� Doxygen ������Ŀ�ĵ� | Happy </title>
+  <title> 如何使用 Doxygen 生成项目文档 | Happy </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -270,7 +267,7 @@
             
             
               
-                ����ʹ�� Doxygen ������Ŀ�ĵ�
+                如何使用 Doxygen 生成项目文档
               
             
           </h1>
@@ -304,7 +301,7 @@
 
           
           
-             <span id="/2016/08/06/如何使用-Doxygen-生成项目文档/" class="leancloud_visitors" data-flag-title="����ʹ�� Doxygen ������Ŀ�ĵ�">
+             <span id="/2016/08/06/如何使用-Doxygen-生成项目文档/" class="leancloud_visitors" data-flag-title="如何使用 Doxygen 生成项目文档">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -331,12 +328,12 @@
       
 
       
-        <p>�����ڿ�һ��������Ŀ�Ĵ��룬������Ŀ����û��ʲôע�͡�����һ�����µ�ʱ���Ķ����룬��Ϊ��������һ���ĵ�������Ȼ�Ҿ��뵽��������û�п����Զ������ĵ��Ĺ��ߡ����ѹ������ҵ���Doxygen�������ͽ�������ʹ�� Doxygen ������Ŀ�ĵ���</p>
-<h2 id="��װ����"><a href="#��װ����" class="headerlink" title="��װ����"></a>��װ����</h2><p>Doxygen ���Դ����Ĺ��������ص�����֧�ֶ�ϵͳ�����غ���֮���Ϳ��Կ�ʼ��װ�����������ĵ��п��Կ�������֮���ĵ��ù�ϵ�Ϳ������� .chm �ļ�����ô����Ҫ��װ Graphviz �� HTML Help Workshop��</p>
-<h2 id="�����j�"><a href="#�����j�" class="headerlink" title="�����ĵ�"></a>�����ĵ�</h2><p>������װ����֮�������� Doxygen���������ĵ�֮ǰ��Ҫ����һЩ�������á�<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/1.png" alt="��������"><br>������Ŀ������������Ŀ������Ŀ�汾�š�Դ����·����Ŀ��·����<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/2.png" alt="��������"><br>ѡ��ģʽ������ѡ����ȡģʽ�ͱ������ԡ�<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/3.png" alt="��������"><br>������������������ѡ�������ĸ�ʽ��<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/4.png" alt="��������"><br>����ͼ��Ϊ���ɵ�ͼ���ò�����<br>��������רҵ�������ã����Բ�����ͼ�������ã�Ҳ���Բο����ϵ����������á�<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/5.png" alt="��������"><br><img src="http://7xiijb.com1.z0.glb.clouddn.com/6.png" alt="��������"><br><img src="http://7xiijb.com1.z0.glb.clouddn.com/7.png" alt="��������"><br><img src="http://7xiijb.com1.z0.glb.clouddn.com/8.png" alt="��������">  </p>
-<p>�����������ɺ����� Run doxugen�������Ϳ�ʼΪ�������ĵ��ˡ�<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/9.png" alt="��������"></p>
-<p>�������н������������� OUTPUT_DIRECTORY Ŀ¼�п������ɺõ��ĵ���<br>���� .chm �ļ��������ҵ��������ù�ϵͼ�����ô��ܴ���<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/10.png" alt="�������ù�ϵͼ">  </p>
-<h2 id="���⻰"><a href="#���⻰" class="headerlink" title="���⻰"></a>���⻰</h2><p>������һ��İ������Ŀʱ�����ο��ٵ���Ϥ��Ŀ�ṹ�������أ�<br>�� Doxygen �����ĵ�֮�����֣�.chm �еĺ������ù�ϵͼ�������°빦������Ϥһ����Ŀ��û����Щ��ϵͼ����Ŀ�е�ִ������ֻ�ܹ����Ķ������������õ���Ȼ����������Щû��ע�ͻ���ע�Ͳ����Ĵ��룬�Ķ������ǳ����ѣ�Ҫ���ܶ���ʱ��������Ϥ�������̡�  </p>
+        <p>最近在看一个现有项目的代码，整个项目几乎没有什么注释。花了一个多月的时间阅读代码，想为它整理出一份文档。很自然我就想到了现在有没有可以自动生成文档的工具。不费功夫便找到了Doxygen。下面就介绍如何使用 Doxygen 生成项目文档。<br><a id="more"></a></p>
+<h2 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h2><p>Doxygen 可以从它的官网上下载到，它支持多系统。下载好了之后就可以开始安装。如果想在文档中可以看到方法之间的调用关系和可以生成 .chm 文件，那么还需要安装 Graphviz 和 HTML Help Workshop。</p>
+<h2 id="生成文档"><a href="#生成文档" class="headerlink" title="生成文档"></a>生成文档</h2><p>软件安装好了之后，启动 Doxygen。在生成文档之前需要进行一些参数设置。<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/1.png" alt="参数配置"><br>设置项目参数。设置项目名、项目版本号、源代码路径和目的路径。<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/2.png" alt="参数配置"><br>选择模式。可以选择提取模式和编程语言。<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/3.png" alt="参数配置"><br>设置输出参数。可以选择输出的格式。<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/4.png" alt="参数配置"><br>设置图。为生成的图设置参数。<br>后面便是专业级的设置，可以参数截图进行设置，也可以参考网上的资料来设置。<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/5.png" alt="参数配置"><br><img src="http://7xiijb.com1.z0.glb.clouddn.com/6.png" alt="参数配置"><br><img src="http://7xiijb.com1.z0.glb.clouddn.com/7.png" alt="参数配置"><br><img src="http://7xiijb.com1.z0.glb.clouddn.com/8.png" alt="参数配置">  </p>
+<p>参数设置完成后点击 Run doxugen，程序就开始为你生成文档了。<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/9.png" alt="参数配置"></p>
+<p>程序运行结束后，你可以 OUTPUT_DIRECTORY 目录中看到生成好的文档。<br>打开 .chm 文件，可以找到函数调用关系图，它用处很大。<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/10.png" alt="函数调用关系图">  </p>
+<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>当接手一个陌生的项目时，如何快速的熟悉项目结构，流程呢？<br>用 Doxygen 生成文档之后发现，.chm 中的函数调用关系图能让我事半功倍的熟悉一个项目。没有这些关系图，项目中的执行流程只能够靠阅读代码后分析得到。然而，对于那些没有注释或者注释不够的代码，阅读起来非常困难，要花很多的时间才能熟悉它的流程。  </p>
 
       
     </div>
@@ -368,8 +365,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/01/php-fpm-配置/" rel="next" title="php-fpm 配置">
-                <i class="fa fa-chevron-left"></i> php-fpm 配置
+              <a href="/2016/08/06/如何使用-Doxygen-生成项目文档 - 副本/" rel="next" title="����ʹ�� Doxygen ������Ŀ�ĵ�">
+                <i class="fa fa-chevron-left"></i> ����ʹ�� Doxygen ������Ŀ�ĵ�
               </a>
             
           </div>
@@ -390,7 +387,7 @@
     <div class="post-spread">
       
         <div class="ds-share flat" data-thread-key="2016/08/06/如何使用-Doxygen-生成项目文档/"
-     data-title="����ʹ�� Doxygen ������Ŀ�ĵ�"
+     data-title="如何使用 Doxygen 生成项目文档"
      data-content=""
      data-url="http://chuzhiyan.com/2016/08/06/如何使用-Doxygen-生成项目文档/">
   <div class="ds-share-inline">
@@ -420,7 +417,7 @@
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/08/06/如何使用-Doxygen-生成项目文档/"
-           data-title="����ʹ�� Doxygen ������Ŀ�ĵ�" data-url="http://chuzhiyan.com/2016/08/06/如何使用-Doxygen-生成项目文档/">
+           data-title="如何使用 Doxygen 生成项目文档" data-url="http://chuzhiyan.com/2016/08/06/如何使用-Doxygen-生成项目文档/">
       </div>
     
   </div>
@@ -465,7 +462,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -547,7 +544,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#��װ����"><span class="nav-number">1.</span> <span class="nav-text">��װ����</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#�����j�"><span class="nav-number">2.</span> <span class="nav-text">�����ĵ�</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#���⻰"><span class="nav-number">3.</span> <span class="nav-text">���⻰</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装软件"><span class="nav-number">1.</span> <span class="nav-text">安装软件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成文档"><span class="nav-number">2.</span> <span class="nav-text">生成文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题外话"><span class="nav-number">3.</span> <span class="nav-text">题外话</span></a></li></ol></div>
             
           </div>
         </section>
