@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="记录," />
+  <meta name="keywords" content="Doxygen," />
 
 
 
@@ -84,16 +84,30 @@
 
 
 
-<meta name="description" content="在完成HelpMe的时候遇到了一个问题：假定知道一顿饭可用的花销cost与菜单上所有菜的单价price。在花销范围以内，怎样点菜使得可吃的菜最多？当然了每种菜限点一份了。（后面简称为点菜问题）想了一下，发现这个问题的解法类似0-1背包问题。">
+<meta name="description" content="�����ڿ�һ��������Ŀ�Ĵ��룬������Ŀ����û��ʲôע�͡�����һ�����µ�ʱ���Ķ����룬��Ϊ��������һ���ĵ�������Ȼ�Ҿ��뵽��������û�п����Զ������ĵ��Ĺ��ߡ����ѹ������ҵ���Doxygen�������ͽ�������ʹ�� Doxygen ������Ŀ�ĵ���
+��װ����Doxygen �">
 <meta property="og:type" content="article">
-<meta property="og:title" content="HelpMe开发记录二">
-<meta property="og:url" content="http://chuzhiyan.com/2015/01/26/HelpMe开发记录二/index.html">
+<meta property="og:title" content="����ʹ�� Doxygen ������Ŀ�ĵ�">
+<meta property="og:url" content="http://chuzhiyan.com/2016/08/06/如何使用-Doxygen-生成项目文档/index.html">
 <meta property="og:site_name" content="Happy">
-<meta property="og:description" content="在完成HelpMe的时候遇到了一个问题：假定知道一顿饭可用的花销cost与菜单上所有菜的单价price。在花销范围以内，怎样点菜使得可吃的菜最多？当然了每种菜限点一份了。（后面简称为点菜问题）想了一下，发现这个问题的解法类似0-1背包问题。">
-<meta property="og:updated_time" content="2016-07-31T12:07:12.834Z">
+<meta property="og:description" content="�����ڿ�һ��������Ŀ�Ĵ��룬������Ŀ����û��ʲôע�͡�����һ�����µ�ʱ���Ķ����룬��Ϊ��������һ���ĵ�������Ȼ�Ҿ��뵽��������û�п����Զ������ĵ��Ĺ��ߡ����ѹ������ҵ���Doxygen�������ͽ�������ʹ�� Doxygen ������Ŀ�ĵ���
+��װ����Doxygen �">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/1.png">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/2.png">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/3.png">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/4.png">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/5.png">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/6.png">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/7.png">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/8.png">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/9.png">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/10.png">
+<meta property="og:updated_time" content="2016-08-07T02:50:34.964Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="HelpMe开发记录二">
-<meta name="twitter:description" content="在完成HelpMe的时候遇到了一个问题：假定知道一顿饭可用的花销cost与菜单上所有菜的单价price。在花销范围以内，怎样点菜使得可吃的菜最多？当然了每种菜限点一份了。（后面简称为点菜问题）想了一下，发现这个问题的解法类似0-1背包问题。">
+<meta name="twitter:title" content="����ʹ�� Doxygen ������Ŀ�ĵ�">
+<meta name="twitter:description" content="�����ڿ�һ��������Ŀ�Ĵ��룬������Ŀ����û��ʲôע�͡�����һ�����µ�ʱ���Ķ����룬��Ϊ��������һ���ĵ�������Ȼ�Ҿ��뵽��������û�п����Զ������ĵ��Ĺ��ߡ����ѹ������ҵ���Doxygen�������ͽ�������ʹ�� Doxygen ������Ŀ�ĵ���
+��װ����Doxygen �">
+<meta name="twitter:image" content="http://7xiijb.com1.z0.glb.clouddn.com/1.png">
 
 
 
@@ -114,9 +128,9 @@
 
 
 
-  <link rel="canonical" href="http://chuzhiyan.com/2015/01/26/HelpMe开发记录二/"/>
+  <link rel="canonical" href="http://chuzhiyan.com/2016/08/06/如何使用-Doxygen-生成项目文档/"/>
 
-  <title> HelpMe开发记录二 | Happy </title>
+  <title> ����ʹ�� Doxygen ������Ŀ�ĵ� | Happy </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -256,7 +270,7 @@
             
             
               
-                HelpMe开发记录二
+                ����ʹ�� Doxygen ������Ŀ�ĵ�
               
             
           </h1>
@@ -268,8 +282,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-01-26T20:55:37+08:00" content="2015-01-26">
-              2015-01-26
+            <time itemprop="dateCreated" datetime="2016-08-06T10:34:04+08:00" content="2016-08-06">
+              2016-08-06
             </time>
           </span>
 
@@ -279,8 +293,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/01/26/HelpMe开发记录二/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/26/HelpMe开发记录二/" itemprop="commentsCount"></span>
+                <a href="/2016/08/06/如何使用-Doxygen-生成项目文档/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/06/如何使用-Doxygen-生成项目文档/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -290,7 +304,7 @@
 
           
           
-             <span id="/2015/01/26/HelpMe开发记录二/" class="leancloud_visitors" data-flag-title="HelpMe开发记录二">
+             <span id="/2016/08/06/如何使用-Doxygen-生成项目文档/" class="leancloud_visitors" data-flag-title="����ʹ�� Doxygen ������Ŀ�ĵ�">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -317,12 +331,12 @@
       
 
       
-        <p>在完成<code>HelpMe</code>的时候遇到了一个问题：假定知道一顿饭可用的花销<code>cost</code>与菜单上所有菜的单价<code>price</code>。在花销范围以内，怎样点菜使得可吃的菜最多？当然了每种菜限点一份了。（后面简称为<code>点菜问题</code>）<br>想了一下，发现这个问题的解法类似<code>0-1背包问题</code>。</p>
-<a id="more"></a>
-<blockquote>
-<p>0-1背包问题：<br>有N件物品和一个容量为Capacity的背包。每种物品均只有一件,第i件物品的重量是W[i]，价值是V[i]。求解将哪些物品装入背包可使价值总和最大。</p>
-</blockquote>
-<p>在<code>点菜问题</code>中，花销<code>cost</code>相当于背包的容量<code>Capacity</code>，每份菜的花销相当于待放入背包中的物品的重量，最后点得的菜的数量的最大化相当于背包中物品价值的最大化。</p>
+        <p>�����ڿ�һ��������Ŀ�Ĵ��룬������Ŀ����û��ʲôע�͡�����һ�����µ�ʱ���Ķ����룬��Ϊ��������һ���ĵ�������Ȼ�Ҿ��뵽��������û�п����Զ������ĵ��Ĺ��ߡ����ѹ������ҵ���Doxygen�������ͽ�������ʹ�� Doxygen ������Ŀ�ĵ���</p>
+<h2 id="��װ����"><a href="#��װ����" class="headerlink" title="��װ����"></a>��װ����</h2><p>Doxygen ���Դ����Ĺ��������ص�����֧�ֶ�ϵͳ�����غ���֮���Ϳ��Կ�ʼ��װ�����������ĵ��п��Կ�������֮���ĵ��ù�ϵ�Ϳ������� .chm �ļ�����ô����Ҫ��װ Graphviz �� HTML Help Workshop��</p>
+<h2 id="�����j�"><a href="#�����j�" class="headerlink" title="�����ĵ�"></a>�����ĵ�</h2><p>������װ����֮�������� Doxygen���������ĵ�֮ǰ��Ҫ����һЩ�������á�<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/1.png" alt="��������"><br>������Ŀ������������Ŀ������Ŀ�汾�š�Դ����·����Ŀ��·����<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/2.png" alt="��������"><br>ѡ��ģʽ������ѡ����ȡģʽ�ͱ������ԡ�<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/3.png" alt="��������"><br>������������������ѡ�������ĸ�ʽ��<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/4.png" alt="��������"><br>����ͼ��Ϊ���ɵ�ͼ���ò�����<br>��������רҵ�������ã����Բ�����ͼ�������ã�Ҳ���Բο����ϵ����������á�<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/5.png" alt="��������"><br><img src="http://7xiijb.com1.z0.glb.clouddn.com/6.png" alt="��������"><br><img src="http://7xiijb.com1.z0.glb.clouddn.com/7.png" alt="��������"><br><img src="http://7xiijb.com1.z0.glb.clouddn.com/8.png" alt="��������">  </p>
+<p>�����������ɺ����� Run doxugen�������Ϳ�ʼΪ�������ĵ��ˡ�<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/9.png" alt="��������"></p>
+<p>�������н������������� OUTPUT_DIRECTORY Ŀ¼�п������ɺõ��ĵ���<br>���� .chm �ļ��������ҵ��������ù�ϵͼ�����ô��ܴ���<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/10.png" alt="�������ù�ϵͼ">  </p>
+<h2 id="���⻰"><a href="#���⻰" class="headerlink" title="���⻰"></a>���⻰</h2><p>������һ��İ������Ŀʱ�����ο��ٵ���Ϥ��Ŀ�ṹ�������أ�<br>�� Doxygen �����ĵ�֮�����֣�.chm �еĺ������ù�ϵͼ�������°빦������Ϥһ����Ŀ��û����Щ��ϵͼ����Ŀ�е�ִ������ֻ�ܹ����Ķ������������õ���Ȼ����������Щû��ע�ͻ���ע�Ͳ����Ĵ��룬�Ķ������ǳ����ѣ�Ҫ���ܶ���ʱ��������Ϥ�������̡�  </p>
 
       
     </div>
@@ -345,7 +359,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/记录/" rel="tag">#记录</a>
+            <a href="/tags/Doxygen/" rel="tag">#Doxygen</a>
           
         </div>
       
@@ -354,17 +368,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2014/12/19/第3章-表、栈和队列/" rel="next" title="第3章 表、栈和队列">
-                <i class="fa fa-chevron-left"></i> 第3章 表、栈和队列
+              <a href="/2016/08/01/php-fpm-配置/" rel="next" title="php-fpm 配置">
+                <i class="fa fa-chevron-left"></i> php-fpm 配置
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/01/26/我常用到的hexo命令/" rel="prev" title="我常用到的hexo命令">
-                我常用到的hexo命令 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -379,10 +389,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/01/26/HelpMe开发记录二/"
-     data-title="HelpMe开发记录二"
+        <div class="ds-share flat" data-thread-key="2016/08/06/如何使用-Doxygen-生成项目文档/"
+     data-title="����ʹ�� Doxygen ������Ŀ�ĵ�"
      data-content=""
-     data-url="http://chuzhiyan.com/2015/01/26/HelpMe开发记录二/">
+     data-url="http://chuzhiyan.com/2016/08/06/如何使用-Doxygen-生成项目文档/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -409,8 +419,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/01/26/HelpMe开发记录二/"
-           data-title="HelpMe开发记录二" data-url="http://chuzhiyan.com/2015/01/26/HelpMe开发记录二/">
+      <div class="ds-thread" data-thread-key="2016/08/06/如何使用-Doxygen-生成项目文档/"
+           data-title="����ʹ�� Doxygen ������Ŀ�ĵ�" data-url="http://chuzhiyan.com/2016/08/06/如何使用-Doxygen-生成项目文档/">
       </div>
     
   </div>
@@ -537,7 +547,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#��װ����"><span class="nav-number">1.</span> <span class="nav-text">��װ����</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#�����j�"><span class="nav-number">2.</span> <span class="nav-text">�����ĵ�</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#���⻰"><span class="nav-number">3.</span> <span class="nav-text">���⻰</span></a></li></ol></div>
             
           </div>
         </section>

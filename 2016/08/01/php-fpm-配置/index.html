@@ -84,16 +84,19 @@
 
 
 
-<meta name="description" content="php-fpm 配置php-fpm 有自己的配置文件 php-fpm.conf ，一般位于 /data/app/php/etc 路径下的。下面是配置文件片段信息。">
+<meta name="description" content="php-fpm 配置当 HTTP 请求返回 502 错误时，其中一个原因可能是服务器的配置出现了问题。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="php-fpm 配置">
 <meta property="og:url" content="http://chuzhiyan.com/2016/08/01/php-fpm-配置/index.html">
 <meta property="og:site_name" content="Happy">
-<meta property="og:description" content="php-fpm 配置php-fpm 有自己的配置文件 php-fpm.conf ，一般位于 /data/app/php/etc 路径下的。下面是配置文件片段信息。">
-<meta property="og:updated_time" content="2016-08-01T12:57:59.096Z">
+<meta property="og:description" content="php-fpm 配置当 HTTP 请求返回 502 错误时，其中一个原因可能是服务器的配置出现了问题。">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/nginx/nginx_502.png">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/nginx/weibo_502.png">
+<meta property="og:updated_time" content="2016-08-07T03:02:31.313Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="php-fpm 配置">
-<meta name="twitter:description" content="php-fpm 配置php-fpm 有自己的配置文件 php-fpm.conf ，一般位于 /data/app/php/etc 路径下的。下面是配置文件片段信息。">
+<meta name="twitter:description" content="php-fpm 配置当 HTTP 请求返回 502 错误时，其中一个原因可能是服务器的配置出现了问题。">
+<meta name="twitter:image" content="http://7xiijb.com1.z0.glb.clouddn.com/nginx/nginx_502.png">
 
 
 
@@ -317,8 +320,7 @@
       
 
       
-        <h1 id="php-fpm-配置"><a href="#php-fpm-配置" class="headerlink" title="php-fpm 配置"></a>php-fpm 配置</h1><p><code>php-fpm</code> 有自己的配置文件 <code>php-fpm.conf</code> ，一般位于 <code>/data/app/php/etc</code> 路径下的。下面是配置文件片段信息。</p>
-<a id="more"></a>
+        <h1 id="php-fpm-配置"><a href="#php-fpm-配置" class="headerlink" title="php-fpm 配置"></a>php-fpm 配置</h1><p>当 HTTP 请求返回 502 错误时，其中一个原因可能是服务器的配置出现了问题。<br><a id="more"></a><br><img src="http://7xiijb.com1.z0.glb.clouddn.com/nginx/nginx_502.png" alt="nginx_502"><br>图中这个错误信息是指 nginx 出现了错误。通过查看日志信息可以定位到参数设置有问题。<br><code>php-fpm</code> 有自己的配置文件 <code>php-fpm.conf</code> ，一般位于 <code>/data/app/php/etc</code> 路径下的。下面是配置文件片段信息。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">; The number of child processes to be created when pm is set to &apos;static&apos; and the</div><div class="line">; maximum number of child processes when pm is set to &apos;dynamic&apos; or &apos;ondemand&apos;.</div><div class="line">; This value sets the limit on the number of simultaneous requests that will be</div><div class="line">; served. Equivalent to the ApacheMaxClients directive with mpm_prefork.</div><div class="line">; Equivalent to the PHP_FCGI_CHILDREN environment variable in the original PHP</div><div class="line">; CGI. The below defaults are based on a server without much resources. Don&apos;t</div><div class="line">; forget to tweak pm.* to fit your needs.</div><div class="line">; Note: Used when pm is set to &apos;static&apos;, &apos;dynamic&apos; or &apos;ondemand&apos;</div><div class="line">; Note: This value is mandatory.</div><div class="line">;pm.max_children = 200</div><div class="line">pm.max_children = 2000</div><div class="line"></div><div class="line">; The number of child processes created on startup.</div><div class="line">; Note: Used only when pm is set to &apos;dynamic&apos;</div><div class="line">; Default Value: min_spare_servers + (max_spare_servers - min_spare_servers) / 2</div><div class="line">;pm.start_servers = 50</div><div class="line">pm.start_servers = 400</div><div class="line"></div><div class="line">; The desired minimum number of idle server processes.</div><div class="line">; Note: Used only when pm is set to &apos;dynamic&apos;</div><div class="line">; Note: Mandatory when pm is set to &apos;dynamic&apos;</div><div class="line">;pm.min_spare_servers = 10</div><div class="line">pm.min_spare_servers = 20</div></pre></td></tr></table></figure>
 <p>它也有日志文件 <code>php-fpm.log</code> ，一般位于 <code>/data/log/php</code> 中。下面是日志文件片段。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[14-Jun-2016 14:43:02] WARNING: [pool www] seems busy (you may need to increase pm.start_servers, or pm.min/max_spare_servers), spawning 8 children, there are 0 idle, and 57 total children</div><div class="line">[14-Jun-2016 14:43:03] WARNING: [pool www] seems busy (you may need to increase pm.start_servers, or pm.min/max_spare_servers), spawning 16 children, there are 0 idle, and 65 total children</div><div class="line">[14-Jun-2016 14:43:04] WARNING: [pool www] seems busy (you may need to increase pm.start_servers, or pm.min/max_spare_servers), spawning 32 children, there are 1 idle, and 75 total children</div><div class="line">[14-Jun-2016 14:43:05] WARNING: [pool www] seems busy (you may need to increase pm.start_servers, or pm.min/max_spare_servers), spawning 32 children, there are 0 idle, and 84 total children</div><div class="line">[14-Jun-2016 14:43:06] WARNING: [pool www] seems busy (you may need to increase pm.start_servers, or pm.min/max_spare_servers), spawning 32 children, there are 0 idle, and 94 total children</div><div class="line">[14-Jun-2016 14:43:07] WARNING: [pool www] seems busy (you may need to increase pm.start_servers, or pm.min/max_spare_servers), spawning 32 children, there are 0 idle, and 104 total children</div></pre></td></tr></table></figure></p>
 <p>日志中的<code>WARNING</code>信息表明需要对配置文件中的一些参数进行调整。</p>
@@ -329,7 +331,8 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo kill USR2 `cat php-fpm.pid`</div></pre></td></tr></table></figure>
 <p>重启。<br>如果配置文件有问题（如前文举例出的一个小问题），导致重启失败。那么，可以使用以下命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ./php-fpm</div></pre></td></tr></table></figure>
-<p>来启动 <code>php-fpm</code> 。<br><code>php-fpm.pid</code> 一般位于 <code>/var/run</code> 路径下。<code>php-fpm</code> 一般位于 <code>/usr/local/bin</code> 路径下。<br>命令执行完后，可以通过 <code>ps</code> 命令来查看 <code>php-fpm</code> 是否在运行。  </p>
+<p>来启动 <code>php-fpm</code> 。<br><code>php-fpm.pid</code> 一般位于 <code>/var/run</code> 路径下。<code>php-fpm</code> 一般位于 <code>/usr/local/bin</code> 路径下。<br>命令执行完后，可以通过 <code>ps</code> 命令来查看 <code>php-fpm</code> 是否在运行。</p>
+<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>不知道微博出现 502 错误是哪里有问题。<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/blog/nginx/weibo_502.png" alt="微博 502 "></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://blog.linuxeye.com/380.html" target="_blank" rel="external">php-fpm参数优化</a></li>
 <li><a href="http://www.cnblogs.com/argb/p/3604340.html" target="_blank" rel="external">php-fpm 启动参数及重要配置详解</a></li>
@@ -366,6 +369,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/06/如何使用-Doxygen-生成项目文档/" rel="prev" title="����ʹ�� Doxygen ������Ŀ�ĵ�">
+                ����ʹ�� Doxygen ������Ŀ�ĵ� <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -538,7 +545,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#php-fpm-配置"><span class="nav-number">1.</span> <span class="nav-text">php-fpm 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参数调整策略"><span class="nav-number">1.1.</span> <span class="nav-text">参数调整策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php-fpm-启动与重启"><span class="nav-number">1.2.</span> <span class="nav-text">php-fpm 启动与重启</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.3.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#php-fpm-配置"><span class="nav-number">1.</span> <span class="nav-text">php-fpm 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#参数调整策略"><span class="nav-number">1.1.</span> <span class="nav-text">参数调整策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#php-fpm-启动与重启"><span class="nav-number">1.2.</span> <span class="nav-text">php-fpm 启动与重启</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题外话"><span class="nav-number">1.3.</span> <span class="nav-text">题外话</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.4.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
