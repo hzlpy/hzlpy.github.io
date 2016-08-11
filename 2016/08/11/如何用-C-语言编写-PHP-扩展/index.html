@@ -1,0 +1,983 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="为什么要为 PHP 编写扩展
+与外部的库做交互， 比如你有一个C/C++的库， 不妨假设，这个库呢就是实现了一个字符串加密和解密，而你并没有这个库的源码，也就是说，你无法把这个库在PHP中实现， 那么你只有编写一个PHP扩展，来做为一个桥梁，连接起你的PHP和这个库。效率， 不容置疑，PHP编写的脚本，比同等的C/C++编写的脚本，效率自然要低很多。 当你用常见的手段，再也无法提高你的脚本的效率，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何用 C 语言编写 PHP 扩展">
+<meta property="og:url" content="http://chuzhiyan.com/2016/08/11/如何用-C-语言编写-PHP-扩展/index.html">
+<meta property="og:site_name" content="Happy">
+<meta property="og:description" content="为什么要为 PHP 编写扩展
+与外部的库做交互， 比如你有一个C/C++的库， 不妨假设，这个库呢就是实现了一个字符串加密和解密，而你并没有这个库的源码，也就是说，你无法把这个库在PHP中实现， 那么你只有编写一个PHP扩展，来做为一个桥梁，连接起你的PHP和这个库。效率， 不容置疑，PHP编写的脚本，比同等的C/C++编写的脚本，效率自然要低很多。 当你用常见的手段，再也无法提高你的脚本的效率，">
+<meta property="og:updated_time" content="2016-08-11T09:31:59.218Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何用 C 语言编写 PHP 扩展">
+<meta name="twitter:description" content="为什么要为 PHP 编写扩展
+与外部的库做交互， 比如你有一个C/C++的库， 不妨假设，这个库呢就是实现了一个字符串加密和解密，而你并没有这个库的源码，也就是说，你无法把这个库在PHP中实现， 那么你只有编写一个PHP扩展，来做为一个桥梁，连接起你的PHP和这个库。效率， 不容置疑，PHP编写的脚本，比同等的C/C++编写的脚本，效率自然要低很多。 当你用常见的手段，再也无法提高你的脚本的效率，">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Hzlpy'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://chuzhiyan.com/2016/08/11/如何用-C-语言编写-PHP-扩展/"/>
+
+  <title> 如何用 C 语言编写 PHP 扩展 | Happy </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?6d76f69e75aa302278f6807f3b3ccfdb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Happy</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">灵魂和肉体，总要有一个上工地。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                如何用 C 语言编写 PHP 扩展
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-11T14:25:20+08:00" content="2016-08-11">
+              2016-08-11
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/11/如何用-C-语言编写-PHP-扩展/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/11/如何用-C-语言编写-PHP-扩展/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/08/11/如何用-C-语言编写-PHP-扩展/" class="leancloud_visitors" data-flag-title="如何用 C 语言编写 PHP 扩展">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="为什么要为-PHP-编写扩展"><a href="#为什么要为-PHP-编写扩展" class="headerlink" title="为什么要为 PHP 编写扩展"></a>为什么要为 PHP 编写扩展</h2><blockquote>
+<p>与外部的库做交互， 比如你有一个C/C++的库， 不妨假设，这个库呢就是实现了一个字符串加密和解密，而你并没有这个库的源码，也就是说，你无法把这个库在PHP中实现， 那么你只有编写一个PHP扩展，来做为一个桥梁，连接起你的PHP和这个库。<br>效率， 不容置疑，PHP编写的脚本，比同等的C/C++编写的脚本，效率自然要低很多。 当你用常见的手段，再也无法提高你的脚本的效率，而效率要求又是那么的紧迫， 那么我只能劝你， 把你的逻辑，用C/C++改写吧。。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="编写扩展"><a href="#编写扩展" class="headerlink" title="编写扩展"></a>编写扩展</h2><p>在 PHP 源码文件夹中找到 ext 文件夹，为扩展新建一个文件夹。假设扩展名为 hello，那么可以新建一个 hello 文件夹。  文件夹创建好之后，接着新建三个和扩展相关的文件：config.m4, php_hello.h, hello.c。<br>config.m4 是一个配置文件。它的内容如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">xxx@Vm-template-100G:/usr/include/php5/ext/hello$ nl config.m4</div><div class="line">     1	PHP_ARG_ENABLE(hello, whether to enable Hello World support,</div><div class="line">     2	[ --enable-hello Enable Hello World support])</div><div class="line"></div><div class="line">     3	if test &quot;$PHP_HELLO&quot; = &quot;yes&quot;; then</div><div class="line">     4			AC_DEFINE(HAVE_HELLO, 1, [Whether you have Hello World])</div><div class="line">     5			PHP_NEW_EXTENSION(hello, hello.c, $ext_shared)</div><div class="line">     6	fi</div><div class="line">```    </div><div class="line"></div><div class="line"></div><div class="line">php_hello.h 是一个头文件，放置的是一些与扩展有关的函数的声明信息。</div></pre></td></tr></table></figure>
+<p>xxx@Vm-template-100G:/usr/include/php5/ext/hello$ nl php_hello.h<br>     1    #ifndef PHP_HELLO_H<br>     2        #define PHP_HELLO_H 1<br>     3        #define PHP_HELLO_WORLD_VERSION “1.0”<br>     4        #define PHP_HELLO_WORLD_EXTNAME “hello”</p>
+<pre><code> 5        PHP_MINIT_FUNCTION(hello);
+ 6        PHP_MSHUTDOWN_FUNCTION(hello);
+ 7        PHP_FUNCTION(hello_world);
+ 8        PHP_FUNCTION(hello_arg);
+ 9        PHP_FUNCTION(hello_add);
+10        PHP_FUNCTION(self_concat);
+11        extern zend_module_entry hello_module_entry;
+12        #define phpext_hello_ptr &amp;hello_module_entry;
+
+13    #endif
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">hello.c 里面是与扩展有关的函数的定义。</div></pre></td></tr></table></figure>
+<p>xxx@Vm-template-100G:/usr/include/php5/ext/hello$ nl hello.c<br>     1    #ifdef HAVE_CONFIG_H<br>     2        #include “config.h”<br>     3    #endif</p>
+<pre><code> 4    #include &quot;php.h&quot;
+ 5    #include &quot;php_ini.h&quot;
+ 6    #include &quot;php_hello.h&quot;
+
+ 7    ZEND_BEGIN_ARG_INFO(arg1_hello_arg, 0)
+ 8    ZEND_END_ARG_INFO()
+
+ 9    ZEND_BEGIN_ARG_INFO(arg_hello_add, 0)
+10        ZEND_ARG_INFO(0, arg_hello_num1)
+11        ZEND_ARG_INFO(0, arg_hello_num2)
+12    ZEND_END_ARG_INFO()
+
+13    ZEND_BEGIN_ARG_INFO(arg_self_concat, 0)
+14        ZEND_ARG_INFO(0, arg1_self_concat)
+15        ZEND_ARG_INFO(0, arg2_self_concat)
+16    ZEND_END_ARG_INFO()
+
+17    static function_entry hello_functions[] = {
+18        PHP_FE(hello_world, NULL)
+19        PHP_FE(hello_arg, arg1_hello_arg)
+20        PHP_FE(hello_add, arg_hello_add)
+21        PHP_FE(self_concat, arg_self_concat)
+22        {NULL, NULL, NULL}
+23    };
+
+24    zend_module_entry hello_module_entry = {
+25    #if ZEND_MODULE_API_NO &gt;= 20010901
+26            STANDARD_MODULE_HEADER,
+27    #endif
+28        PHP_HELLO_WORLD_EXTNAME,
+29        hello_functions,
+30        PHP_MINIT(hello),
+31        PHP_MSHUTDOWN(hello),
+32        NULL,
+33        NULL,
+34        NULL,
+35    #if ZEND_MODULE_API_NO &gt;= 20010901
+36        PHP_HELLO_WORLD_VERSION,
+37    #endif
+38        STANDARD_MODULE_PROPERTIES
+39    };
+
+40    PHP_INI_BEGIN()
+41    PHP_INI_ENTRY(&quot;hello.greeting&quot;, &quot;Hello World&quot;, PHP_INI_ALL, NULL)
+42    PHP_INI_END()
+
+43    PHP_MINIT_FUNCTION(hello)
+44    {
+45        REGISTER_INI_ENTRIES();
+46        return SUCCESS;
+47    }
+
+48    PHP_MSHUTDOWN_FUNCTION(hello)
+49    {
+50        UNREGISTER_INI_ENTRIES();
+51        return SUCCESS;
+52    }
+
+53    #ifdef COMPILE_DL_HELLO
+54        ZEND_GET_MODULE(hello)
+55    #endif
+
+56    PHP_FUNCTION(hello_world)
+57    {
+58        RETURN_STRING(INI_STR(&quot;hello.greeting&quot;), 1);
+59    }
+
+60    PHP_FUNCTION(hello_arg)
+61    {
+62        char* name_val;
+63        long name_len;
+64        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, &quot;s&quot;, &amp;name_val, &amp;name_len) == FAILURE)
+65        {
+66            return;
+67        }
+68        php_printf(&quot;Hello %s \n&quot;, name_val);
+69        RETURN_TRUE;
+70    }
+
+71    PHP_FUNCTION(hello_add)
+72    {
+73        long a;
+74        long b;
+75         long c;
+76        if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC , &quot;ll&quot;, &amp;a, &amp;b) == FAILURE)
+77        {
+78            RETURN_FALSE;
+79        }
+80        c = a + b;
+81        php_printf(&quot;sum is %ld \n&quot;, c);
+82        RETURN_LONG(c);
+83    }
+
+84    PHP_FUNCTION(self_concat)
+85    {
+86        char* str = NULL;
+87        int str_len;
+88        char* ret = NULL;
+89        int ret_len;
+90        char* tmp = NULL;
+91        int n;
+92        int arg_num = ZEND_NUM_ARGS();
+93        if (zend_parse_parameters(arg_num TSRMLS_CC, &quot;sl&quot;, &amp;str, &amp;str_len, &amp;n) == FAILURE)
+94        {
+95            return;
+96        }
+97        ret_len = str_len * n;
+98        ret = (char*)emalloc(ret_len + 1);
+99        tmp = ret;
+100        while (n--)
+101        {
+102            memcpy(tmp, str, str_len);
+103            tmp = tmp + str_len;
+104        }
+105        *tmp = &apos;\0&apos;;
+106        php_printf(&quot;ret = %s&quot;, tmp);
+107        php_printf(&quot; &quot;);
+108        RETURN_STRINGL(ret, ret_len, 0)
+109    }
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">关于 `RETURN_STRINGL(ret, ret_len, 0)`中最后一个参数为 0 的解释如下：  </div><div class="line">&gt;php 本身是类型安全的脚本语言，对于 RETURN_STRINGL 或是 RETURN_STRING 返回的字符串，php 会在适当的时候 free 掉，所以程序员要保证返回的字符串在堆里，能够free掉，这就是为什么动态分配就没事的原因。而：  </div><div class="line">char* ret = &quot;hello world&quot;;  </div><div class="line">RETURN_STRINGL(ret, strlen(ret), 0);</div><div class="line">这是直接返回了一个静态字符串，导致 php 在 free 这个字符串的时候出错。  </div><div class="line">RETURN_STRINGL 和 RETURN_STRING 最后一个参数，如果是 1，表示对第一个参数中的字符串在堆里复制一份返回。这就是为什么最后一个参数等于 1 的时候，程序正常的原因。</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">## 编译与安装扩展</div><div class="line"></div><div class="line">编写完 config.m4, php_hello.h, hello.c 三个文件之后，开始对扩展进行编译、安装。依次在终端中执行以下命令：</div></pre></td></tr></table></figure>
+<p>sudo phpize<br>sudo ./configure<br>sudo make<br>sudo make install<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">根据终端中的提示信息来判断这些命令是否执行成功。  </div><div class="line"></div><div class="line"></div><div class="line">## 测试扩展</div><div class="line">编译完成 PHP 扩展之后，便可以对扩展进行测试了。在测试之前，需要在 php.ini 文件中添加扩展项。然后，就可以开始测试了。</div><div class="line">假设添加的扩展名为 hello。其中有一个函数为 sayHello() 。新建 test.php，并在其中调用 sayHello()函数。那么测试方法可以通过下面两种方式：</div><div class="line">1. 运行命令 php -r &apos;echo sayHello();&apos;；</div><div class="line">2. 运行命令 php ./test.php；</div><div class="line"></div><div class="line"></div><div class="line">## 调试扩展</div><div class="line">编程离不开调试。用 C 语言编写的 PHP 扩展可以通过 GDB 来调试。  </div><div class="line">调试之前需要对 config.m4 文件添加以下配置：</div></pre></td></tr></table></figure></p>
+<p>if test -z “$PHP_DEBUG”; then<br>    AC_ARG_ENABLE(debug,<br>    [   –enable-debug          compile with debugging symbols],[<br>        PHP_DEBUG=$enableval<br>    ],[ PHP_DEBUG=no<br>    ])<br>fi<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">然后再重新编译、安装。注意：</div></pre></td></tr></table></figure></p>
+<p>./configure –enable-debug<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">通过以下命令来查看符号表。</div></pre></td></tr></table></figure></p>
+<p>nm hello.so<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">查看到的符号表是这样子的。</div></pre></td></tr></table></figure></p>
+<p>xxx@test-db:/data/app/php/lib/php/extensions/no-debug-non-zts-20121212$ nm test.so<br>0000000000201e20 a _DYNAMIC<br>0000000000201fe8 a _GLOBAL_OFFSET<em>TABLE</em><br>                 w _Jv_RegisterClasses<br>0000000000201d98 d <strong>CTOR_END</strong><br>0000000000201d90 d <strong>CTOR_LIST</strong><br>0000000000201da8 d <strong>DTOR_END</strong><br>0000000000201da0 d <strong>DTOR_LIST</strong><br>0000000000000eb0 r <strong>FRAME_END</strong><br>0000000000201db0 d <strong>JCR_END</strong><br>0000000000201db0 d <strong>JCR_LIST</strong><br>0000000000202108 A <strong>bss_start<br>                 w </strong>cxa_finalize@@GLIBC_2.2.5<br>0000000000000be0 t <strong>do_global_ctors_aux<br>00000000000009e0 t </strong>do_global_dtors_aux<br>0000000000202040 d <strong>dso_handle<br>                 w </strong>gmon_start__<br>0000000000202108 A _edata<br>0000000000202118 A _end<br>0000000000000c18 T _fini<br>0000000000000920 T _init<br>0000000000000d20 r arg_sayHello<br>00000000000009c0 t call_gmon_start<br>0000000000202108 b completed.6531<br>0000000000202110 b dtor_idx.6533<br>0000000000000a60 t frame_dummy<br>0000000000000bd0 T get_module<br>                 U php_info_print_table_end<br>                 U php_info_print_table_header<br>                 U php_info_print_table_start<br>                 U php_printf<br>                 U spprintf<br>0000000000201dc0 D test_functions<br>0000000000202060 D test_module_entry<br>                 U zend_parse_parameters<br>0000000000000b30 T zif_confirm_test_compiled<br>0000000000000ad0 T zif_sayHello<br>0000000000000ab0 T zm_activate_test<br>0000000000000ac0 T zm_deactivate_test<br>0000000000000ba0 T zm_info_test<br>0000000000000aa0 T zm_shutdown_test<br>0000000000000a90 T zm_startup_test<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">通过 GDB 来调试。</div></pre></td></tr></table></figure></p>
+<p>gdb php  </p>
+<blockquote>
+<p>break zif_sayHello<br>run mytest.php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">如果提示</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>(gdb) break zif_sayHello<br>Function “zif_sayHello” not defined.<br>Make breakpoint pending on future shared library load? (y or [n]) y<br>```  </p>
+<p>选择 y，继续调试。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>其实，还有一种更简单的创建扩展方法。下面对两种方法进行总结：<br>第一种创建扩展的方式：</p>
+<ol>
+<li>在 ext 目录下创建 hello 目录；</li>
+<li>在 hello 目录下创建三个文件， config.m4, php_hello.h, hello.c；</li>
+<li>编译、安装扩展</li>
+</ol>
+<p>第二种创建扩展的方式：<br>使用 ext_skel 创建扩展</p>
+<ol>
+<li>运行 ./ext_skel –extname=say_hello;</li>
+<li>进入 say_hello 目录，修改 config.m4 文件；</li>
+<li>编写核心函数。这里可以参考 hello.c 和 php_hello.h。</li>
+<li>编译、安装扩展。命令同方式一。</li>
+</ol>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="http://weizhifeng.net/write-php-extension-part1.html" target="_blank" rel="external">PHP 扩展编写第一步：PHP 和 Zend介绍</a></li>
+<li><a href="http://blog.csdn.net/heiyeshuwu/article/details/3453854" target="_blank" rel="external">[原创]快速开发一个PHP扩展</a></li>
+<li><a href="https://segmentfault.com/q/1010000000095942" target="_blank" rel="external">php的RETURN_STRINGL 为什么使用静态字符串会出现 Segmentation fault</a></li>
+<li><a href="http://blog.codinglabs.org/articles/php-extension-dev-guide.html" target="_blank" rel="external">PHP Extension开发基础</a></li>
+<li><a href="http://www.helpergarden.com/2015/09/php%E6%89%A9%E5%B1%95%E5%BC%80%E5%8F%91%E4%B9%8B%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0.html" target="_blank" rel="external">PHP扩展开发之扩展函数</a></li>
+<li><a href="http://www.laruence.com/2009/04/28/719.html" target="_blank" rel="external">用 C/C++ 扩展你的 PHP</a></li>
+<li><a href="http://blog.jobbole.com/97786/" target="_blank" rel="external">从零开始创建一个 PHP 扩展</a></li>
+<li><a href="http://www.laruence.com/2008/08/16/301.html" target="_blank" rel="external">扩展PHP [Extending PHP] （一）</a></li>
+<li><a href="http://blog.csdn.net/zhouqi_2011/article/details/9883903" target="_blank" rel="external">调试PHP扩展</a></li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/07/周末太短，十号太远/" rel="next" title="周末太短，十号太远">
+                <i class="fa fa-chevron-left"></i> 周末太短，十号太远
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/08/11/如何用-C-语言编写-PHP-扩展/"
+     data-title="如何用 C 语言编写 PHP 扩展"
+     data-content=""
+     data-url="http://chuzhiyan.com/2016/08/11/如何用-C-语言编写-PHP-扩展/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/11/如何用-C-语言编写-PHP-扩展/"
+           data-title="如何用 C 语言编写 PHP 扩展" data-url="http://chuzhiyan.com/2016/08/11/如何用-C-语言编写-PHP-扩展/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Happy.Zhang" />
+          <p class="site-author-name" itemprop="name">Happy.Zhang</p>
+          <p class="site-description motion-element" itemprop="description">沉默寡颜 愿赌服输</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hzlpy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/332506542" target="_blank" title="WeiBo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  WeiBo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/chuzhiyan" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://notes.iissnan.com/" title="iissnan note" target="_blank">iissnan note</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要为-PHP-编写扩展"><span class="nav-number">1.</span> <span class="nav-text">为什么要为 PHP 编写扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写扩展"><span class="nav-number">2.</span> <span class="nav-text">编写扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Happy.Zhang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hzlpy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("QpdlWBCBfhqyNpozQK4yR0k3-gzGzoHsz", "dMMf8tip1dm9TeewqlUqToXc");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
