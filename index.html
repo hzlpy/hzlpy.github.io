@@ -317,24 +317,12 @@
 
       
         
-          
-            <h3 id="什么是-ID-生成器"><a href="#什么是-ID-生成器" class="headerlink" title="什么是 ID 生成器"></a>什么是 ID 生成器</h3><p>全局唯一 ID 作为一种唯一标识来区分数据，它可以用作订单号、用户 ID 等。在一个大的系统中或者基础服务里，提供一种全局唯一 ID 十分重要。ID 生成器的作用就是生成全局唯一 ID 的工具，甚至它能作为一种基础服务为其他业务提供服务。</p>
-<h3 id="构建-ID"><a href="#构建-ID" class="headerlink" title="构建 ID"></a>构建 ID</h3><p>怎样去构建一个全局唯一的ID？获得唯一ID的方式有：带时间戳和不带时间戳两种。时间戳能很好的表达ID的唯一性。考虑到一秒或更小的时间单位内可能并发生成大量 ID，可以再添加序列号增加区分粒度。而不带时间戳的全局唯一 ID 主要是通过生成时的序列号来辨识了。</p>
-<h4 id="Snowflake"><a href="#Snowflake" class="headerlink" title="Snowflake"></a>Snowflake</h4><p>snowflake 算法就是带有时间戳的全局唯一 ID 生成算法。它有一套固定的ID格式，如下：</p>
-<blockquote>
-<p>41位的时间序列（精确到毫秒，41位的长度可以使用69年）<br>10位的机器标识（10位的长度最多支持部署1024个节点）<br>12位的计数顺序号（12位的计数顺序号支持每个节点每毫秒产生4096个ID序号）</p>
-</blockquote>
-<h4 id="Ticket-servers"><a href="#Ticket-servers" class="headerlink" title="Ticket servers"></a>Ticket servers</h4><p>MySQL 本身支持 auto_increment 操作，可以借助这个特性来构建ID。Flicker 的 Ticket servers 就利用了 MySQL 自增长特性。</p>
-<h3 id="构建-ID-生成器"><a href="#构建-ID-生成器" class="headerlink" title="构建 ID 生成器"></a>构建 ID 生成器</h3><p>除了使用带时间戳的 snowflake 算法，数据库自增特性来生成全局唯一 ID，还可以不带时间戳，不依靠数据库自增来生成。你可以自己构建一个 ID 生成器来实现它。没有时间戳的区分粒度，那么它只能靠生成 ID 时的序列号来唯一标识。</p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
-<li><a href="http://www.lanindex.com/twitter-snowflake%EF%BC%8C64%E4%BD%8D%E8%87%AA%E5%A2%9Eid%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3/" target="_blank" rel="external">Twitter-Snowflake，64位自增ID算法详解</a></li>
-<li><a href="http://code.flickr.net/2010/02/08/ticket-servers-distributed-unique-primary-keys-on-the-cheap/" target="_blank" rel="external">Ticket Servers: Distributed Unique Primary Keys on the Cheap</a></li>
-<li><a href="http://mp.weixin.qq.com/s?__biz=MjM5ODYxMDA5OQ==&amp;mid=403837240&amp;idx=1&amp;sn=ae9f2bf0cc5b0f68f9a2213485313127&amp;scene=21#wechat_redirect" target="_blank" rel="external">细聊分布式ID生成方法</a></li>
-<li><a href="http://www.94geek.com/2015/idcreator.html" target="_blank" rel="external">腾讯文学内容中心id生成器的设计与实现</a></li>
-<li><a href="http://ericliang.info/what-kind-of-id-generator-we-need-in-business-systems/" target="_blank" rel="external">业务系统需要什么样的ID生成器</a></li>
-</ol>
-
-          
+          <h3 id="什么是-ID-生成器"><a href="#什么是-ID-生成器" class="headerlink" title="什么是 ID 生成器"></a>什么是 ID 生成器</h3><p>全局唯一 ID 作为一种唯一标识来区分数据，它可以用作订单号、用户 ID 等。在一个大的系统中或者基础服务里，提供一种全局唯一 ID 十分重要。ID 生成器的作用就是生成全局唯一 ID 的工具，甚至它能作为一种基础服务为其他业务提供服务。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/18/我看-ID-生成器/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
