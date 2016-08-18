@@ -90,7 +90,7 @@
 <meta property="og:url" content="http://chuzhiyan.com/2016/08/18/我看-ID-生成器/index.html">
 <meta property="og:site_name" content="Happy">
 <meta property="og:description" content="什么是 ID 生成器全局唯一 ID 作为一种唯一标识来区分数据，它可以用作订单号、用户 ID 等。在一个大的系统中或者基础服务里，提供一种全局唯一 ID 十分重要。ID 生成器的作用就是生成全局唯一 ID 的工具，甚至它能作为一种基础服务为其他业务提供服务。">
-<meta property="og:updated_time" content="2016-08-18T14:18:33.412Z">
+<meta property="og:updated_time" content="2016-08-18T14:19:31.423Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我看 ID 生成器">
 <meta name="twitter:description" content="什么是 ID 生成器全局唯一 ID 作为一种唯一标识来区分数据，它可以用作订单号、用户 ID 等。在一个大的系统中或者基础服务里，提供一种全局唯一 ID 十分重要。ID 生成器的作用就是生成全局唯一 ID 的工具，甚至它能作为一种基础服务为其他业务提供服务。">
@@ -317,7 +317,8 @@
       
 
       
-        <h3 id="什么是-ID-生成器"><a href="#什么是-ID-生成器" class="headerlink" title="什么是 ID 生成器"></a>什么是 ID 生成器</h3><p>全局唯一 ID 作为一种唯一标识来区分数据，它可以用作订单号、用户 ID 等。在一个大的系统中或者基础服务里，提供一种全局唯一 ID 十分重要。ID 生成器的作用就是生成全局唯一 ID 的工具，甚至它能作为一种基础服务为其他业务提供服务。<br><a id="more"></a></p>
+        <h3 id="什么是-ID-生成器"><a href="#什么是-ID-生成器" class="headerlink" title="什么是 ID 生成器"></a>什么是 ID 生成器</h3><p>全局唯一 ID 作为一种唯一标识来区分数据，它可以用作订单号、用户 ID 等。在一个大的系统中或者基础服务里，提供一种全局唯一 ID 十分重要。ID 生成器的作用就是生成全局唯一 ID 的工具，甚至它能作为一种基础服务为其他业务提供服务。</p>
+<a id="more"></a>
 <h3 id="构建-ID"><a href="#构建-ID" class="headerlink" title="构建 ID"></a>构建 ID</h3><p>怎样去构建一个全局唯一的 ID ？获得唯一 ID 的方式有：带时间戳和不带时间戳两种。时间戳能很好的表达ID的唯一性。考虑到一秒或更小的时间单位内可能并发生成大量 ID，可以再添加序列号增加区分粒度。而不带时间戳的全局唯一 ID 主要是通过生成时的序列号来辨识了。</p>
 <h4 id="Snowflake"><a href="#Snowflake" class="headerlink" title="Snowflake"></a>Snowflake</h4><p>snowflake 算法就是带有时间戳的全局唯一 ID 生成算法。它有一套固定的ID格式，如下：</p>
 <blockquote>
