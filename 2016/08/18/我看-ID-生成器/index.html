@@ -90,14 +90,15 @@
 <meta property="og:url" content="http://chuzhiyan.com/2016/08/18/我看-ID-生成器/index.html">
 <meta property="og:site_name" content="Happy">
 <meta property="og:description" content="什么是 ID 生成器全局唯一 ID 作为一种唯一标识来区分数据，它可以用作订单号、用户 ID 等。在一个大的系统中或者基础服务里，提供一种全局唯一 ID 十分重要。ID 生成器的作用就是生成全局唯一 ID 的工具，甚至它能作为一种基础服务为其他业务提供服务。">
-<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B1.png">
-<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B2.png">
-<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B3.png">
-<meta property="og:updated_time" content="2016-08-19T04:39:54.219Z">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B1.png-PicforBlog">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B2.png-PicforBlog">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/ID%20Range.png-PicforBlog">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B3.png-PicforBlog">
+<meta property="og:updated_time" content="2016-08-19T05:02:16.814Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我看 ID 生成器">
 <meta name="twitter:description" content="什么是 ID 生成器全局唯一 ID 作为一种唯一标识来区分数据，它可以用作订单号、用户 ID 等。在一个大的系统中或者基础服务里，提供一种全局唯一 ID 十分重要。ID 生成器的作用就是生成全局唯一 ID 的工具，甚至它能作为一种基础服务为其他业务提供服务。">
-<meta name="twitter:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B1.png">
+<meta name="twitter:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B1.png-PicforBlog">
 
 
 
@@ -330,10 +331,10 @@
 </blockquote>
 <h3 id="Ticket-servers"><a href="#Ticket-servers" class="headerlink" title="Ticket servers"></a><a href="http://code.flickr.net/2010/02/08/ticket-servers-distributed-unique-primary-keys-on-the-cheap/" target="_blank" rel="external">Ticket servers</a></h3><p>MySQL 本身支持 auto_increment 操作，可以借助这个特性来构建ID。Flicker 的 Ticket servers 就利用了 MySQL 自增长特性。</p>
 <h2 id="构建-ID-生成器"><a href="#构建-ID-生成器" class="headerlink" title="构建 ID 生成器"></a>构建 ID 生成器</h2><p>除了使用带时间戳的 snowflake 算法，数据库自增特性来生成全局唯一 ID，还可以不带时间戳，不依靠数据库自增来生成。你可以自己构建一个 ID 生成器来实现它。没有时间戳的区分粒度，那么它只能靠生成 ID 时的序列号来唯一标识。</p>
-<h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><p>一个简单的ID生成器原型构成部分有：保存 ID 数据的数据库和分配 ID 的 worker 组成。worker 分配 ID 后存到数据库，下次再需要分配 ID 时，从数据库中查询到已分配的最大 ID，然后加1，作为新的ID分配出去。<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B1.png" alt="原型"><br>这只是一个简单的生成器，可以为它添加一个对外服务的接口。其它程序调用这个接口就能发出申请ID的请求，worker接收到请求后分配ID。<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B2.png" alt="原型2"></p>
+<h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><p>一个简单的ID生成器原型构成部分有：保存 ID 数据的数据库和分配 ID 的 worker 组成。worker 分配 ID 后存到数据库，下次再需要分配 ID 时，从数据库中查询到已分配的最大 ID，然后加1，作为新的ID分配出去。<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B1.png-PicforBlog" alt="原型"><br>这只是一个简单的生成器，可以为它添加一个对外服务的接口。其它程序调用这个接口就能发出申请ID的请求，worker接收到请求后分配ID。<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B2.png-PicforBlog" alt="原型2"></p>
 <h3 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h3><p>频繁地读取数据库带来的后果是整个程序的响应速度慢。同时，当有大量的请求过来时，会给数据库带来巨大压力。</p>
-<h4 id="减少访问数据库次数"><a href="#减少访问数据库次数" class="headerlink" title="减少访问数据库次数"></a>减少访问数据库次数</h4><p>其实，分配 ID 时可以不用每次都读写数据库。在服务器上用一段内存来保存最近一次分配的 ID。而且，已经被分配出去的 ID 也可以不用每次到保存到数据库，而是先存放在内存里面，然后一段一段的存到数据库。这两种方式有效地减少了数据库存取频率。<br>如果业务不需要保存已经分配出去的每个 ID，那么存到数据库中的数据可以不是 ID，而是 ID 段。ID 段指由多个 ID 组成的一个序列。假设某 ID 段[minID, maxID]，当前被分配的ID为curID，(maxID - minID = 500，ID 段容量)，即有 500 个可供分配的 ID。当 curID 分配到 maxID 时，就将 minID, maxID 保存到数据库。然后 worker 继续分配下一个ID段中的ID。<br>如果 worker 因崩溃而停止服务，再次提供生成 ID 服务时，先访问内存获取已分配的最大 ID；如果 worker 所在主机宕机，导致保存在内存中的数据清空，那么再次提供生成 ID 服务时先读取数据库中最近保存的 ID 段信息，在 maxID 加上一定的余量（如：500）。加上余量的目的是避免分配出重复的 ID，会造成一部分 ID 浪费，一般余量为 ID 段容量的倍数。<br>如果 ID 段容量远大于 500，那么 maxID 加上余量会浪费很多的可用 ID 资源。假设 ID 段容量为 100000，每次 worker 宕机之后至少加上 100000，使 ID 资源利用率极低。为了使worker宕机重启后能提供正常服务且 ID 资源利用率高，可以引入一个检查点（checkpoint）。当 curID % 500 == 0 时，此 ID 被认为是检查点，将 curID，minID，maxID 一起保存到数据库。curID 每成为一个检查点，便插入或更新数据。</p>
-<h4 id="调整架构"><a href="#调整架构" class="headerlink" title="调整架构"></a>调整架构</h4><p>在原型中，worker 既担负了分配 ID 的服务，也负责管理 ID 段。这里，我们可以进一步调整，分拆 worker，架构图如下：<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B3.png" alt="原型3"><br>将 worker 拆分为 worker 和 manager。worker 专职分配 ID，manager 专职管理 ID 段。拆分的好处有：</p>
+<h4 id="减少访问数据库次数"><a href="#减少访问数据库次数" class="headerlink" title="减少访问数据库次数"></a>减少访问数据库次数</h4><p>其实，分配 ID 时可以不用每次都读写数据库。在服务器上用一段内存来保存最近一次分配的 ID。而且，已经被分配出去的 ID 也可以不用每次到保存到数据库，而是先存放在内存里面，然后一段一段的存到数据库。这两种方式有效地减少了数据库存取频率。<br>如果业务不需要保存已经分配出去的每个 ID，那么存到数据库中的数据可以不是 ID，而是 ID 段。ID 段指由多个 ID 组成的一个序列。假设某 ID 段[minID, maxID]，当前被分配的ID为curID，(maxID - minID = 500，ID 段容量)，即有 500 个可供分配的 ID。当 curID 分配到 maxID 时，就将 minID, maxID 保存到数据库。然后 worker 继续分配下一个ID段中的ID。<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/ID%20Range.png-PicforBlog" alt="ID Range"><br>如果 worker 因崩溃而停止服务，再次提供生成 ID 服务时，先访问内存获取已分配的最大 ID；如果 worker 所在主机宕机，导致保存在内存中的数据清空，那么再次提供生成 ID 服务时先读取数据库中最近保存的 ID 段信息，在 maxID 加上一定的余量（如：500）。加上余量的目的是避免分配出重复的 ID，会造成一部分 ID 浪费，一般余量为 ID 段容量的倍数。<br>如果 ID 段容量远大于 500，那么 maxID 加上余量会浪费很多的可用 ID 资源。假设 ID 段容量为 100000，每次 worker 宕机之后至少加上 100000，使 ID 资源利用率极低。为了使worker宕机重启后能提供正常服务且 ID 资源利用率高，可以引入一个检查点（checkpoint）。当 curID % 500 == 0 时，此 ID 被认为是检查点，将 curID，minID，maxID 一起保存到数据库。curID 每成为一个检查点，便插入或更新数据。</p>
+<h4 id="调整架构"><a href="#调整架构" class="headerlink" title="调整架构"></a>调整架构</h4><p>在原型中，worker 既担负了分配 ID 的服务，也负责管理 ID 段。这里，我们可以进一步调整，分拆 worker，架构图如下：<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B3.png-PicforBlog" alt="原型3"><br>将 worker 拆分为 worker 和 manager。worker 专职分配 ID，manager 专职管理 ID 段。拆分的好处有：</p>
 <ol>
 <li>各部分独立；</li>
 <li>方便后期对 worker 进行扩展。</li>
@@ -341,8 +342,8 @@
 <p>架构调整后，ID生成的整个流程为：</p>
 <ol>
 <li>proxy 发出申请ID请求；</li>
-<li>worker 接收到请求后开始处理。如果已经 ID 段中有可用资源，则返回 ID 给 proxy，ID为检查点时保存数据到数据库；否则，worker 向 manager 申请新的 ID 段。</li>
-<li>manager 接收到申请后，分配新的 ID 段返回给 worker，并保存 ID 段信息到数据库。</li>
+<li>worker 接收到请求后开始处理。如果已经 ID 段中有可用资源，则返回 ID 给 proxy，ID为检查点时保存数据到数据库；否则，worker 向 manager 申请新的 ID 段；</li>
+<li>manager 接收到申请后，分配新的 ID 段返回给 worker，并保存 ID 段信息到数据库。    </li>
 </ol>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
 <li><a href="http://www.lanindex.com/twitter-snowflake%EF%BC%8C64%E4%BD%8D%E8%87%AA%E5%A2%9Eid%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3/" target="_blank" rel="external">Twitter-Snowflake，64位自增ID算法详解</a></li>
