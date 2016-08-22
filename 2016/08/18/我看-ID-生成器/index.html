@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/ID%20Range.png-PicforBlog">
 <meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B3.png-PicforBlog">
 <meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B4.png-PicforBlog">
-<meta property="og:updated_time" content="2016-08-19T08:19:37.429Z">
+<meta property="og:updated_time" content="2016-08-19T08:26:36.966Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我看 ID 生成器">
 <meta name="twitter:description" content="什么是 ID 生成器全局唯一 ID 作为一种唯一标识来区分数据，它可以用作订单号、用户 ID 等。在一个大的系统中或者基础服务里，提供一种全局唯一 ID 十分重要。ID 生成器的作用就是生成全局唯一 ID 的工具，甚至它能作为一种基础服务为其他业务提供服务。">
@@ -352,7 +352,7 @@
 <li>如果 worker 一直向同一个 manager 申请 ID 段，那么 worker 返回给 proxy 的 ID 将呈现跳跃性，不利于 ID 资源的充分利用；</li>
 <li>如果 proxy 一直将申请 ID 的请求发送至同一台 worker，那么也会导致不用 worker 间的负载不均衡。</li>
 </ol>
-<p>这部分是一个自建 ID 生成器的大概方案，它还有很多可以完善的地方，比如：负载均衡，自动探测可用 worker，manager 等等。</p>
+<p>这部分是一个自建 ID 生成器的大概方案，它还有很多可以完善的地方，比如：负载均衡，自动探测可用 worker，manager 等等。  </p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
 <li><a href="http://www.lanindex.com/twitter-snowflake%EF%BC%8C64%E4%BD%8D%E8%87%AA%E5%A2%9Eid%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3/" target="_blank" rel="external">Twitter-Snowflake，64位自增ID算法详解</a></li>
 <li><a href="http://my.oschina.net/u/142836/blog/174465" target="_blank" rel="external">MySQL分库分表环境下全局ID生成方案</a></li>
@@ -392,6 +392,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/22/票务服务：廉价的分布式唯一主键/" rel="prev" title="票务服务：廉价的分布式唯一主键">
+                票务服务：廉价的分布式唯一主键 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -482,7 +486,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">21</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
