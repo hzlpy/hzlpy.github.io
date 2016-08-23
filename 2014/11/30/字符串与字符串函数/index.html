@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="C,字符串," />
+  <meta name="keywords" content="C/C++," />
 
 
 
@@ -108,7 +108,7 @@
 <meta property="og:url" content="http://chuzhiyan.com/2014/11/30/字符串与字符串函数/index.html">
 <meta property="og:site_name" content="Happy">
 <meta property="og:description" content="字符串数组的定义char str[10]; //定义一个字符串数组">
-<meta property="og:updated_time" content="2016-07-31T12:05:02.083Z">
+<meta property="og:updated_time" content="2016-08-23T12:27:50.721Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="字符串与字符串函数">
 <meta name="twitter:description" content="字符串数组的定义char str[10]; //定义一个字符串数组">
@@ -338,13 +338,13 @@
         <h2 id="字符串数组的定义"><a href="#字符串数组的定义" class="headerlink" title="字符串数组的定义"></a>字符串数组的定义</h2><pre><code>char str[10]; //定义一个字符串数组
 </code></pre><a id="more"></a>
 <h2 id="字符串数组的初始化"><a href="#字符串数组的初始化" class="headerlink" title="字符串数组的初始化"></a>字符串数组的初始化</h2><p>常见的字符串初始化方法有以下几种：</p>
-<pre><code>1.char str[20] = &quot;Hi, I am Happy.&quot;; 
+<pre><code>1.char str[20] = &quot;Hi, I am Happy.&quot;;
 
 2.char str[] = &quot;Hi, I am Happy.&quot;;
 
 3.char str[] = {&apos;H&apos;,&apos;i&apos;,&apos;,&apos;,&apos; &apos;,&apos;I&apos;,&apos; &apos;,&apos;a&apos;,&apos;m&apos;,&apos; &apos;,&apos;H&apos;,&apos;a&apos;,&apos;p&apos;,&apos;p&apos;,&apos;y&apos;,&apos;\0&apos;};
 
-4.char *str = &quot;Hi, I am Happy.&quot;; 
+4.char *str = &quot;Hi, I am Happy.&quot;;
 </code></pre><p>方法<code>2</code>其实是<code>3</code>的语法糖。<br>方法<code>1</code>中多余地添加上元素个数，容易出现错误。比如：</p>
 <pre><code>char str[3] = &quot;abc&quot;; //元素个数应该为4
 </code></pre><blockquote>
@@ -353,17 +353,17 @@
 </blockquote>
 <h2 id="字符串数组与指针"><a href="#字符串数组与指针" class="headerlink" title="字符串数组与指针"></a>字符串数组与指针</h2><h3 id="1-字符串数组"><a href="#1-字符串数组" class="headerlink" title="1.字符串数组"></a>1.字符串数组</h3><p>在数组形式<code>str[]</code>中，str是一个地址常量。<code>str</code>不能被修改。可以使用运算符<code>str + 1</code>来表示数组里的下一个元素。然而，不能使用 <code>++str</code>表示数组里的下一个元素，因为增量运算符只能用在变量前，而不能使用在常量前面。</p>
 <h3 id="2-指针"><a href="#2-指针" class="headerlink" title="2.指针"></a>2.指针</h3><p>指针形式<code>*str</code>在程序开始执行之后，还需要为指针变量<code>str</code>预留一个存储位置，用来存储字符串的地址。这个变量初始时指向字符串的第一个字符，但是它的值时可以被改变的，可以对它使用增量运算符。</p>
-<h2 id="字符串输入与输出"><a href="#字符串输入与输出" class="headerlink" title="字符串输入与输出"></a>字符串输入与输出</h2><h3 id="1-字符串输入"><a href="#1-字符串输入" class="headerlink" title="1.字符串输入"></a>1.字符串输入</h3><pre><code>1. gets(); 
-2. fgets(); 
+<h2 id="字符串输入与输出"><a href="#字符串输入与输出" class="headerlink" title="字符串输入与输出"></a>字符串输入与输出</h2><h3 id="1-字符串输入"><a href="#1-字符串输入" class="headerlink" title="1.字符串输入"></a>1.字符串输入</h3><pre><code>1. gets();
+2. fgets();
 3. scanf();
-</code></pre><h3 id="2-字符串输出"><a href="#2-字符串输出" class="headerlink" title="2.字符串输出"></a>2.字符串输出</h3><pre><code>1. puts(); 
-2. fputs(); 
+</code></pre><h3 id="2-字符串输出"><a href="#2-字符串输出" class="headerlink" title="2.字符串输出"></a>2.字符串输出</h3><pre><code>1. puts();
+2. fputs();
 3. printf();
-</code></pre><h2 id="常见的字符串函数"><a href="#常见的字符串函数" class="headerlink" title="常见的字符串函数"></a>常见的字符串函数</h2><pre><code>1. strlen(); 
-2. strcat(); 
-3. strncat(); 
-4. strcmp(); 
-5. strncmp(); 
+</code></pre><h2 id="常见的字符串函数"><a href="#常见的字符串函数" class="headerlink" title="常见的字符串函数"></a>常见的字符串函数</h2><pre><code>1. strlen();
+2. strcat();
+3. strncat();
+4. strcmp();
+5. strncmp();
 6. strcpy();
 7. strncpy();
 </code></pre>
@@ -388,9 +388,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/C/" rel="tag">#C</a>
-          
-            <a href="/tags/字符串/" rel="tag">#字符串</a>
+            <a href="/tags/C-C/" rel="tag">#C/C++</a>
           
         </div>
       
@@ -510,7 +508,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
