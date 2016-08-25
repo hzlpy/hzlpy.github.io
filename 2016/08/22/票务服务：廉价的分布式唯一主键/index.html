@@ -108,7 +108,7 @@
 <meta property="og:url" content="http://chuzhiyan.com/2016/08/22/票务服务：廉价的分布式唯一主键/index.html">
 <meta property="og:site_name" content="Happy">
 <meta property="og:description" content="Ticket Servers: Distributed Unique Primary Keys on the CheapThis is the first post in the Using, Abusing and Scaling MySQL at Flickr series.">
-<meta property="og:updated_time" content="2016-08-25T13:29:52.621Z">
+<meta property="og:updated_time" content="2016-08-25T13:52:10.079Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="票务服务：廉价的分布式唯一主键">
 <meta name="twitter:description" content="Ticket Servers: Distributed Unique Primary Keys on the CheapThis is the first post in the Using, Abusing and Scaling MySQL at Flickr series.">
@@ -368,7 +368,7 @@
 <p>虽然它不是特别优雅，但是它工作起来意想不到的适合我们，从 2006 年 1 月 13 号，星期五就已经在产品中，并且…(翻译不出来了，尴尬)</p>
 <p>More soon.</p>
 <p>Belorussian translation provided by PC.</p>
-<p>这本来是一篇<a href="http://code.flickr.net/2010/02/08/ticket-servers-distributed-unique-primary-keys-on-the-cheap/" target="_blank" rel="external">英文文章</a>，我试着翻译了一下。它主要讲的是利用 MySQL 数据库的自动增长特性来构建一个全局唯一的 ID。<br>下面总结一下这种方法的优、缺点。优点有：</p>
+<p>这本来是一篇<a href="http://code.flickr.net/2010/02/08/ticket-servers-distributed-unique-primary-keys-on-the-cheap/" target="_blank" rel="external">英文文章</a>，我试着翻译了一下。它主要讲的是利用 MySQL 数据库的自动增长特性来构建一个全局唯一的 ID。<br>在 <strong>SPOFs</strong> 部分，提到避免单一故障点而部署两套 MySQL 服务。auto-increment-offset 表示自增起始值，auto-increment-increment 表示自增的增量。增量可以看成是步长。当只有一套服务的时候，ID 每次加 1（步长），部署了两套服务后，为了避免出现重复 ID，将步长变为 2，即分到每套服务上的 ID 的步长还保持 1。然后，通过使两套服务的起始值不一样 (1, 2)，就形成了两套服务将 ID 划分奇偶了。所以，如果你想部署 3 套服务，那就可以将总步长设置为 3，分到每套服务上的 ID 的步长为 1，起始值为 (1, 2, 3)。<br>下面总结一下这种方法的优、缺点。优点有：</p>
 <ol>
 <li>编码简单。从实现方法来看，它编程简单，只需要很少的代码就能生成全局唯一的 ID。</li>
 <li>ID 有序。从 ID 层面来看，它不仅唯一，还递增。递增使 ID 有序，有助于后期查询。  </li>
