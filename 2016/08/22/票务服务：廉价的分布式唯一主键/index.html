@@ -108,7 +108,7 @@
 <meta property="og:url" content="http://chuzhiyan.com/2016/08/22/票务服务：廉价的分布式唯一主键/index.html">
 <meta property="og:site_name" content="Happy">
 <meta property="og:description" content="Ticket Servers: Distributed Unique Primary Keys on the CheapThis is the first post in the Using, Abusing and Scaling MySQL at Flickr series.">
-<meta property="og:updated_time" content="2016-08-23T12:28:55.233Z">
+<meta property="og:updated_time" content="2016-08-25T13:29:52.621Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="票务服务：廉价的分布式唯一主键">
 <meta name="twitter:description" content="Ticket Servers: Distributed Unique Primary Keys on the CheapThis is the first post in the Using, Abusing and Scaling MySQL at Flickr series.">
@@ -333,6 +333,9 @@
 <p>分片（又名数据分割）是我们如何扩大数据存储的办法。不是将所有我们的数据存储在一个真正的大数据库中，而是我们拥有很多数据库，每个数据库有一些数据，并且分散它们之间的负载。有时候我们需要在数据库间迁移数据，因此我们需要全局唯一的主键。这意味着我们为了避免键冲突，需要在一个分片内保证唯一性。我们很乐意想其他人一样使用 MySQL 自动递增列作为主键，但 MySQL 不能保证跨物理和逻辑数据库的唯一性。  </p>
 <h3 id="GUIDs"><a href="#GUIDs" class="headerlink" title="GUIDs?"></a>GUIDs?</h3><p>Given the need for globally unique ids the obvious question is, why not use GUIDs? Mostly because GUIDs are big, and they index badly in MySQL. One of the ways we keep MySQL fast is we index everything we want to query on, and we only query on indexes. So index size is a key consideration. If you can’t keep your indexes in memory, you can’t keep your database fast. Additionally ticket servers give us sequentiality which has some really nice properties including making reporting and debugging more straightforward, and enabling some caching hacks.</p>
 <p>给出了全局唯一 id 的需求后明显问题是，为什么不使用 GUID？主要因为 GUID 大，且在 MySQL中对索引的支持很差。我们保持 MySQL 快速的方法之一是我们为我们想查询的每个属性建立索引，并且我们只对索引查询。如果你不能保持你的索引在内存中，你就不能保持你的数据库快。此外 Ticket 服务给了我们顺序性，它有许多好的特性，包括使报告和调试变得更简单，并且能命中一些缓存。</p>
+<blockquote>
+<p>全局唯一标识符，简称GUID，是一种由算法生成的唯一标识，通常表示成32个16进制数字（0－9，A－F）组成的字符串，如：{21EC2020-3AEA-1069-A2DD-08002B30309D}，它实质上是一个128位长的二进制整数。</p>
+</blockquote>
 <h3 id="Consistent-Hashing"><a href="#Consistent-Hashing" class="headerlink" title="Consistent Hashing?"></a>Consistent Hashing?</h3><p>Some projects like <a href="http://www.allthingsdistributed.com/2007/10/amazons_dynamo.html" target="_blank" rel="external">Amazon’s Dynamo</a> provide a consistent hashing ring on top of the datastore to handle the GUID/sharding issue. This is better suited for write-cheap environments (e.g. <a href="http://portal.acm.org/citation.cfm?id=230826" target="_blank" rel="external">LSMTs</a>), while MySQL is optimized for fast random reads.</p>
 <p>一些项目如亚马逊的 Dynamo 提供在数据存储上一致性哈希环来处理 GUID 或 分片问题。这更适合写操作少的环境（如 LSMTs），而 MySQL 正优化快速随机读取。</p>
 <h3 id="Centralizing-Auto-Increments"><a href="#Centralizing-Auto-Increments" class="headerlink" title="Centralizing Auto-Increments"></a>Centralizing Auto-Increments</h3><p>If we can’t make MySQL auto-increments work across multiple databases, what if we just used one database? If we inserted a new row into this one database every time someone uploaded a photo we could then just use the auto-incrementing ID from that table as the primary key for all of our databases.</p>
@@ -362,9 +365,16 @@
 <h3 id="More-Sequences"><a href="#More-Sequences" class="headerlink" title="More Sequences"></a>More Sequences</h3><p>We actually have more tables then just Tickets32 and Tickets64 on the ticket servers. We have a sequences for Photos, for Accounts, for OfflineTasks, and for Groups, etc. OfflineTasks get their own sequence because we burn through so many of them we don’t want to unnecessarily run up the counts on other things. Groups, and Accounts get their own sequence because we get comparatively so few of them. Photos have their own sequence that we made sure to sync to our old auto-increment table when we cut over because its nice to know how many photos we’ve had uploaded, and we use the ID as a short hand for keeping track.</p>
 <p>事实上在票务服务器上除了 Tickets32 和 Tichets64 我们有更多表。我们有一系列照片表、账户表、线下任务表和群表等。</p>
 <h3 id="So-There’s-That"><a href="#So-There’s-That" class="headerlink" title="So There’s That"></a>So There’s That</h3><p>It’s not particularly elegant, but it works shockingly well for us having been in production since Friday the 13th, January 2006, and is a great example of the Flickr engineering dumbest possible thing that will work design principle.</p>
-<p>虽然它不是特别优雅，但是它工作起来意想不到的适合我们，从 2006 年 1 月 13 号，星期五就已经在产品中，并且…</p>
+<p>虽然它不是特别优雅，但是它工作起来意想不到的适合我们，从 2006 年 1 月 13 号，星期五就已经在产品中，并且…(翻译不出来了，尴尬)</p>
 <p>More soon.</p>
 <p>Belorussian translation provided by PC.</p>
+<p>这本来是一篇<a href="http://code.flickr.net/2010/02/08/ticket-servers-distributed-unique-primary-keys-on-the-cheap/" target="_blank" rel="external">英文文章</a>，我试着翻译了一下。它主要讲的是利用 MySQL 数据库的自动增长特性来构建一个全局唯一的 ID。<br>下面总结一下这种方法的优、缺点。优点有：</p>
+<ol>
+<li>编码简单。从实现方法来看，它编程简单，只需要很少的代码就能生成全局唯一的 ID。</li>
+<li>ID 有序。从 ID 层面来看，它不仅唯一，还递增。递增使 ID 有序，有助于后期查询。  </li>
+</ol>
+<p>它的缺点与优点一样明显：它需要单独的服务器来运行数据库，提供 ID 生成服务。</p>
+<h2 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h2><p>文章中还有一些值得研究的点，比如：<br>[ ] 负载均衡的解决方案<br>[ ] sharding 的解决方案<br>[ ] 数据库索引<br>任何服务，想要高可用性，就要考虑到怎样负载均衡；而 sharding 是对数据库的分拆，主要提升数据库查询速度；索引是加快查询的主要手段，文中提到 GUID 对索引不友好是为什么。</p>
 
       
     </div>
@@ -569,7 +579,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ticket-Servers-Distributed-Unique-Primary-Keys-on-the-Cheap"><span class="nav-number">1.</span> <span class="nav-text">Ticket Servers: Distributed Unique Primary Keys on the Cheap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Why"><span class="nav-number">1.1.</span> <span class="nav-text">Why?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GUIDs"><span class="nav-number">1.2.</span> <span class="nav-text">GUIDs?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Consistent-Hashing"><span class="nav-number">1.3.</span> <span class="nav-text">Consistent Hashing?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Centralizing-Auto-Increments"><span class="nav-number">1.4.</span> <span class="nav-text">Centralizing Auto-Increments</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#REPLACE-INTO"><span class="nav-number">1.5.</span> <span class="nav-text">REPLACE INTO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Putting-It-All-Together"><span class="nav-number">1.6.</span> <span class="nav-text">Putting It All Together</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SPOFs"><span class="nav-number">1.7.</span> <span class="nav-text">SPOFs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#More-Sequences"><span class="nav-number">1.8.</span> <span class="nav-text">More Sequences</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#So-There’s-That"><span class="nav-number">1.9.</span> <span class="nav-text">So There’s That</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ticket-Servers-Distributed-Unique-Primary-Keys-on-the-Cheap"><span class="nav-number">1.</span> <span class="nav-text">Ticket Servers: Distributed Unique Primary Keys on the Cheap</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Why"><span class="nav-number">1.1.</span> <span class="nav-text">Why?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GUIDs"><span class="nav-number">1.2.</span> <span class="nav-text">GUIDs?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Consistent-Hashing"><span class="nav-number">1.3.</span> <span class="nav-text">Consistent Hashing?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Centralizing-Auto-Increments"><span class="nav-number">1.4.</span> <span class="nav-text">Centralizing Auto-Increments</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#REPLACE-INTO"><span class="nav-number">1.5.</span> <span class="nav-text">REPLACE INTO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Putting-It-All-Together"><span class="nav-number">1.6.</span> <span class="nav-text">Putting It All Together</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SPOFs"><span class="nav-number">1.7.</span> <span class="nav-text">SPOFs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#More-Sequences"><span class="nav-number">1.8.</span> <span class="nav-text">More Sequences</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#So-There’s-That"><span class="nav-number">1.9.</span> <span class="nav-text">So There’s That</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题外话"><span class="nav-number">2.</span> <span class="nav-text">题外话</span></a></li></ol></div>
             
           </div>
         </section>
