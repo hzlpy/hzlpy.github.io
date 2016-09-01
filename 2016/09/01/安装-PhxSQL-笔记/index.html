@@ -108,7 +108,7 @@
 <meta property="og:url" content="http://chuzhiyan.com/2016/09/01/安装-PhxSQL-笔记/index.html">
 <meta property="og:site_name" content="Happy">
 <meta property="og:description" content="PhxSQL 是由微信后台团队自主研发的一款服务高可用、数据强一致的分布式数据库服务。该服务基于 Percona5.6 搭建，目标在于解决 MySQL 在容灾和数据一致性方面的不足，并大幅简化了 MySQL 容灾切换的运维操作。">
-<meta property="og:updated_time" content="2016-09-01T09:58:02.413Z">
+<meta property="og:updated_time" content="2016-09-01T10:00:42.121Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安装 PhxSQL 笔记">
 <meta name="twitter:description" content="PhxSQL 是由微信后台团队自主研发的一款服务高可用、数据强一致的分布式数据库服务。该服务基于 Percona5.6 搭建，目标在于解决 MySQL 在容灾和数据一致性方面的不足，并大幅简化了 MySQL 容灾切换的运维操作。">
@@ -349,7 +349,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">./configure  CXXFLAGS=-fPIC --prefix=/home/happy/phxsql/third_party/protobuf</div><div class="line">make  </div><div class="line">make install</div></pre></td></tr></table></figure>
 </li>
 <li><p>编译 phxpaxos<br>编译 phxpaxos 也需要一些第三方库：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">xxx@Vm-template-100G:/home/happy/workspace/phxrpc/third_party$ tree -L 2</div><div class="line">.</div><div class="line">├── glog</div><div class="line">│   ├── include</div><div class="line">│   └── lib</div><div class="line">├── gmock</div><div class="line">├── leveldb</div><div class="line">│   ├── include</div><div class="line">│   └── lib</div><div class="line">└── protobuf</div><div class="line">    ├── bin</div><div class="line">    ├── include</div><div class="line">    └──  lib</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">xxx@Vm-template-100G:/home/happy/workspace/phxrpc/third_party$ tree -L 2</div><div class="line">.</div><div class="line">├── glog</div><div class="line">│   ├── include</div><div class="line">│   └── lib</div><div class="line">├── gmock</div><div class="line">├── leveldb</div><div class="line">│   ├── include</div><div class="line">│   └── lib</div><div class="line">└── protobuf</div><div class="line">    ├── bin</div><div class="line">    ├── include</div><div class="line">    └── lib</div></pre></td></tr></table></figure>
 <p>装备好这些文件之后，就可以开始编译 phxpaxos 了。执行：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">./autoinstall.sh</div><div class="line">make</div><div class="line">make install</div></pre></td></tr></table></figure>
 </li>
