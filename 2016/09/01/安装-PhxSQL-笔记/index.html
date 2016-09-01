@@ -102,16 +102,22 @@
 
 
 
-<meta name="description" content="PhxSQL 是由微信后台团队自主研发的一款服务高可用、数据强一致的分布式数据库服务。该服务基于 Percona5.6 搭建，目标在于解决 MySQL 在容灾和数据一致性方面的不足，并大幅简化了 MySQL 容灾切换的运维操作。">
+<meta name="description" content="PhxSQL 是由微信后台团队自主研发的一款服务高可用、数据强一致的分布式数据库服务。该服务基于 Percona5.6 搭建，目标在于解决 MySQL 在容灾和数据一致性方面的不足，并大幅简化了 MySQL 容灾切换的运维操作。
+
+本文将介绍在 Ubuntu 上编译 PhxSQL 过程和记录编译过程中我遇到了一些问题。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="安装 PhxSQL 笔记">
 <meta property="og:url" content="http://chuzhiyan.com/2016/09/01/安装-PhxSQL-笔记/index.html">
 <meta property="og:site_name" content="Happy">
-<meta property="og:description" content="PhxSQL 是由微信后台团队自主研发的一款服务高可用、数据强一致的分布式数据库服务。该服务基于 Percona5.6 搭建，目标在于解决 MySQL 在容灾和数据一致性方面的不足，并大幅简化了 MySQL 容灾切换的运维操作。">
-<meta property="og:updated_time" content="2016-09-01T10:00:42.121Z">
+<meta property="og:description" content="PhxSQL 是由微信后台团队自主研发的一款服务高可用、数据强一致的分布式数据库服务。该服务基于 Percona5.6 搭建，目标在于解决 MySQL 在容灾和数据一致性方面的不足，并大幅简化了 MySQL 容灾切换的运维操作。
+
+本文将介绍在 Ubuntu 上编译 PhxSQL 过程和记录编译过程中我遇到了一些问题。">
+<meta property="og:updated_time" content="2016-09-01T10:26:27.598Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安装 PhxSQL 笔记">
-<meta name="twitter:description" content="PhxSQL 是由微信后台团队自主研发的一款服务高可用、数据强一致的分布式数据库服务。该服务基于 Percona5.6 搭建，目标在于解决 MySQL 在容灾和数据一致性方面的不足，并大幅简化了 MySQL 容灾切换的运维操作。">
+<meta name="twitter:description" content="PhxSQL 是由微信后台团队自主研发的一款服务高可用、数据强一致的分布式数据库服务。该服务基于 Percona5.6 搭建，目标在于解决 MySQL 在容灾和数据一致性方面的不足，并大幅简化了 MySQL 容灾切换的运维操作。
+
+本文将介绍在 Ubuntu 上编译 PhxSQL 过程和记录编译过程中我遇到了一些问题。">
 
 
 
@@ -328,8 +334,9 @@
         <blockquote>
 <p>PhxSQL 是由微信后台团队自主研发的一款服务高可用、数据强一致的分布式数据库服务。该服务基于 Percona5.6 搭建，目标在于解决 MySQL 在容灾和数据一致性方面的不足，并大幅简化了 MySQL 容灾切换的运维操作。</p>
 </blockquote>
+<p>本文将介绍在 Ubuntu 上编译 PhxSQL 过程和记录编译过程中我遇到了一些问题。</p>
 <a id="more"></a>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>本文将介绍它的编译过程和记录编译过程中我遇到了一些问题。因为 PhxSQL 有用到 colib, glog, leveldb, phxpaxos, phxrpc, protobuf 这几个第三方库文件，所以在编译前需要准备好，文末将给出下载链接。</p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>因为 PhxSQL 有用到 colib, glog, leveldb, phxpaxos, phxrpc, protobuf 这几个第三方库文件，所以在编译前需要准备好，文末将给出下载链接。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">├── third_party</div><div class="line">│   ├── colib</div><div class="line">│   ├── glog</div><div class="line">│   ├── leveldb</div><div class="line">│   ├── phxpaxos</div><div class="line">│   ├── phxrpc</div><div class="line">│   └── protobuf</div></pre></td></tr></table></figure>
 <h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><h3 id="编译第三方库"><a href="#编译第三方库" class="headerlink" title="编译第三方库"></a>编译第三方库</h3><p>在 Linux 下编译第三方库，大都是执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./configure &amp;&amp; make &amp;&amp; make install</div></pre></td></tr></table></figure></p>
 <p>当然，也有不需要 <code>./configure</code>的时候。下面开始介绍如何编译这些第三方库。</p>
@@ -368,11 +375,10 @@
 <p>然后，就可以依次执行以下命令编译、安装 PhxSQL<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./autoinstall.sh &amp;&amp; make &amp;&amp; make install</div></pre></td></tr></table></figure></p>
 <p>整个过程有些漫长，耐心等待就行。</p>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ol>
-<li>编译时提示未找到 libphxpaxos_plugin.a<br>请进入到 phxpaxos 目录的 plugin 文件中，执行<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
-</li>
-</ol>
+<li><p>编译时提示未找到 libphxpaxos_plugin.a<br>请进入到 phxpaxos 目录的 plugin 文件中，执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
 <p>生成的 libphxpaxos_plugin.a 被安装在 上一级的 lib 文件夹中。编译 PhxSQL 时，需要将 lib 文件夹拷贝至 PhxSQL/third_party/phxpaxos 中。</p>
-<ol>
+</li>
 <li><p>Curses library not found</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Could NOT find Curses (missing: CURSES_LIBRARY CURSES_INCLUDE_PATH)</div><div class="line">CMake Error at cmake/readline.cmake:87 (MESSAGE):</div><div class="line">Curses library not found. Please install appropriate package,</div></pre></td></tr></table></figure>
 <p>安装 libncurses5-dev 即可。</p>
@@ -383,13 +389,13 @@
 </li>
 </ol>
 <h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><ol>
-<li><a href="http://github.com/tencent-wechat/libco" target="_blank" rel="external">colib</a></li>
-<li><a href="https://github.com/google/glog" target="_blank" rel="external">glog</a></li>
-<li><a href="https://github.com/google/leveldb" target="_blank" rel="external">leveldb</a></li>
-<li><a href="https://github.com/tencent-wechat/phxpaxos" target="_blank" rel="external">phxpaxos</a></li>
-<li><a href="https://github.com/tencent-wechat/phxrpc" target="_blank" rel="external">phxrpc</a></li>
-<li><a href="https://github.com/google/protobuf" target="_blank" rel="external">protobuf</a></li>
-<li><a href="https://github.com/tencent-wechat/phxsql" target="_blank" rel="external">phxsql</a></li>
+<li><a href="http://github.com/tencent-wechat/libco" target="_blank" rel="external">colib</a>  <a href="http://pan.baidu.com/s/1bpqm6IF" target="_blank" rel="external">备用链接</a></li>
+<li><a href="https://github.com/google/glog" target="_blank" rel="external">glog</a> <a href="http://pan.baidu.com/s/1bo77mI7" target="_blank" rel="external">备用链接</a></li>
+<li><a href="https://github.com/google/leveldb" target="_blank" rel="external">leveldb</a> <a href="http://pan.baidu.com/s/1hs8ZnLE" target="_blank" rel="external">备用链接</a></li>
+<li><a href="https://github.com/tencent-wechat/phxpaxos" target="_blank" rel="external">phxpaxos</a> <a href="http://pan.baidu.com/s/1c2G8Rio" target="_blank" rel="external">备用链接</a></li>
+<li><a href="https://github.com/tencent-wechat/phxrpc" target="_blank" rel="external">phxrpc</a> <a href="http://pan.baidu.com/s/1sls1O2x" target="_blank" rel="external">备用链接</a></li>
+<li><a href="https://github.com/google/protobuf" target="_blank" rel="external">protobuf</a> <a href="http://pan.baidu.com/s/1hsfmWQg" target="_blank" rel="external">备用链接</a></li>
+<li><a href="https://github.com/tencent-wechat/phxsql" target="_blank" rel="external">phxsql</a> <a href="http://pan.baidu.com/s/1slEM5Mt" target="_blank" rel="external">备用链接</a></li>
 </ol>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="http://mp.weixin.qq.com/s?__biz=MzI4NDMyNTU2Mw==&amp;mid=2247483783&amp;idx=1&amp;sn=a2d6e589f1f591ded7703eb74aefccbe&amp;scene=1&amp;srcid=0830cOhe7q5SLLqhCAgxMyyg&amp;from=singlemessage&amp;isappinstalled=0#wechat_redirect" target="_blank" rel="external">微信开源PhxSQL：高可用、强一致的MySQL集群</a></li>
@@ -601,7 +607,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译"><span class="nav-number">2.</span> <span class="nav-text">编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译第三方库"><span class="nav-number">2.1.</span> <span class="nav-text">编译第三方库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译-PhxSQL"><span class="nav-number">2.2.</span> <span class="nav-text">编译 PhxSQL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">3.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载"><span class="nav-number">4.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译"><span class="nav-number">2.</span> <span class="nav-text">编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译第三方库"><span class="nav-number">2.1.</span> <span class="nav-text">编译第三方库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译-PhxSQL"><span class="nav-number">2.2.</span> <span class="nav-text">编译 PhxSQL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">3.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载"><span class="nav-number">4.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
           </div>
         </section>
