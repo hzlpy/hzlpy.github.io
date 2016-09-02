@@ -112,7 +112,7 @@
 <meta property="og:description" content="PhxSQL 是由微信后台团队自主研发的一款服务高可用、数据强一致的分布式数据库服务。该服务基于 Percona5.6 搭建，目标在于解决 MySQL 在容灾和数据一致性方面的不足，并大幅简化了 MySQL 容灾切换的运维操作。
 
 本文将介绍我参考官方文档，在 Ubuntu 上编译 PhxSQL 过程和记录编译过程中遇到了一些问题。">
-<meta property="og:updated_time" content="2016-09-02T12:28:08.040Z">
+<meta property="og:updated_time" content="2016-09-02T12:53:30.604Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安装 PhxSQL 笔记">
 <meta name="twitter:description" content="PhxSQL 是由微信后台团队自主研发的一款服务高可用、数据强一致的分布式数据库服务。该服务基于 Percona5.6 搭建，目标在于解决 MySQL 在容灾和数据一致性方面的不足，并大幅简化了 MySQL 容灾切换的运维操作。
@@ -388,12 +388,6 @@
 <li><p>Cannot find system readline libraries</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">CMake Error at cmake/readline.cmake:271 (MESSAGE):</div><div class="line">  Cannot find system readline libraries.</div><div class="line">Call Stack (most recent call first):</div><div class="line">  CMakeLists.txt:429 (MYSQL_CHECK_EDITLINE)</div><div class="line">-- Configuring incomplete, errors occurred!</div><div class="line">make: *** No rule to make target `perconaserverclient&apos;.  Stop.</div></pre></td></tr></table></figure>
 <p>安装 libreadline 即可。</p>
-</li>
-<li><p>初始化错误</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/sbin# mysql -uroot -h&quot;192.168.xxx.xxx&quot; -P54321</div><div class="line">ERROR 2013 (HY000): Lost connection to MySQL server at &apos;reading initial communication packet&apos;, system error: 0</div><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f InitBinlogSvrMaster -h&quot;192.168.xxx.xxx&quot; -p 17000</div><div class="line">get master  expire time 0</div><div class="line">init svr fail, ret -1</div></pre></td></tr></table></figure>
-<p>或</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">xxx@test-db:/home/happy/workspace/phxsql/sbin$ mysql -uroot -h&quot;192.168.xxx.xxx&quot; -P54321</div><div class="line">ERROR 1045 (28000): Access denied for user &apos;root&apos;@&apos;192.168.xxx.xxx&apos; (using password: NO)</div></pre></td></tr></table></figure>
-<p>尝试将 my.cnf 中的 mysql 改为 root ；把编译好的 PhxSQL 放在 /root 目录下，重新执行初始化操作。初始化之前确保 6000,8001,11111,17000,54321 等端口对应的进程已被终止。</p>
 </li>
 </ol>
 <p>编译容易出错，如果出错，请再三阅读<a href="https://github.com/tencent-wechat/phxsql/blob/master/README.zh_cn.md" target="_blank" rel="external">官方文档</a>和本文。<br>文中如有遗漏或错误之处，欢迎指出 :)。</p>
