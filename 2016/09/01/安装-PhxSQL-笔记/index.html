@@ -112,7 +112,7 @@
 <meta property="og:description" content="PhxSQL 是由微信后台团队自主研发的一款服务高可用、数据强一致的分布式数据库服务。该服务基于 Percona5.6 搭建，目标在于解决 MySQL 在容灾和数据一致性方面的不足，并大幅简化了 MySQL 容灾切换的运维操作。
 
 本文将介绍在 Ubuntu 上编译 PhxSQL 过程和记录编译过程中我遇到了一些问题。">
-<meta property="og:updated_time" content="2016-09-02T00:52:28.311Z">
+<meta property="og:updated_time" content="2016-09-02T04:47:24.951Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安装 PhxSQL 笔记">
 <meta name="twitter:description" content="PhxSQL 是由微信后台团队自主研发的一款服务高可用、数据强一致的分布式数据库服务。该服务基于 Percona5.6 搭建，目标在于解决 MySQL 在容灾和数据一致性方面的不足，并大幅简化了 MySQL 容灾切换的运维操作。
@@ -352,7 +352,9 @@
 <li><p>编译 leveldb<br>进入 leveldb 目录，执行 <code>make</code>，会生成 out-shared 和 out-static两个文件夹。它们存放的是编译后生成的库文件，在<strong> 编译 PhxSQL </strong> 时会用到它们。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">xxx@Vm-template-100G:/home/happy/workspace/leveldb$ tree -L 1</div><div class="line">.</div><div class="line">├── AUTHORS</div><div class="line">├── build_config.mk</div><div class="line">├── build_detect_platform</div><div class="line">├── CONTRIBUTING.md</div><div class="line">├── db</div><div class="line">├── doc</div><div class="line">├── helpers</div><div class="line">├── include</div><div class="line">├── issues</div><div class="line">├── LICENSE</div><div class="line">├── Makefile</div><div class="line">├── NEWS</div><div class="line">├── out-shared</div><div class="line">├── out-static</div><div class="line">├── port</div><div class="line">├── README.md</div><div class="line">├── table</div><div class="line">├── TODO</div><div class="line">└── util</div></pre></td></tr></table></figure>
 </li>
-<li><p>编译 protobuf<br>进入 protobuf 目录，执行：</p>
+<li><p>编译 protobuf<br>进入 protobuf 目录，<em>需要先执行</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./autogen.sh</div></pre></td></tr></table></figure>
+<p><em>执行完后，生成 configure 文件(感谢@通)</em>。然后再执行：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">./configure  CXXFLAGS=-fPIC --prefix=/home/happy/phxsql/third_party/protobuf</div><div class="line">make  </div><div class="line">make install</div></pre></td></tr></table></figure>
 </li>
 <li><p>编译 phxpaxos<br>编译 phxpaxos 也需要一些第三方库：</p>
