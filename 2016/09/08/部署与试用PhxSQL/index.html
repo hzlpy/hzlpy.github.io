@@ -116,7 +116,7 @@ install完成后，二进制会生成到PhxSQL目录下的sbin目录，运行所
 
 若想打包二进制运行包（集群运行时所需要的所有文件和配置）make package  
 install完成后，二进制会生成到PhxSQL目录下的sbin目录，运行所需要的相关文件和配置会安装到PhxSQL目录下的install_package目录。打包二进制运行包会把install_package进行tar格式的打包，并生成phxsql.tar.gz。若想更改">
-<meta property="og:updated_time" content="2016-09-08T13:57:21.045Z">
+<meta property="og:updated_time" content="2016-09-08T13:58:48.596Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="部署与试用PhxSQL">
 <meta name="twitter:description" content="编译、安装后你还可以进行以下操作：
@@ -408,7 +408,7 @@ install完成后，二进制会生成到PhxSQL目录下的sbin目录，运行所
 <h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
 <li><p>chown: invalid user: `user:mysql’</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">root@test-db:/home/happy/phxsql/tools# python install.py -i&quot;IPB&quot; -p 54321 -g 6000 -y 11111 -P 17000 -a 8001 -f/tmp/data/</div><div class="line">Namespace(agent_port=6000, base_dir=&apos;/home/happy/phxsql/&apos;, data_dir=&apos;/tmp/data/&apos;, inner_ip=&apos;IPB&apos;, ip_list=&apos;IPB&apos;, module_name=&apos;test&apos;, mysql_port=11111, paxos_port=8001, phxbinlogsvr_port=17000, phxsqlproxy_port=54321, process_name=&apos;all&apos;)</div><div class="line">kill all binaries success....</div><div class="line">generate all configs success....</div><div class="line">/tmp/data//phxbinlogsvr</div><div class="line">mkdir: cannot create directory `/tmp/data//log&apos;: File exists</div><div class="line">/tmp/data//percona.workspace</div><div class="line">chown: invalid user: `user:mysql&apos;</div><div class="line">cd /home/happy/phxsql//percona.src; ./scripts/mysql_install_db --defaults-file=/home/happy/phxsql//etc/my.cnf --user=mysql</div><div class="line">Installing MySQL system tables...2016-09-02 21:35:33 0 [Warning] &apos;THREAD_CONCURRENCY&apos; is deprecated and will be removed in a future release.</div><div class="line">2016-09-02 21:35:33 0 [Note] ./bin/mysqld (mysqld 5.6.31-77.0-log) starting as process 8228 ...</div><div class="line">FATAL ERROR: Error closing mysqld pipe: Broken pipe</div><div class="line">install mysql failed, ret 256</div><div class="line">install failed, exit......</div></pre></td></tr></table></figure>
-<p>尝试将配置文件中的<code>user=mysql</code>改为<code>user=root</code>，然后在执行<code>install.py</code>。  </p>
+<p>尝试将配置文件中的<code>user=mysql</code>改为<code>user=root</code>，然后再执行<code>install.py</code>。  </p>
 </li>
 <li><p>init svr fail, ret -1</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f InitBinlogSvrMaster -h&quot;IPA,IPB&quot; -p 17000</div><div class="line">get master  expire time 0</div><div class="line">get master  expire time 0</div><div class="line">init svr fail, ret -1</div></pre></td></tr></table></figure>
