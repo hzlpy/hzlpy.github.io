@@ -1,0 +1,907 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="编译、安装后你还可以进行以下操作：
+
+
+若想打包二进制运行包（集群运行时所需要的所有文件和配置）make package  
+install完成后，二进制会生成到PhxSQL目录下的sbin目录，运行所需要的相关文件和配置会安装到PhxSQL目录下的install_package目录。打包二进制运行包会把install_package进行tar格式的打包，并生成phxsql.tar.gz。若想更改">
+<meta property="og:type" content="article">
+<meta property="og:title" content="部署与试用PhxSQL">
+<meta property="og:url" content="http://chuzhiyan.com/2016/09/08/部署与试用PhxSQL/index.html">
+<meta property="og:site_name" content="Happy">
+<meta property="og:description" content="编译、安装后你还可以进行以下操作：
+
+
+若想打包二进制运行包（集群运行时所需要的所有文件和配置）make package  
+install完成后，二进制会生成到PhxSQL目录下的sbin目录，运行所需要的相关文件和配置会安装到PhxSQL目录下的install_package目录。打包二进制运行包会把install_package进行tar格式的打包，并生成phxsql.tar.gz。若想更改">
+<meta property="og:updated_time" content="2016-09-08T13:57:21.045Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="部署与试用PhxSQL">
+<meta name="twitter:description" content="编译、安装后你还可以进行以下操作：
+
+
+若想打包二进制运行包（集群运行时所需要的所有文件和配置）make package  
+install完成后，二进制会生成到PhxSQL目录下的sbin目录，运行所需要的相关文件和配置会安装到PhxSQL目录下的install_package目录。打包二进制运行包会把install_package进行tar格式的打包，并生成phxsql.tar.gz。若想更改">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Hzlpy'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://chuzhiyan.com/2016/09/08/部署与试用PhxSQL/"/>
+
+  <title> 部署与试用PhxSQL | Happy </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83738416-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?6d76f69e75aa302278f6807f3b3ccfdb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Happy</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">灵魂和肉体，总要有一个上工地。</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                部署与试用PhxSQL
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-08T17:54:57+08:00" content="2016-09-08">
+              2016-09-08
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/08/部署与试用PhxSQL/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/08/部署与试用PhxSQL/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/09/08/部署与试用PhxSQL/" class="leancloud_visitors" data-flag-title="部署与试用PhxSQL">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>编译、安装后你还可以进行以下操作：</p>
+<blockquote>
+<ul>
+<li>若想打包二进制运行包（集群运行时所需要的所有文件和配置）make package  </li>
+<li>install完成后，二进制会生成到PhxSQL目录下的sbin目录，运行所需要的相关文件和配置会安装到PhxSQL目录下的install_package目录。打包二进制运行包会把install_package进行tar格式的打包，并生成phxsql.tar.gz。若想更改install的安装目录，可在sh autoinstall.sh 后加入-prefix=路径</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<h3 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h3><p>打包好之后便可以将它们拷贝到不同的主机部署了。本文主要记录在多台主机上部署 PhxSQL 与使用的过程。</p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python install.py -i&quot;IPB&quot; -p 54321 -g 6000 -y 11111 -P 17000 -a 8001 -f/tmp/data/</div></pre></td></tr></table></figure></p>
+<p>安装 PhxSQL。<br>注意：<code>install.py</code> 提供多组命令组合，比如：它可以安装整个 PhxSQL（包含 MySQL, phxbinlogsvr,phxsqlproxy），也可以只安装其中一个组件。详细使用方法可以通过 <code>--h</code> 查看。</p>
+<h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><p>执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f InitBinlogSvrMaster -h&quot;IPA,IPB&quot; -p 17000</div></pre></td></tr></table></figure></p>
+<p>即可。得到的提示却是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f InitBinlogSvrMaster -h&quot;IPA,IPB&quot; -p 17000</div><div class="line">get master  expire time 0</div><div class="line">get master  expire time 0</div><div class="line">init svr fail, ret -1</div></pre></td></tr></table></figure></p>
+<p>然后再次初始化，得到的结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f InitBinlogSvrMaster -h&quot;IPA,IPB&quot; -p 17000</div><div class="line">get master IPA expire time 1473300565</div><div class="line">machine IPA has been set master(IPA)</div></pre></td></tr></table></figure>
+<p>显然，集群中只有 IPA 这台机器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f GetMemberList -hIPA -p17000</div><div class="line">get master IPA expire time 1473300691</div><div class="line">ip IPA port 17000</div></pre></td></tr></table></figure>
+<p>执行<code>GetMemberList</code>得到的结果也印证了上一结论。</p>
+<p>那么，可以使用<code>AddMember</code>命令来将 IPB 这台机器加入集群吗？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">root@test-db:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f AddMember -h IPA -p 17000 -m IPB</div><div class="line">get master IPA expire time 1473300896</div><div class="line">AddMember IPB done</div></pre></td></tr></table></figure>
+<p>接下来，尝试从只读端口连接 IPC 的数据库。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">root@test-db:~/phxsql/sbin# mysql -uroot -hIPB -P54322</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 1317</div><div class="line">Server version: 5.6.31-77.0-log Source distribution</div><div class="line"></div><div class="line">Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.</div><div class="line"></div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its</div><div class="line">affiliates. Other names may be trademarks of their respective</div><div class="line">owners.</div><div class="line"></div><div class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</div><div class="line"></div><div class="line">root@(none) 10:21&gt;</div></pre></td></tr></table></figure>
+<p>现在集群中有了 IPA 和 IPB 两台机器了。其中，IPA 作为 master。</p>
+<h3 id="试用"><a href="#试用" class="headerlink" title="试用"></a>试用</h3><h4 id="添加成员"><a href="#添加成员" class="headerlink" title="添加成员"></a>添加成员</h4><p>继续尝试往集群中添加一台新机器 IPC。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">xx@hah:/home/happy/workspace/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f AddMember -hIPA -p17000 -mIPC</div><div class="line">get master IPA expire time 1473301623</div><div class="line">AddMember IPC done</div></pre></td></tr></table></figure>
+<p>执行<code>GetMemberList</code>命令，查看集群中的机器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">xx@hah:/home/happy/workspace/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f GetMemberList -hIPA -p17000</div><div class="line">get master IPA expire time 1473301723</div><div class="line">ip IPA port 17000</div><div class="line">ip IPB port 17000</div><div class="line">ip IPC port 17000</div></pre></td></tr></table></figure>
+<h4 id="简单测试"><a href="#简单测试" class="headerlink" title="简单测试"></a>简单测试</h4><p>可以执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./test_phxsql.sh 54321 IPA IPB</div></pre></td></tr></table></figure>
+<p>添加数据。</p>
+<p>接下来，通过只读端口连接到 IPC 的数据库。看看里面是否有数据，结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">xx@hah:/home/happy/workspace/phxsql/tools# mysql -uroot -hIPC -P54322</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 932</div><div class="line">Server version: 5.6.31-77.0-log Source distribution</div><div class="line"></div><div class="line">Copyright (c) 2009-2014 Percona LLC and/or its affiliates</div><div class="line">Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.</div><div class="line"></div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its</div><div class="line">affiliates. Other names may be trademarks of their respective</div><div class="line">owners.</div><div class="line"></div><div class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</div><div class="line"></div><div class="line">mysql&gt; show databases;</div><div class="line">+--------------------+</div><div class="line">| Database           |</div><div class="line">+--------------------+</div><div class="line">| information_schema |</div><div class="line">| mysql              |</div><div class="line">| performance_schema |</div><div class="line">| test               |</div><div class="line">| test_phxsql        |</div><div class="line">+--------------------+</div><div class="line">5 rows in set (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; show global variables like &apos;%uuid%&apos;</div><div class="line">    -&gt; ;</div><div class="line">+---------------+--------------------------------------+</div><div class="line">| Variable_name | Value                                |</div><div class="line">+---------------+--------------------------------------+</div><div class="line">| server_uuid   | b0a08df6-7568-11e6-9076-c81f66c7561b |</div><div class="line">+---------------+--------------------------------------+</div><div class="line">1 row in set (0.01 sec)</div><div class="line"></div><div class="line">mysql&gt; use test_phxsql;</div><div class="line">Database changed</div><div class="line">mysql&gt; show tables;</div><div class="line">+-----------------------+</div><div class="line">| Tables_in_test_phxsql |</div><div class="line">+-----------------------+</div><div class="line">| test_phxsql           |</div><div class="line">+-----------------------+</div><div class="line">1 row in set (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; select * from test_phxsql;</div><div class="line">+----------------+</div><div class="line">| name           |</div><div class="line">+----------------+</div><div class="line">| 20160908102213 |</div><div class="line">| 20160908102249 |</div><div class="line">+----------------+</div><div class="line">2 rows in set (0.00 sec)</div></pre></td></tr></table></figure>
+<p>可以观察到，test_phxsql 数据已经被同步到新加入集群的 IPC 之上了。<br>还可以在 MySQL 中执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">show slave status\G;</div></pre></td></tr></table></figure></p>
+<p>查看同步状态，结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show slave status\G;</div><div class="line">*************************** 1. row ***************************</div><div class="line">               Slave_IO_State: Waiting for master to send event</div><div class="line">                  Master_Host: 127.0.0.1</div><div class="line">                  Master_User: replica</div><div class="line">                  Master_Port: 6000</div><div class="line">                Connect_Retry: 60</div><div class="line">              Master_Log_File: mysql-bin.000003</div><div class="line">          Read_Master_Log_Pos: 3041</div><div class="line">               Relay_Log_File: relay-log.000002</div><div class="line">                Relay_Log_Pos: 3251</div><div class="line">        Relay_Master_Log_File: mysql-bin.000003</div><div class="line">             Slave_IO_Running: Yes</div><div class="line">            Slave_SQL_Running: Yes</div><div class="line">              Replicate_Do_DB:</div><div class="line">          Replicate_Ignore_DB:</div><div class="line">           Replicate_Do_Table:</div><div class="line">       Replicate_Ignore_Table:</div><div class="line">      Replicate_Wild_Do_Table:</div><div class="line">  Replicate_Wild_Ignore_Table:</div><div class="line">                   Last_Errno: 0</div><div class="line">                   Last_Error:</div><div class="line">                 Skip_Counter: 0</div><div class="line">          Exec_Master_Log_Pos: 1953</div><div class="line">              Relay_Log_Space: 3449</div><div class="line">              Until_Condition: None</div><div class="line">               Until_Log_File:</div><div class="line">                Until_Log_Pos: 0</div><div class="line">           Master_SSL_Allowed: No</div><div class="line">           Master_SSL_CA_File:</div><div class="line">           Master_SSL_CA_Path:</div><div class="line">              Master_SSL_Cert:</div><div class="line">            Master_SSL_Cipher:</div><div class="line">               Master_SSL_Key:</div><div class="line">        Seconds_Behind_Master: 0</div><div class="line">Master_SSL_Verify_Server_Cert: No</div><div class="line">                Last_IO_Errno: 0</div><div class="line">                Last_IO_Error:</div><div class="line">               Last_SQL_Errno: 0</div><div class="line">               Last_SQL_Error:</div><div class="line">  Replicate_Ignore_Server_Ids:</div><div class="line">             Master_Server_Id: 3232236659</div><div class="line">                  Master_UUID: bfe6a2af-7568-11e6-9077-b65d9af99ebd</div><div class="line">             Master_Info_File: mysql.slave_master_info</div><div class="line">                    SQL_Delay: 0</div><div class="line">          SQL_Remaining_Delay: NULL</div><div class="line">      Slave_SQL_Running_State: Slave has read all relay log; waiting for the slave I/O thread to update it</div><div class="line">           Master_Retry_Count: 86400</div><div class="line">                  Master_Bind:</div><div class="line">      Last_IO_Error_Timestamp:</div><div class="line">     Last_SQL_Error_Timestamp:</div><div class="line">               Master_SSL_Crl:</div><div class="line">           Master_SSL_Crlpath:</div><div class="line">           Retrieved_Gtid_Set: bfe6a2af-7568-11e6-9077-b65d9af99ebd:1-14</div><div class="line">            Executed_Gtid_Set: bfe6a2af-7568-11e6-9077-b65d9af99ebd:1-14</div><div class="line">                Auto_Position: 1</div><div class="line">1 row in set (0.00 sec)</div><div class="line"></div><div class="line">ERROR:</div><div class="line">No query specified</div></pre></td></tr></table></figure>
+<h4 id="终止-MySQL"><a href="#终止-MySQL" class="headerlink" title="终止 MySQL"></a>终止 MySQL</h4><p>到目前为止，三台机器在同一个集群。接下来模拟其中一台主机上的 MySQL 不能工作。<br>假设 IPC 上的 MySQL 无法工作。杀掉 MySQL 对应的进程。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">xx@hah:/tmp/data# ps -ef | grep mysql</div><div class="line">root     29296     1  0 10:05 pts/2    00:00:00 sh /home/happy/workspace/phxsql//bin/mysqld_safe --defaults-file=/home/happy/workspace/phxsql//etc/my.cnf --super_read_only --plugin-load=phxsync_master_phxrpc.so</div><div class="line">root     30685 29296  0 10:05 pts/2    00:00:07 /home/happy/workspace/phxsql/sbin/mysqld --defaults-file=/home/happy/workspace/phxsql//etc/my.cnf --basedir=/home/happy/workspace/phxsql//percona.src --datadir=/tmp/data//percona.workspace/data --plugin-dir=/home/happy/workspace/phxsql//lib --user=root --super-read-only --plugin-load=phxsync_master_phxrpc.so --log-error=/tmp/data//percona.workspace/log.err --pid-file=/tmp/data//percona.workspace/data/percona.pid --socket=/tmp/data//percona.workspace/tmp/percona.sock --port=11111</div><div class="line">root     30846 20540  0 10:40 pts/1    00:00:00 grep --color=auto mysql</div><div class="line">xx@hah:/tmp/data# kill -9 30685 29296</div><div class="line">xx@hah:/tmp/data# ps -ef | grep mysql</div><div class="line">root     30849 20540  0 10:40 pts/1    00:00:00 grep --color=auto mysql</div></pre></td></tr></table></figure>
+<p>然后，尝试重新安装 MySQL。<br>执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python install.py -i IPC -y11111 -r mysql</div></pre></td></tr></table></figure>
+<p>得到如下提示。直接跳至最后，发现<code>install mysql success....</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line">xx@hah:/home/happy/workspace/phxsql/tools# python install.py -i IPC -y11111 -r mysql</div><div class="line">Namespace(agent_port=6001, base_dir=&apos;/home/happy/workspace/phxsql/&apos;, data_dir=&apos;/data/phxsql/&apos;, inner_ip=&apos;IPC&apos;, ip_list=&apos;IPC&apos;, module_name=&apos;test&apos;, mysql_port=11111, paxos_port=8001, phxbinlogsvr_port=17000, phxsqlproxy_port=54321, process_name=&apos;mysql&apos;)</div><div class="line">kill mysql success....</div><div class="line">mkdir: cannot create directory `/data/phxsql//log&apos;: No such file or directory</div><div class="line">/data/phxsql//percona.workspace</div><div class="line">mkdir: cannot create directory `/data/phxsql//percona.workspace&apos;: No such file or directory</div><div class="line">mkdir: cannot create directory `/data/phxsql//percona.workspace/data&apos;: No such file or directory</div><div class="line">mkdir: cannot create directory `/data/phxsql//percona.workspace/tmp&apos;: No such file or directory</div><div class="line">mkdir: cannot create directory `/data/phxsql//percona.workspace/binlog&apos;: No such file or directory</div><div class="line">mkdir: cannot create directory `/data/phxsql//percona.workspace/innodb&apos;: No such file or directory</div><div class="line">chown: invalid user: `user:mysql&apos;</div><div class="line">cd /home/happy/workspace/phxsql//percona.src; ./scripts/mysql_install_db --defaults-file=/home/happy/workspace/phxsql//etc/my.cnf --user=mysql</div><div class="line">Installing MySQL system tables...2016-09-08 11:13:56 0 [Warning] &apos;THREAD_CONCURRENCY&apos; is deprecated and will be removed in a future release.</div><div class="line">2016-09-08 11:13:56 0 [Warning] Ignoring user change to &apos;mysql&apos; because the user was set to &apos;root&apos; earlier on the command line</div><div class="line"></div><div class="line">2016-09-08 11:13:56 0 [Note] ./bin/mysqld (mysqld 5.6.31-77.0-log) starting as process 30993 ...</div><div class="line">OK</div><div class="line"></div><div class="line">Filling help tables...2016-09-08 11:14:03 0 [Warning] &apos;THREAD_CONCURRENCY&apos; is deprecated and will be removed in a future release.</div><div class="line">2016-09-08 11:14:03 0 [Warning] Ignoring user change to &apos;mysql&apos; because the user was set to &apos;root&apos; earlier on the command line</div><div class="line"></div><div class="line">2016-09-08 11:14:03 0 [Note] ./bin/mysqld (mysqld 5.6.31-77.0-log) starting as process 31039 ...</div><div class="line">OK</div><div class="line"></div><div class="line">To start mysqld at boot time you have to copy</div><div class="line">support-files/mysql.server to the right place for your system</div><div class="line"></div><div class="line">PLEASE REMEMBER TO SET A PASSWORD FOR THE MySQL root USER !</div><div class="line">To do so, start the server, then issue the following commands:</div><div class="line"></div><div class="line">  /home/happy/workspace/phxsql//percona.src/bin/mysqladmin -u root password &apos;new-password&apos;</div><div class="line">  /home/happy/workspace/phxsql//percona.src/bin/mysqladmin -u root -h test-web2 password &apos;new-password&apos;</div><div class="line"></div><div class="line">Alternatively you can run:</div><div class="line"></div><div class="line">  /home/happy/workspace/phxsql//percona.src/bin/mysql_secure_installation</div><div class="line"></div><div class="line">which will also give you the option of removing the test</div><div class="line">databases and anonymous user created by default.  This is</div><div class="line">strongly recommended for production servers.</div><div class="line"></div><div class="line">See the manual for more instructions.</div><div class="line"></div><div class="line">You can start the MySQL daemon with:</div><div class="line"></div><div class="line">  cd . ; /home/happy/workspace/phxsql//percona.src/bin/mysqld_safe &amp;</div><div class="line"></div><div class="line">You can test the MySQL daemon with mysql-test-run.pl</div><div class="line"></div><div class="line">  cd mysql-test ; perl mysql-test-run.pl</div><div class="line"></div><div class="line">Please report any problems at</div><div class="line"> https://bugs.launchpad.net/percona-server/+filebug</div><div class="line"></div><div class="line">The latest information about Percona Server is available on the web at</div><div class="line">  http://www.percona.com/software/percona-server</div><div class="line"></div><div class="line">Support Percona by buying support at</div><div class="line"> http://www.percona.com/products/mysql-support</div><div class="line"></div><div class="line">WARNING: Default config file /etc/my.cnf exists on the system</div><div class="line">This file will be read by default by the MySQL server</div><div class="line">If you do not want to use this, either remove it, or use the</div><div class="line">--defaults-file argument to mysqld_safe when starting the server</div><div class="line"></div><div class="line">install mysql success....</div><div class="line">nohup: appending output to `nohup.out&apos;</div></pre></td></tr></table></figure>
+<p>安装成功后，尝试连接 IPC 上 MySQL。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">xx@hah:/home/happy/workspace/phxsql/tools# mysql -uroot -hIPC -P54322</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 1568</div><div class="line">Server version: 5.6.31-77.0-log Source distribution</div><div class="line"></div><div class="line">Copyright (c) 2009-2014 Percona LLC and/or its affiliates</div><div class="line">Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.</div><div class="line"></div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its</div><div class="line">affiliates. Other names may be trademarks of their respective</div><div class="line">owners.</div><div class="line"></div><div class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</div><div class="line"></div><div class="line">mysql&gt; exit</div><div class="line">Bye</div><div class="line">xx@hah:/home/happy/workspace/phxsql/tools# mysql -uroot -hIPC -P54321</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 24464</div><div class="line">Server version: 5.6.31-77.0-log Source distribution</div><div class="line"></div><div class="line">Copyright (c) 2009-2014 Percona LLC and/or its affiliates</div><div class="line">Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.</div><div class="line"></div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its</div><div class="line">affiliates. Other names may be trademarks of their respective</div><div class="line">owners.</div><div class="line"></div><div class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</div></pre></td></tr></table></figure>
+<p>上述提示表明通过只读端口与读写端口均能够连接数据库。<br>这里有一个问题：<strong>如果只是杀掉了 MySQL 的进程，那么你只需要重新安装 MySQl 即可，无需重装整个 PhxSQL</strong>。</p>
+<h4 id="终止-PhxSQL"><a href="#终止-PhxSQL" class="headerlink" title="终止 PhxSQL"></a>终止 PhxSQL</h4><p>接着，尝试杀掉 PhxSQL 相关的所有进程。然后接着重新安装 PhxSQL。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python install.py -i&quot;IPC&quot; -p 54321 -g 6000 -y 11111 -P 17000 -a 8001 -f/tmp/data/</div></pre></td></tr></table></figure>
+<p>安装完成之后，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">xx@hah:/home/happy/workspace/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f GetMemberList -hIPA -p17000</div><div class="line">get master IPA expire time 1473305775</div><div class="line">ip IPA port 17000</div><div class="line">ip IPB port 17000</div><div class="line">ip IPC port 17000</div></pre></td></tr></table></figure>
+<p>尝试通过只读端口连接数据库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">xx@hah:/home/happy/workspace/phxsql/tools# mysql -uroot -hIPC -P54322</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 1798</div><div class="line">Server version: 5.6.31-77.0-log Source distribution</div><div class="line"></div><div class="line">Copyright (c) 2009-2014 Percona LLC and/or its affiliates</div><div class="line">Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.</div><div class="line"></div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its</div><div class="line">affiliates. Other names may be trademarks of their respective</div><div class="line">owners.</div><div class="line"></div><div class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</div><div class="line"></div><div class="line">mysql&gt; use phx_test;</div><div class="line">ERROR 1049 (42000): Unknown database &apos;phx_test&apos;</div><div class="line">mysql&gt; use test_phxsql;</div><div class="line">Database changed</div><div class="line">mysql&gt; select * from test_phxsql;</div><div class="line">+----------------+</div><div class="line">| name           |</div><div class="line">+----------------+</div><div class="line">| 20160908102213 |</div><div class="line">| 20160908102249 |</div><div class="line">+----------------+</div><div class="line">2 rows in set (0.00 sec)</div></pre></td></tr></table></figure>
+<h4 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h4><p>尝试修改密码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">xx@hah:/home/happy/workspace/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f SetMySqlAdminInfo -hIPC -p17000 -uroot -d&apos;&apos; -Uhappy -Dhappy</div><div class="line">get master IPA expire time 1473306682</div><div class="line">terminate called after throwing an instance of &apos;std::logic_error&apos;</div><div class="line">  what():  basic_string::_S_construct null not valid</div><div class="line">Aborted</div><div class="line">xx@hah:/home/happy/workspace/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f SetMySqlAdminInfo -hIPC -p17000 -uroot -d &apos;&apos; -Uhappy -Dhappy</div><div class="line">get master IPA expire time 1473306698</div><div class="line">SetMySqlAdminInfo fail ret -202</div><div class="line"></div><div class="line">Usage: ./phxbinlogsvr_tools_phxrpc [-c &lt;config&gt;] [-f &lt;func&gt;] [-v]</div><div class="line">    -f PHXEcho -s &lt;string&gt;</div><div class="line">    -f GetMasterInfoFromGlobal -h &lt;host&gt; -p &lt;port&gt;</div><div class="line">    -f GetLastSendGtidFromGlobal -h &lt;host&gt; -p &lt;port&gt; -u&lt;gtid&gt;</div><div class="line">    -f SetExportIP -h &lt;host&gt; -p &lt;port&gt;</div><div class="line">    -f AddMember -h &lt;host&gt; -p &lt;port&gt; -m &lt;member ip&gt;</div><div class="line">    -f RemoveMember -h &lt;host&gt; -p &lt;port&gt; -m &lt;member ip&gt;</div><div class="line">    -f SetMySqlAdminInfo -h &lt;host&gt; -p &lt;port&gt; -u &lt;admin username&gt; -d &lt;admin pwd&gt; -U &lt;new admin username&gt; -D &lt;new admin pwd&gt;</div><div class="line">    -f SetMySqlReplicaInfo -h &lt;host&gt; -p &lt;port&gt; -u &lt;admin username&gt; -d &lt;admin pwd&gt; -U &lt;new replica username&gt; -D &lt;new replica pwd&gt;</div><div class="line">    -f GetMemberList -h &lt;host&gt; -p &lt;port&gt;</div><div class="line">    -f InitBinlogSvrMaster -h &lt;ip1,ip2,ip3(ip1 is master, others are slaves)&gt; -p &lt;port&gt;</div><div class="line"></div><div class="line">xx@hah:/home/happy/workspace/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f SetMySqlAdminInfo -hIPC -p17000 -uroot -d &apos;&apos; -Uhappy -Dhappy</div><div class="line">get master IPA expire time 1473306757</div><div class="line">SetMySqlAdminInfo admin username root -&gt; new admin username happy</div></pre></td></tr></table></figure></p>
+<p>改好密码之后，尝试用新的账号与密码连接数据库，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">xx@hah:/home/happy/workspace/phxsql/tools# clear</div><div class="line">xx@hah:/home/happy/workspace/phxsql/tools# mysql -uroot -hIPC -P54321</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 34907</div><div class="line">Server version: 5.6.31-77.0-log Source distribution</div><div class="line"></div><div class="line">Copyright (c) 2009-2014 Percona LLC and/or its affiliates</div><div class="line">Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.</div><div class="line"></div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its</div><div class="line">affiliates. Other names may be trademarks of their respective</div><div class="line">owners.</div><div class="line"></div><div class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</div><div class="line"></div><div class="line">mysql&gt; exit;</div><div class="line">Bye</div><div class="line">xx@hah:/home/happy/workspace/phxsql/tools# mysql -uroot -hIPC -P54322 -p</div><div class="line">Enter password:</div><div class="line">ERROR 1045 (28000): Access denied for user &apos;root&apos;@&apos;IPC&apos; (using password: YES)</div><div class="line">xx@hah:/home/happy/workspace/phxsql/tools# mysql -uhappy -hIPC -P54322 -p</div><div class="line">Enter password:</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 4361</div><div class="line">Server version: 5.6.31-77.0-log Source distribution</div><div class="line"></div><div class="line">Copyright (c) 2009-2014 Percona LLC and/or its affiliates</div><div class="line">Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.</div><div class="line"></div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its</div><div class="line">affiliates. Other names may be trademarks of their respective</div><div class="line">owners.</div><div class="line"></div><div class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</div><div class="line"></div><div class="line">mysql&gt;</div></pre></td></tr></table></figure>
+<h4 id="移除成员"><a href="#移除成员" class="headerlink" title="移除成员"></a>移除成员</h4><p>执行<code>RemoveMember</code>命令移除集群中的成员。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">xx@hah:/home/happy/workspace/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f GetMemberList -hIPC -p17000</div><div class="line">get master IPA expire time 1473318541</div><div class="line">ip IPA port 17000</div><div class="line">ip IPB port 17000</div><div class="line">ip IPC port 17000</div><div class="line">xx@hah:/home/happy/workspace/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f RemoveMember -hIPA -p17000 -mIPC</div><div class="line">get master IPA expire time 1473318373</div><div class="line">RemoveMember IPC done</div></pre></td></tr></table></figure></p>
+<p>根据提示信息，判断 IPC 已被移除。<br>下面看看移除之后 IPC 是否还能连接。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">xx@hah:/home/happy/workspace/phxsql/tools# mysql -uhappy -hIPC -P54321 -p</div><div class="line">Enter password:</div><div class="line">ERROR 2013 (HY000): Lost connection to MySQL server at &apos;reading authorization packet&apos;, system error: 2</div><div class="line">xx@hah:/home/happy/workspace/phxsql/tools# mysql -uhappy -hIPC -P54322 -p</div><div class="line">Enter password:</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 55462</div><div class="line">Server version: 5.6.31-77.0-log Source distribution</div><div class="line"></div><div class="line">Copyright (c) 2009-2014 Percona LLC and/or its affiliates</div><div class="line">Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.</div><div class="line"></div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its</div><div class="line">affiliates. Other names may be trademarks of their respective</div><div class="line">owners.</div><div class="line"></div><div class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</div><div class="line"></div><div class="line">mysql&gt; exit;</div><div class="line">Bye</div><div class="line">xx@hah:/home/happy/workspace/phxsql/tools# mysql -uhappy -h127.0.0.1 -P11111 -p</div><div class="line">Enter password:</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 55875</div><div class="line">Server version: 5.6.31-77.0-log Source distribution</div><div class="line"></div><div class="line">Copyright (c) 2009-2014 Percona LLC and/or its affiliates</div><div class="line">Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.</div><div class="line"></div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its</div><div class="line">affiliates. Other names may be trademarks of their respective</div><div class="line">owners.</div><div class="line"></div><div class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</div><div class="line"></div><div class="line">mysql&gt;</div></pre></td></tr></table></figure>
+<p>经测试发现，从读写端口连接数据库返回错误信息。</p>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p>下面列出常用的一些命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">python install.py -i&quot;IPC&quot; -p 54321 -g 6000 -y 11111 -P 17000 -a 8001 -f/tmp/data/</div><div class="line"></div><div class="line">./phxbinlogsvr_tools_phxrpc -f InitBinlogSvrMaster -h&quot;IPA,IPB&quot; -p 17000</div><div class="line"></div><div class="line">./phxbinlogsvr_tools_phxrpc -f AddMember -hIPA -p17000 -mIPC</div><div class="line"></div><div class="line">./phxbinlogsvr_tools_phxrpc -f GetMemberList -hIPA -p17000</div><div class="line"></div><div class="line">show global variables like &apos;%uuid%&apos;</div><div class="line"></div><div class="line">./test_phxsql.sh 54321 IPA IPB</div><div class="line"></div><div class="line">mysql -uroot -h&quot;IPB&quot; -P54321</div><div class="line"></div><div class="line">./phxbinlogsvr_tools_phxrpc -f SetMySqlAdminInfo -hIPC -p17000 -uroot -d &apos;&apos; -Uhappy -Dhappy</div></pre></td></tr></table></figure>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
+<li><p>chown: invalid user: `user:mysql’</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">root@test-db:/home/happy/phxsql/tools# python install.py -i&quot;IPB&quot; -p 54321 -g 6000 -y 11111 -P 17000 -a 8001 -f/tmp/data/</div><div class="line">Namespace(agent_port=6000, base_dir=&apos;/home/happy/phxsql/&apos;, data_dir=&apos;/tmp/data/&apos;, inner_ip=&apos;IPB&apos;, ip_list=&apos;IPB&apos;, module_name=&apos;test&apos;, mysql_port=11111, paxos_port=8001, phxbinlogsvr_port=17000, phxsqlproxy_port=54321, process_name=&apos;all&apos;)</div><div class="line">kill all binaries success....</div><div class="line">generate all configs success....</div><div class="line">/tmp/data//phxbinlogsvr</div><div class="line">mkdir: cannot create directory `/tmp/data//log&apos;: File exists</div><div class="line">/tmp/data//percona.workspace</div><div class="line">chown: invalid user: `user:mysql&apos;</div><div class="line">cd /home/happy/phxsql//percona.src; ./scripts/mysql_install_db --defaults-file=/home/happy/phxsql//etc/my.cnf --user=mysql</div><div class="line">Installing MySQL system tables...2016-09-02 21:35:33 0 [Warning] &apos;THREAD_CONCURRENCY&apos; is deprecated and will be removed in a future release.</div><div class="line">2016-09-02 21:35:33 0 [Note] ./bin/mysqld (mysqld 5.6.31-77.0-log) starting as process 8228 ...</div><div class="line">FATAL ERROR: Error closing mysqld pipe: Broken pipe</div><div class="line">install mysql failed, ret 256</div><div class="line">install failed, exit......</div></pre></td></tr></table></figure>
+<p>尝试将配置文件中的<code>user=mysql</code>改为<code>user=root</code>，然后在执行<code>install.py</code>。  </p>
+</li>
+<li><p>init svr fail, ret -1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f InitBinlogSvrMaster -h&quot;IPA,IPB&quot; -p 17000</div><div class="line">get master  expire time 0</div><div class="line">get master  expire time 0</div><div class="line">init svr fail, ret -1</div></pre></td></tr></table></figure>
+<p>执行<code>InitBinlogSvrMaster</code>，偶尔会返回错误信息。</p>
+<p>更多内容请阅读<a href="https://github.com/tencent-wechat/phxsql/blob/master/README.zh_cn.md#phxsql部署和运行" target="_blank" rel="external">官方文档</a>。本文仅供参考，欢迎交流:)</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/01/安装-PhxSQL-笔记/" rel="next" title="安装 PhxSQL 笔记">
+                <i class="fa fa-chevron-left"></i> 安装 PhxSQL 笔记
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/09/08/部署与试用PhxSQL/"
+     data-title="部署与试用PhxSQL"
+     data-content=""
+     data-url="http://chuzhiyan.com/2016/09/08/部署与试用PhxSQL/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/08/部署与试用PhxSQL/"
+           data-title="部署与试用PhxSQL" data-url="http://chuzhiyan.com/2016/09/08/部署与试用PhxSQL/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Happy.Zhang" />
+          <p class="site-author-name" itemprop="name">Happy.Zhang</p>
+          <p class="site-description motion-element" itemprop="description">沉默寡颜 愿赌服输</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hzlpy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/ihzlpy" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/332506542" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/chuzhiyan" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://notes.iissnan.com/" title="iissnan note" target="_blank">iissnan note</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#部署"><span class="nav-number">1.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#初始化"><span class="nav-number">1.2.</span> <span class="nav-text">初始化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#试用"><span class="nav-number">2.</span> <span class="nav-text">试用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加成员"><span class="nav-number">2.1.</span> <span class="nav-text">添加成员</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简单测试"><span class="nav-number">2.2.</span> <span class="nav-text">简单测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#终止-MySQL"><span class="nav-number">2.3.</span> <span class="nav-text">终止 MySQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#终止-PhxSQL"><span class="nav-number">2.4.</span> <span class="nav-text">终止 PhxSQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改密码"><span class="nav-number">2.5.</span> <span class="nav-text">修改密码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除成员"><span class="nav-number">2.6.</span> <span class="nav-text">移除成员</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用命令"><span class="nav-number">3.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">4.</span> <span class="nav-text">问题</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Happy.Zhang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hzlpy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("QpdlWBCBfhqyNpozQK4yR0k3-gzGzoHsz", "dMMf8tip1dm9TeewqlUqToXc");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>

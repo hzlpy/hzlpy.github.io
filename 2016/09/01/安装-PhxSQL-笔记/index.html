@@ -112,7 +112,7 @@
 <meta property="og:description" content="PhxSQL 是由微信后台团队自主研发的一款服务高可用、数据强一致的分布式数据库服务。该服务基于 Percona5.6 搭建，目标在于解决 MySQL 在容灾和数据一致性方面的不足，并大幅简化了 MySQL 容灾切换的运维操作。
 
 本文将介绍我参考官方文档在 Ubuntu 上编译安装 PhxSQL 的过程，和记录在此过程中我遇到的问题。">
-<meta property="og:updated_time" content="2016-09-07T01:13:47.633Z">
+<meta property="og:updated_time" content="2016-09-08T09:55:40.690Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安装 PhxSQL 笔记">
 <meta name="twitter:description" content="PhxSQL 是由微信后台团队自主研发的一款服务高可用、数据强一致的分布式数据库服务。该服务基于 Percona5.6 搭建，目标在于解决 MySQL 在容灾和数据一致性方面的不足，并大幅简化了 MySQL 容灾切换的运维操作。
@@ -385,14 +385,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">├── colib</div><div class="line">│   ├── coctx.cpp</div><div class="line">│   ├── coctx.h</div><div class="line">│   ├── coctx.o</div><div class="line">│   ├── coctx_swap.o</div><div class="line">│   ├── coctx_swap.S</div><div class="line">│   ├── co_hook_sys_call.cpp</div><div class="line">│   ├── co_hook_sys_call.o</div><div class="line">│   ├── co.mk</div><div class="line">│   ├── co_routine.cpp</div><div class="line">│   ├── co_routine.h</div><div class="line">│   ├── co_routine_inner.h</div><div class="line">│   ├── co_routine.o</div><div class="line">│   ├── example_echocli</div><div class="line">│   ├── example_echocli.cpp</div><div class="line">│   ├── example_echocli.o</div><div class="line">│   ├── example_echosvr</div><div class="line">│   ├── example_echosvr.cpp</div><div class="line">│   ├── example_echosvr.o</div><div class="line">│   ├── example_poll</div><div class="line">│   ├── example_poll.cpp</div><div class="line">│   ├── example_poll.o</div><div class="line">│   ├── example_thread</div><div class="line">│   ├── example_thread.cpp</div><div class="line">│   ├── example_thread.o</div><div class="line">│   ├── lib</div><div class="line">│   ├── LICENSE.txt</div><div class="line">│   ├── Makefile</div><div class="line">│   ├── README.md</div><div class="line">│   └── solib</div><div class="line">├── glog</div><div class="line">│   ├── include</div><div class="line">│   └── lib</div><div class="line">├── leveldb</div><div class="line">│   ├── include</div><div class="line">│   └── lib</div><div class="line">├── phxpaxos</div><div class="line">│   ├── include</div><div class="line">│   ├── lib</div><div class="line">│   └── plugin</div><div class="line">├── phxrpc</div><div class="line">│   └── lib</div><div class="line">└── protobuf</div><div class="line">    ├── bin</div><div class="line">    ├── include</div><div class="line">    └── lib</div></pre></td></tr></table></figure>
 <p><strong>leveldb 目录下的 lib 的由来：</strong> 新建 lib 文件夹；拷贝编译生成的 out-shared 和 out-static 两个文件夹中的库到 lib 文件夹。<br>然后，就可以依次执行以下命令编译、安装 PhxSQL<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./autoinstall.sh &amp;&amp; make &amp;&amp; make install</div></pre></td></tr></table></figure></p>
 <p>整个过程有些漫长，耐心等待就行。</p>
-<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>编译、安装后你还可以进行以下操作：</p>
-<blockquote>
-<ul>
-<li>若想打包二进制运行包（集群运行时所需要的所有文件和配置）make package  </li>
-<li>install完成后，二进制会生成到PhxSQL目录下的sbin目录，运行所需要的相关文件和配置会安装到PhxSQL目录下的install_package目录。打包二进制运行包会把install_package进行tar格式的打包，并生成phxsql.tar.gz。若想更改install的安装目录，可在sh autoinstall.sh 后加入-prefix=路径</li>
-</ul>
-</blockquote>
-<p>打包好之后便可以将它们拷贝到不同的主机上进行部署了。</p>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ol>
 <li><p>编译时提示未找到 libphxpaxos_plugin.a<br>请进入到 phxpaxos 目录的 plugin 文件中，执行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">make &amp;&amp; make install</div></pre></td></tr></table></figure>
@@ -455,6 +447,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/08/部署与试用PhxSQL/" rel="prev" title="部署与试用PhxSQL">
+                部署与试用PhxSQL <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -545,7 +541,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -636,7 +632,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译"><span class="nav-number">2.</span> <span class="nav-text">编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译第三方库"><span class="nav-number">2.1.</span> <span class="nav-text">编译第三方库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译-PhxSQL"><span class="nav-number">2.2.</span> <span class="nav-text">编译 PhxSQL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署"><span class="nav-number">3.</span> <span class="nav-text">部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">4.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载"><span class="nav-number">5.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">6.</span> <span class="nav-text">参考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译"><span class="nav-number">2.</span> <span class="nav-text">编译</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编译第三方库"><span class="nav-number">2.1.</span> <span class="nav-text">编译第三方库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译-PhxSQL"><span class="nav-number">2.2.</span> <span class="nav-text">编译 PhxSQL</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">3.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#下载"><span class="nav-number">4.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
           </div>
         </section>
