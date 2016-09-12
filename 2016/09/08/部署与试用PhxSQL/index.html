@@ -116,7 +116,7 @@ install完成后，二进制会生成到PhxSQL目录下的sbin目录，运行所
 
 若想打包二进制运行包（集群运行时所需要的所有文件和配置）make package  
 install完成后，二进制会生成到PhxSQL目录下的sbin目录，运行所需要的相关文件和配置会安装到PhxSQL目录下的install_package目录。打包二进制运行包会把install_package进行tar格式的打包，并生成phxsql.tar.gz。若想更改">
-<meta property="og:updated_time" content="2016-09-08T13:58:48.596Z">
+<meta property="og:updated_time" content="2016-09-12T13:28:49.481Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="部署与试用PhxSQL">
 <meta name="twitter:description" content="编译、安装后你还可以进行以下操作：
@@ -369,10 +369,21 @@ install完成后，二进制会生成到PhxSQL目录下的sbin目录，运行所
 <p>接下来，尝试从只读端口连接 IPC 的数据库。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">root@test-db:~/phxsql/sbin# mysql -uroot -hIPB -P54322</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 1317</div><div class="line">Server version: 5.6.31-77.0-log Source distribution</div><div class="line"></div><div class="line">Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.</div><div class="line"></div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its</div><div class="line">affiliates. Other names may be trademarks of their respective</div><div class="line">owners.</div><div class="line"></div><div class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</div><div class="line"></div><div class="line">root@(none) 10:21&gt;</div></pre></td></tr></table></figure>
 <p>现在集群中有了 IPA 和 IPB 两台机器了。其中，IPA 作为 master。</p>
-<h3 id="试用"><a href="#试用" class="headerlink" title="试用"></a>试用</h3><h4 id="添加成员"><a href="#添加成员" class="headerlink" title="添加成员"></a>添加成员</h4><p>继续尝试往集群中添加一台新机器 IPC。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">xx@hah:/home/happy/workspace/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f AddMember -hIPA -p17000 -mIPC</div><div class="line">get master IPA expire time 1473301623</div><div class="line">AddMember IPC done</div></pre></td></tr></table></figure>
+<h3 id="试用"><a href="#试用" class="headerlink" title="试用"></a>试用</h3><h4 id="添加成员"><a href="#添加成员" class="headerlink" title="添加成员"></a>添加成员</h4><p>继续尝试往集群中添加一台新机器 IPC。整个流程大致如下：</p>
+<ol>
+<li>python install.py …</li>
+<li>AddMember</li>
+<li>killall -9 phxbinlogsvr</li>
+<li>mysql -uroot -h127.0.0.1 -P11111 -e “set global super_read_only=off; set global read_only=off; reset master;”</li>
+<li>phxsql/percona.src/bin/mysqldump -uroot -hIP -P54322 –set-gtid-purged=on –all-databases &gt; all.sql</li>
+<li>mysql -uroot -h127.0.0.1 -P11111 &lt; all.mysql</li>
+<li>python restart.py -p phxbinlogsvr</li>
+<li>python restart.py -p mysql</li>
+</ol>
+<p>安装完成之后，将主机添加到集群中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">xx@hah:/home/happy/workspace/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f AddMember -hIPA -p17000 -mIPC</div><div class="line">get master IPA expire time 1473301623</div><div class="line">AddMember IPC done</div></pre></td></tr></table></figure></p>
 <p>执行<code>GetMemberList</code>命令，查看集群中的机器：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">xx@hah:/home/happy/workspace/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f GetMemberList -hIPA -p17000</div><div class="line">get master IPA expire time 1473301723</div><div class="line">ip IPA port 17000</div><div class="line">ip IPB port 17000</div><div class="line">ip IPC port 17000</div></pre></td></tr></table></figure>
+<p>如果需要<strong>同步数据</strong>到新加入集群的机器中，那么还需要依次执行步骤 4-8 （可以参考<a href="https://github.com/tencent-wechat/phxsql/wiki/PhxSQL-%E6%88%90%E5%91%98%E7%AE%A1%E7%90%86" target="_blank" rel="external">PhxSQL 成员管理</a>）。</p>
 <h4 id="简单测试"><a href="#简单测试" class="headerlink" title="简单测试"></a>简单测试</h4><p>可以执行</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./test_phxsql.sh 54321 IPA IPB</div></pre></td></tr></table></figure>
 <p>添加数据。</p>
@@ -902,6 +913,9 @@ install完成后，二进制会生成到PhxSQL目录下的sbin目录，运行所
 
 
   
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
 
 </body>
 </html>
