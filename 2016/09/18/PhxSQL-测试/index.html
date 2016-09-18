@@ -1,0 +1,915 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster:300,300italic,400,400italic,700,700italic|consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="C++, Linux" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="目前已构建一个集群，集群里有三台主机 4.115, 2.183, 2.182。其中，4.115 是 master，其它两台作为 slave。为测试集群的可用性，进行几组测试。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PhxSQL 测试">
+<meta property="og:url" content="http://chuzhiyan.com/2016/09/18/PhxSQL-测试/index.html">
+<meta property="og:site_name" content="Happy">
+<meta property="og:description" content="目前已构建一个集群，集群里有三台主机 4.115, 2.183, 2.182。其中，4.115 是 master，其它两台作为 slave。为测试集群的可用性，进行几组测试。">
+<meta property="og:updated_time" content="2016-09-18T14:10:31.359Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PhxSQL 测试">
+<meta name="twitter:description" content="目前已构建一个集群，集群里有三台主机 4.115, 2.183, 2.182。其中，4.115 是 master，其它两台作为 slave。为测试集群的可用性，进行几组测试。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Hzlpy'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://chuzhiyan.com/2016/09/18/PhxSQL-测试/"/>
+
+  <title> PhxSQL 测试 | Happy </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83738416-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?6d76f69e75aa302278f6807f3b3ccfdb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Happy</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-visitor">
+          <a href="/visitor" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-male"></i> <br />
+            
+            访客
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                PhxSQL 测试
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-18T21:01:16+08:00" content="2016-09-18">
+              2016-09-18
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/18/PhxSQL-测试/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/18/PhxSQL-测试/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/09/18/PhxSQL-测试/" class="leancloud_visitors" data-flag-title="PhxSQL 测试">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>目前已构建一个集群，集群里有三台主机 4.115, 2.183, 2.182。其中，4.115 是 master，其它两台作为 slave。<br>为测试集群的可用性，进行几组测试。<br><a id="more"></a></p>
+<h3 id="slave-异常"><a href="#slave-异常" class="headerlink" title="slave 异常"></a>slave 异常</h3><ol>
+<li><p>slave phxbinlogsvr 异常<br> 为模拟 phxbinlogsvr 异常，执行命令终止该进程。</p>
+<ul>
+<li><p>终止进程后，立即重启该进程，更新数据库数据，观察数据同步是否正常<br>  终止 2.183 主机上的 phxbinlogsvr 进程，然后立即重启。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/sbin# ps -ef | grep phxbinlogsvr</div><div class="line">root     13813     1  7 Sep12 ?        01:03:55 /root/phxsql//sbin/phxbinlogsvr_phxrpc</div><div class="line">root     16858 16840  0 11:36 pts/6    00:00:00 grep --color=auto phxbinlogsvr</div><div class="line">root@Vm-template-100G:~/phxsql/sbin# kill 13813</div><div class="line">root@Vm-template-100G:~/phxsql/sbin# ps -ef | grep phxbinlogsvr</div><div class="line">root     16860 16840  0 11:38 pts/6    00:00:00 grep --color=auto phxbinlogsvr</div><div class="line">root@Vm-template-100G:~/phxsql/sbin# cd ../tools/</div><div class="line">root@Vm-template-100G:~/phxsql/tools# ls</div><div class="line">binary_installer.py   binary_operator.py   config_generator.py   director_operator.py   etc_template  name_config.py   nohup.out   test_phxsql.sh</div><div class="line">binary_installer.pyc  binary_operator.pyc  config_generator.pyc  director_operator.pyc  install.py    name_config.pyc  restart.py</div><div class="line">root@Vm-template-100G:~/phxsql/tools# python restart.py -h</div><div class="line">usage: restart.py [-h] -p PROCESS_NAME [-b BASE_DIR] [-n NEW_PROCESS]</div><div class="line"></div><div class="line">optional arguments:</div><div class="line">  -h, --help            show this help message and exit</div><div class="line">  -p PROCESS_NAME, --process_name PROCESS_NAME</div><div class="line">                        which binary you want to</div><div class="line">                        restart[mysql|phxbinlogsvr|phxsqlproxy]</div><div class="line">  -b BASE_DIR, --base_dir BASE_DIR</div><div class="line">                            where phxsql locate, no need to specify it</div><div class="line">  -n NEW_PROCESS, --new_process NEW_PROCESS</div><div class="line">                        where new process locate, we will copy it</div><div class="line">root@Vm-template-100G:~/phxsql/tools# python restart.py -p phxbinlogsvr</div><div class="line">Namespace(base_dir=&apos;/root/phxsql/&apos;, new_process=&apos;&apos;, process_name=&apos;phxbinlogsvr&apos;)</div><div class="line">nohup: appending output to `nohup.out&apos;</div><div class="line">root@Vm-template-100G:~/phxsql/tools# ps -ef | grep phxbinlogsvr</div><div class="line">root     16876     1  0 11:41 pts/6    00:00:00 /root/phxsql//sbin/phxbinlogsvr_phxrpc</div><div class="line">root     16880 16840  0 11:42 pts/6    00:00:00 grep --color=auto phxbinlogsvr</div></pre></td></tr></table></figure>
+<p>  重启该进程</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">root@test-db:~/phxsql/tools# ps -ef | grep phxbinlogsvr</div><div class="line">root      2096 47269  0 15:02 pts/5    00:00:00 grep --color=auto phxbinlogsvr</div><div class="line">root@test-db:~/phxsql/tools# python restart.py -p phxbinlogsvr</div><div class="line">Namespace(base_dir=&apos;/root/phxsql/&apos;, new_process=&apos;&apos;, process_name=&apos;phxbinlogsvr&apos;)</div><div class="line">nohup: appending output to `nohup.out&apos;</div><div class="line">root@test-db:~/phxsql/tools# ps -ef | grep phxbinlogsvr</div><div class="line">root      2103     1  1 15:02 pts/5    00:00:00 /root/phxsql//sbin/phxbinlogsvr_phxrpc</div><div class="line">root      2107 47269  0 15:02 pts/5    00:00:00 grep --color=auto phxbinlogsvr</div><div class="line">root@test-db:~/phxsql/tools# lsof -i:6000</div><div class="line">root@test-db:~/phxsql/tools# lsof -i:8000</div><div class="line">root@test-db:~/phxsql/tools# lsof -i:17000</div><div class="line">root@test-db:~/phxsql/tools# lsof -i:11111</div><div class="line">COMMAND  PID USER   FD   TYPE   DEVICE SIZE/OFF NODE NAME</div><div class="line">mysqld  2003 root   17u  IPv6 87937782      0t0  TCP *:11111 (LISTEN)</div><div class="line">root@test-db:~/phxsql/tools# lsof -i:54321</div><div class="line">COMMAND   PID USER   FD   TYPE   DEVICE SIZE/OFF NODE NAME</div><div class="line">phxsqlpro 489 root    3u  IPv4 87801814      0t0  TCP 192.168.2.183:54321 (LISTEN)</div><div class="line">phxsqlpro 490 root    3u  IPv4 87801814      0t0  TCP 192.168.2.183:54321 (LISTEN)</div><div class="line">root@test-db:~/phxsql/tools# lsof -i:8000</div><div class="line">root@test-db:~/phxsql/tools# lsof -i:8000</div><div class="line">root@test-db:~/phxsql/tools# lsof -i:6000</div><div class="line">root@test-db:~/phxsql/tools# clear</div><div class="line">root@test-db:~/phxsql/tools# ls</div><div class="line">binary_installer.py   binary_operator.py   config_generator.py   director_operator.py   etc_template  name_config.py   nohup.out   test_phxsql.sh</div><div class="line">binary_installer.pyc  binary_operator.pyc  config_generator.pyc  director_operator.pyc  install.py    name_config.pyc  restart.py</div><div class="line">root@test-db:~/phxsql/tools# lsof -i:6000</div><div class="line">COMMAND    PID USER   FD   TYPE   DEVICE SIZE/OFF NODE NAME</div><div class="line">mysqld    2003 root   43u  IPv4 88026597      0t0  TCP test-db:63762-&gt;test-db:x11 (ESTABLISHED)</div><div class="line">phxbinlog 2103 root   23u  IPv4 87929703      0t0  TCP test-db:x11 (LISTEN)</div><div class="line">phxbinlog 2103 root   36u  IPv4 88033651      0t0  TCP test-db:x11-&gt;test-db:63762 (ESTABLISHED)</div></pre></td></tr></table></figure>
+<p>  同时，连接 2.183 的 PhxSQL 成功，且数据同步能正常工作。</p>
+</li>
+<li><p>终止进程后，更新数据库数据，然后重启该进程，观察数据同步是否正常<br>  终止 2.183 上 phxbinlogsvr_phxrpc 进程，在 master 中更新数据，然后重启 2.183 上的 phxbinlogsvr_phxrpc</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">root@test-db:~/phxsql/tools# ps -ef | grep phxbinlogsvr</div><div class="line">root      2103     1  2 15:02 pts/5    00:00:07 /root/phxsql//sbin/phxbinlogsvr_phxrpc</div><div class="line">root      2257 47269  0 15:08 pts/5    00:00:00 grep --color=auto phxbinlogsvr</div><div class="line">root@test-db:~/phxsql/tools# kill 2103</div><div class="line">root@test-db:~/phxsql/tools# ps -ef | grep phxbinlogsvr</div><div class="line">root      2259 47269  0 15:08 pts/5    00:00:00 grep --color=auto phxbinlogsvr</div><div class="line">root@test-db:~/phxsql/tools# python restart.py -p phxbinlogsvr</div><div class="line">Namespace(base_dir=&apos;/root/phxsql/&apos;, new_process=&apos;&apos;, process_name=&apos;phxbinlogsvr&apos;)</div><div class="line">nohup: appending output to `nohup.out&apos;</div><div class="line">root@test-db:~/phxsql/tools# ps -ef | grep phxbinlogsvr</div><div class="line">root      2270     1  0 15:09 pts/5    00:00:00 /root/phxsql//sbin/phxbinlogsvr_phxrpc</div><div class="line">root      2274 47269  0 15:10 pts/5    00:00:00 grep --color=auto phxbinlogsvr</div><div class="line">root@test-db:~/phxsql/tools# lsof -i:6000</div><div class="line">root@test-db:~/phxsql/tools# lsof -i:8001</div><div class="line">COMMAND    PID USER   FD   TYPE   DEVICE SIZE/OFF NODE NAME</div><div class="line">phxbinlog 2270 root   18u  IPv4 88046126      0t0  UDP *:8001</div><div class="line">phxbinlog 2270 root   19u  IPv4 88046127      0t0  TCP 192.168.2.183:8001 (LISTEN)</div><div class="line">root@test-db:~/phxsql/tools# lsof -i:8001</div><div class="line">COMMAND    PID USER   FD   TYPE   DEVICE SIZE/OFF NODE NAME</div><div class="line">phxbinlog 2270 root   18u  IPv4 88046126      0t0  UDP *:8001</div><div class="line">phxbinlog 2270 root   19u  IPv4 88046127      0t0  TCP 192.168.2.183:8001 (LISTEN)</div><div class="line">root@test-db:~/phxsql/tools# lsof -i:6000</div><div class="line">root@test-db:~/phxsql/tools# lsof -i:8001</div><div class="line">COMMAND    PID USER   FD   TYPE   DEVICE SIZE/OFF NODE NAME</div><div class="line">phxbinlog 2270 root   18u  IPv4 88046126      0t0  UDP *:8001</div><div class="line">phxbinlog 2270 root   19u  IPv4 88046127      0t0  TCP 192.168.2.183:8001 (LISTEN)</div><div class="line">root@test-db:~/phxsql/tools# lsof -i:6000</div><div class="line">COMMAND    PID USER   FD   TYPE   DEVICE SIZE/OFF NODE NAME</div><div class="line">mysqld    2003 root   51u  IPv4 87871086      0t0  TCP test-db:17045-&gt;test-db:x11 (ESTABLISHED)</div><div class="line">phxbinlog 2270 root   23u  IPv4 88026833      0t0  TCP test-db:x11 (LISTEN)</div><div class="line">phxbinlog 2270 root   36u  IPv4 88056916      0t0  TCP test-db:x11-&gt;test-db:17045 (ESTABLISHED)</div></pre></td></tr></table></figure>
+<p>  2.183 上的 phxbinlogsvr_phxrpc 重启后，它的 PhxSQL 工作正常（重启后可能需要等待一段时间）。而且，phxbinlogsvr_phxrpc 停止工作期间的数据在重启后也被成功同步。<br>  为了观察集群中所有机器都在正常运行，再次在 master 中更新数据，发现数据成功同步到其它 slave 主机之上。</p>
+</li>
+</ul>
+</li>
+<li><p>slave phxsqlpro 异常</p>
+<ul>
+<li><p>终止进程后，立即重启该进程，更新数据库数据，观察数据同步是否正常<br>  终止 phxsqlpro 进程</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">root@test-db:~/phxsql/sbin# mysql -uroot -h192.168.2.183 -P54321</div><div class="line">ERROR 2003 (HY000): Can&apos;t connect to MySQL server on &apos;192.168.2.183&apos; (111)</div><div class="line">root@test-db:~/phxsql/sbin# mysql -uroot -h192.168.2.183 -P54322</div><div class="line">ERROR 2003 (HY000): Can&apos;t connect to MySQL server on &apos;192.168.2.183&apos; (111)</div><div class="line">root@test-db:~/phxsql/sbin# mysql -uroot -h127.0.0.1 -P11111</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 5078</div><div class="line">Server version: 5.6.31-77.0-log Source distribution</div><div class="line"></div><div class="line">Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.</div><div class="line"></div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its affiliates. Other names may be trademarks of their respective owners.</div><div class="line"></div><div class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</div></pre></td></tr></table></figure>
+<p>  从端口 54321 和 54322 无法连接数据库。<br>  重启该进程，更新数据库，集群数据同步正常工作。</p>
+</li>
+<li><p>终止进程后，更新数据库数据，然后重启该进程，观察数据同步是否正常</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">root@test-db:~/phxsql/tools# ps -ef | grep phxsqlpro</div><div class="line">root      2538     1 24 15:23 pts/5    00:00:39 /root/phxsql//sbin/phxsqlproxy_phxrpc /root/phxsql//etc/phxsqlproxy.conf daemon</div><div class="line">root      2539     1 23 15:23 pts/5    00:00:39 /root/phxsql//sbin/phxsqlproxy_phxrpc /root/phxsql//etc/phxsqlproxy.conf daemon</div><div class="line">root      2785 47269  0 15:26 pts/5    00:00:00 grep --color=auto phxsqlpro</div><div class="line">root@test-db:~/phxsql/tools# kill -9 2538 2539</div><div class="line">root@test-db:~/phxsql/tools# ps -ef | grep phxsqlpro</div><div class="line">root      2787 47269  0 15:27 pts/5    00:00:00 grep --color=auto phxsqlpro</div><div class="line">root@test-db:~/phxsql/tools# python restart.py -p phxsqlpro</div><div class="line">Namespace(base_dir=&apos;/root/phxsql/&apos;, new_process=&apos;&apos;, process_name=&apos;phxsqlpro&apos;)</div><div class="line">the process_name should be mysql or phxsqlproxy or phxbinlogsvr</div><div class="line">root@test-db:~/phxsql/tools# python restart.py -p phxsqlproxy</div></pre></td></tr></table></figure>
+<p>  终止进程后，更新数据库数据，然后重启该进程，集群数据同步正常工作。</p>
+</li>
+</ul>
+</li>
+<li><p>slave mysql 异常</p>
+<ul>
+<li><p>终止进程后，立即重启该进程，更新数据库数据，观察数据同步是否正常</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">root@test-db:~/phxsql/sbin# mysql -uroot -h192.168.2.183 -P54321</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 14550</div><div class="line">Server version: 5.6.31-77.0-log Source distribution</div><div class="line"></div><div class="line">Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.</div><div class="line"></div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its affiliates. Other names may be trademarks of their respective owners.</div><div class="line"></div><div class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</div><div class="line"></div><div class="line">root@(none) 15:33&gt;exit</div><div class="line">Bye</div><div class="line">root@test-db:~/phxsql/sbin# mysql -uroot -h127.0.0.1 -P11111</div><div class="line">ERROR 2003 (HY000): Can&apos;t connect to MySQL server on &apos;127.0.0.1&apos; (111)</div><div class="line">root@test-db:~/phxsql/sbin# mysql -uroot -h192.168.2.183 -P54322</div><div class="line">ERROR 2013 (HY000): Lost connection to MySQL server at &apos;reading initial communication packet&apos;, system error: 0</div></pre></td></tr></table></figure>
+<p>  终止进程后，只能从端口 54321 连接数据库。<br>  重启 mysql，其它两个端口也能连接数据库，且集群数据同步正常工作。</p>
+</li>
+<li>终止进程后，更新数据库数据，然后重启该进程，观察数据同步是否正常<br>  终止 mysql 进程后，更新 master 数据库的数据。然后重启 mysql 进程，数据同步正常工作。</li>
+</ul>
+</li>
+</ol>
+<h3 id="master-异常"><a href="#master-异常" class="headerlink" title="master 异常"></a>master 异常</h3><ol>
+<li><p>master phxbinlogsvr 异常</p>
+<ul>
+<li><p>终止进程，立即重启该进程</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/tools# mysql -uroot -h192.168.4.115 -P54321</div><div class="line">ERROR 2013 (HY000): Lost connection to MySQL server at &apos;reading initial communication packet&apos;, system error: 0</div><div class="line">root@Vm-template-100G:~/phxsql/tools# mysql -uroot -h192.168.4.115 -P54322</div><div class="line">ERROR 2013 (HY000): Lost connection to MySQL server at &apos;reading initial communication packet&apos;, system error: 0</div><div class="line">root@Vm-template-100G:~/phxsql/tools# mysql -uroot -h127.0.0.1 -P11111</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 21660</div><div class="line">Server version: 5.6.31-77.0-log Source distribution</div></pre></td></tr></table></figure>
+<p>  经过查询，发现 master 变为 2.183</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">root@test-db:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f GetMemberList -h192.168.2.183 -p17000</div><div class="line">get master 192.168.2.183 expire time 1473753619</div><div class="line">ip 192.168.4.115 port 17000</div><div class="line">ip 192.168.2.183 port 17000</div><div class="line">ip 192.168.2.182 port 17000</div></pre></td></tr></table></figure>
+<p>  经过一段时间，4.115 主机上的 PhxSQL 开始正常工作。</p>
+</li>
+</ul>
+</li>
+<li><p>master phxsqlpro 异常</p>
+<ul>
+<li><p>终止进程，立即重启该进程<br>  终止 phxsqlpro 进程</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">root@test-db:~/phxsql/tools# ps -ef | grep phxsqlpro</div><div class="line">root      2799     1 22 15:27 pts/5    00:10:49 /root/phxsql//sbin/phxsqlproxy_phxrpc /root/phxsql//etc/phxsqlproxy.conf daemon</div><div class="line">root      2800     1 22 15:27 pts/5    00:10:50 /root/phxsql//sbin/phxsqlproxy_phxrpc /root/phxsql//etc/phxsqlproxy.conf daemon</div><div class="line">root      5843 47269  0 16:15 pts/5    00:00:00 grep --color=auto phxsqlpro</div><div class="line">root@test-db:~/phxsql/tools# kill -9 2799 2800</div><div class="line">root@test-db:~/phxsql/tools# ps -ef | grep phxsqlpro</div><div class="line">root      5848 47269  0 16:16 pts/5    00:00:00 grep --color=auto phxsqlpro</div></pre></td></tr></table></figure>
+<p>  尝试连接数据库</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">root@test-db:~/phxsql/sbin# mysql -uroot -h192.168.2.183 -P54322</div><div class="line">ERROR 2003 (HY000): Can&apos;t connect to MySQL server on &apos;192.168.2.183&apos; (111)</div><div class="line">root@test-db:~/phxsql/sbin# mysql -uroot -h192.168.2.183 -P54321</div><div class="line">ERROR 2003 (HY000): Can&apos;t connect to MySQL server on &apos;192.168.2.183&apos; (111)</div><div class="line">root@test-db:~/phxsql/sbin# mysql -uroot -h127.0.0.1 -P11111</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 12607</div></pre></td></tr></table></figure>
+<p>  发现在2.183上，端口54321和54322不能连接数据库，而11111则可以。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/tools# mysql -uroot -h192.168.4.115 -P54321</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 3930</div><div class="line">Server version: 5.6.31-77.0-log Source distribution</div><div class="line"></div><div class="line">Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.</div><div class="line"></div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its affiliates. Other names may be trademarks of their respective owners.</div><div class="line"></div><div class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</div><div class="line"></div><div class="line">mysql&gt;</div></pre></td></tr></table></figure>
+<p>  发现在4.115上，上述三个端口均可以连接数据库。而且，现在 master 有变回 4.115了。<br>  重启 phxsqlpro 进程，数据库正常工作。  </p>
+</li>
+</ul>
+</li>
+<li><p>master mysql 异常</p>
+</li>
+</ol>
+<h3 id="移除-slave"><a href="#移除-slave" class="headerlink" title="移除 slave"></a>移除 slave</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f GetMemberList -h192.168.4.115 -p17000</div><div class="line">get master 192.168.4.115 expire time 1473755592</div><div class="line">ip 192.168.4.115 port 17000</div><div class="line">ip 192.168.2.183 port 17000</div><div class="line">ip 192.168.2.182 port 17000</div><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc --h</div><div class="line"></div><div class="line">Usage: ./phxbinlogsvr_tools_phxrpc [-c &lt;config&gt;] [-f &lt;func&gt;] [-v]</div><div class="line">    -f PHXEcho -s &lt;string&gt;</div><div class="line">    -f GetMasterInfoFromGlobal -h &lt;host&gt; -p &lt;port&gt;</div><div class="line">    -f GetLastSendGtidFromGlobal -h &lt;host&gt; -p &lt;port&gt; -u&lt;gtid&gt;</div><div class="line">    -f SetExportIP -h &lt;host&gt; -p &lt;port&gt;</div><div class="line">    -f AddMember -h &lt;host&gt; -p &lt;port&gt; -m &lt;member ip&gt;</div><div class="line">    -f RemoveMember -h &lt;host&gt; -p &lt;port&gt; -m &lt;member ip&gt;</div><div class="line">    -f SetMySqlAdminInfo -h &lt;host&gt; -p &lt;port&gt; -u &lt;admin username&gt; -d &lt;admin pwd&gt; -U &lt;new admin username&gt; -D &lt;new admin pwd&gt;</div><div class="line">    -f SetMySqlReplicaInfo -h &lt;host&gt; -p &lt;port&gt; -u &lt;admin username&gt; -d &lt;admin pwd&gt; -U &lt;new replica username&gt; -D &lt;new replica pwd&gt;</div><div class="line">    -f GetMemberList -h &lt;host&gt; -p &lt;port&gt;</div><div class="line">    -f InitBinlogSvrMaster -h &lt;ip1,ip2,ip3(ip1 is master, others are slaves)&gt; -p &lt;port&gt;</div><div class="line"></div><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f RemoveMember -h 192.168.4.115 -p17000 -m 192.168.2.183</div><div class="line">get master 192.168.4.115 expire time 1473755730</div><div class="line">RemoveMember 192.168.2.183 done</div><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f GetMemberList -h192.168.4.115 -p17000</div><div class="line">get master 192.168.4.115 expire time 1473755735</div><div class="line">ip 192.168.4.115 port 17000</div><div class="line">ip 192.168.2.182 port 17000</div></pre></td></tr></table></figure>
+<p>从集群中移除 2.183，能连接 4.115 和 2.182 的数据库。<br>而且，在 2.183 上从端口 54322 和 11111 能连接数据库。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">root@test-db:~/phxsql/sbin# mysql -uroot -h192.168.2.183 -P54321</div><div class="line">ERROR 2013 (HY000): Lost connection to MySQL server at &apos;reading authorization packet&apos;, system error: 0</div><div class="line">root@test-db:~/phxsql/sbin# mysql -uroot -h192.168.2.183 -P54322</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 18873</div><div class="line">Server version: 5.6.31-77.0-log Source distribution</div><div class="line"></div><div class="line">Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.</div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its affiliates. Other names may be trademarks of their respective owners.</div><div class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</div><div class="line"></div><div class="line">root@(none) 16:42&gt;exit;</div><div class="line">Bye</div><div class="line">root@test-db:~/phxsql/sbin# mysql -uroot -h127.0.0.1  -P11111</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 18895</div><div class="line">Server version: 5.6.31-77.0-log Source distribution</div><div class="line">Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.</div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its affiliates. Other names may be trademarks of their respective owners.</div><div class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</div><div class="line">root@(none) 16:42&gt;</div></pre></td></tr></table></figure>
+<p>在 master 中更新数据，新的数据会被同步到 2.182 上，且能同步到 2.183 上。<br>重新执行 AddMember，将 2.183 加入集群，从三个端口均能连接到 2.183 上的数据库。集群数据数据同步正常。    </p>
+<h3 id="移除-master"><a href="#移除-master" class="headerlink" title="移除 master"></a>移除 master</h3><p>目前，集群中有三台机器，master 为 4.115。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f GetMemberList -h192.168.4.115 -p17000</div><div class="line">    get master 192.168.4.115 expire time 1473757269</div><div class="line">    ip 192.168.4.115 port 17000</div><div class="line">    ip 192.168.2.182 port 17000</div><div class="line">    ip 192.168.2.183 port 17000</div></pre></td></tr></table></figure></p>
+<p>从集群中移除master，即移除主机4.115</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -h</div><div class="line"></div><div class="line">Usage: ./phxbinlogsvr_tools_phxrpc [-c &lt;config&gt;] [-f &lt;func&gt;] [-v]</div><div class="line">    -f PHXEcho -s &lt;string&gt;</div><div class="line">    -f GetMasterInfoFromGlobal -h &lt;host&gt; -p &lt;port&gt;</div><div class="line">    -f GetLastSendGtidFromGlobal -h &lt;host&gt; -p &lt;port&gt; -u&lt;gtid&gt;</div><div class="line">    -f SetExportIP -h &lt;host&gt; -p &lt;port&gt;</div><div class="line">    -f AddMember -h &lt;host&gt; -p &lt;port&gt; -m &lt;member ip&gt;</div><div class="line">    -f RemoveMember -h &lt;host&gt; -p &lt;port&gt; -m &lt;member ip&gt;</div><div class="line">    -f SetMySqlAdminInfo -h &lt;host&gt; -p &lt;port&gt; -u &lt;admin username&gt; -d &lt;admin pwd&gt; -U &lt;new admin username&gt; -D &lt;new admin pwd&gt;</div><div class="line">    -f SetMySqlReplicaInfo -h &lt;host&gt; -p &lt;port&gt; -u &lt;admin username&gt; -d &lt;admin pwd&gt; -U &lt;new replica username&gt; -D &lt;new replica pwd&gt;</div><div class="line">    -f GetMemberList -h &lt;host&gt; -p &lt;port&gt;</div><div class="line">    -f InitBinlogSvrMaster -h &lt;ip1,ip2,ip3(ip1 is master, others are slaves)&gt; -p &lt;port&gt;</div><div class="line"></div><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f RemoveMember -h 192.168.4.115 -p17000 -m 192.168.4.115</div><div class="line">get master 192.168.4.115 expire time 1473757348</div><div class="line">RemoveMember 192.168.4.115 done</div><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f GetMemberList -h192.168.4.115 -p17000</div><div class="line">get master 192.168.4.115 expire time 1473757467</div><div class="line">ip 192.168.2.182 port 17000</div><div class="line">ip 192.168.2.183 port 17000</div><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f GetMemberList -h192.168.4.115 -p17000</div><div class="line">get master 192.168.2.182 expire time 1473757395</div><div class="line">ip 192.168.2.182 port 17000</div><div class="line">ip 192.168.2.183 port 17000</div></pre></td></tr></table></figure>
+<p>移除之后，发现 2.182 成为 master。<br>尝试从不同端口连接 4.115 的数据库</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/tools# mysql -uroot -h192.168.4.115 -P54321</div><div class="line">ERROR 2013 (HY000): Lost connection to MySQL server at &apos;reading authorization packet&apos;, system error: 0</div><div class="line">root@Vm-template-100G:~/phxsql/tools# mysql -uroot -h192.168.4.115 -P54322</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 21412</div><div class="line">Server version: 5.6.31-77.0-log Source distribution</div><div class="line"></div><div class="line">Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.</div><div class="line"></div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its</div><div class="line">affiliates. Other names may be trademarks of their respective</div><div class="line">owners.</div><div class="line"></div><div class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</div><div class="line"></div><div class="line">mysql&gt; exit;</div><div class="line">Bye</div><div class="line">root@Vm-template-100G:~/phxsql/tools# mysql -uroot -h127.0.0.1 -P11111</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 21472</div><div class="line">Server version: 5.6.31-77.0-log Source distribution</div><div class="line"></div><div class="line">Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.</div><div class="line"></div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its</div><div class="line">affiliates. Other names may be trademarks of their respective</div><div class="line">owners.</div><div class="line"></div><div class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</div><div class="line"></div><div class="line">mysql&gt;</div></pre></td></tr></table></figure>
+</code></pre><p>可以发现，从 54321 端口连接数据库失败。<br>重新将 4.115 加入集群</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root@test-web2:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f AddMember -h192.168.2.182 -p17000 -m 192.168.4.115</div><div class="line">get master 192.168.2.182 expire time 1473757959</div><div class="line">AddMember 192.168.4.115 done</div><div class="line">root@test-web2:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f GetMemberList -h192.168.2.182 -p17000</div><div class="line">get master 192.168.2.182 expire time 1473757962</div><div class="line">ip 192.168.2.182 port 17000</div><div class="line">ip 192.168.2.183 port 17000</div><div class="line">ip 192.168.4.115 port 17000</div></pre></td></tr></table></figure>
+</code></pre><p>从三个端口均能连接到2.183上的数据库。集群数据数据同步正常。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>整个测试过程涵盖了异常测试和基本操作，异常测试如：slave和master的异常；基本操作如：添加和移除主机。测试结果能体现 PhxSQL 一主多备的可用性。<br>master 异常与移 master 相似，二者均会导致集群变更 master。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/08/部署与试用PhxSQL/" rel="next" title="部署与试用PhxSQL">
+                <i class="fa fa-chevron-left"></i> 部署与试用PhxSQL
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/09/18/PhxSQL-测试/"
+     data-title="PhxSQL 测试"
+     data-content=""
+     data-url="http://chuzhiyan.com/2016/09/18/PhxSQL-测试/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/18/PhxSQL-测试/"
+           data-title="PhxSQL 测试" data-url="http://chuzhiyan.com/2016/09/18/PhxSQL-测试/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Happy.Zhang" />
+          <p class="site-author-name" itemprop="name">Happy.Zhang</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hzlpy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/ihzlpy" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/332506542" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/chuzhiyan" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://notes.iissnan.com/" title="iissnan note" target="_blank">iissnan note</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#slave-异常"><span class="nav-number">1.</span> <span class="nav-text">slave 异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#master-异常"><span class="nav-number">2.</span> <span class="nav-text">master 异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移除-slave"><span class="nav-number">3.</span> <span class="nav-text">移除 slave</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移除-master"><span class="nav-number">4.</span> <span class="nav-text">移除 master</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Happy.Zhang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hzlpy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("QpdlWBCBfhqyNpozQK4yR0k3-gzGzoHsz", "dMMf8tip1dm9TeewqlUqToXc");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
