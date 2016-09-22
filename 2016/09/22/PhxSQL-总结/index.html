@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo," />
+  <meta name="keywords" content="C++, Linux" />
 
 
 
@@ -102,19 +102,22 @@
 
 
 
-<meta name="description" content="Hexo常用命令1234567hexo generate #生成静态页面至public目录hexo serverhexo deploy #部署到Githubhexo cleanhexo s -g #组合命令，相当于hexo server -ghexo d -g #组合命令，相当于hexo deploy -ghexo new &amp;quot;新博客的名字&amp;quot;
-竟然忘了，还是记下来得了…T_T">
+<meta name="description" content="前不久微信开源了它的 PhxSQL。最近也一直在看相关的文档，经过对它编译、安装、部署和测试之后，对它也有所了解。本文将对这段时间看过的资料做一个简要的总结，整理出 MySQL 目前半同步存在的缺陷，PhxSQL 解决的问题以及 PhxSQL 的工作机制。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我常用到的hexo命令">
-<meta property="og:url" content="http://chuzhiyan.com/2015/01/26/我常用到的hexo命令/index.html">
+<meta property="og:title" content="PhxSQL 总结">
+<meta property="og:url" content="http://chuzhiyan.com/2016/09/22/PhxSQL-总结/index.html">
 <meta property="og:site_name" content="Happy">
-<meta property="og:description" content="Hexo常用命令1234567hexo generate #生成静态页面至public目录hexo serverhexo deploy #部署到Githubhexo cleanhexo s -g #组合命令，相当于hexo server -ghexo d -g #组合命令，相当于hexo deploy -ghexo new &amp;quot;新博客的名字&amp;quot;
-竟然忘了，还是记下来得了…T_T">
-<meta property="og:updated_time" content="2016-08-25T13:04:13.393Z">
+<meta property="og:description" content="前不久微信开源了它的 PhxSQL。最近也一直在看相关的文档，经过对它编译、安装、部署和测试之后，对它也有所了解。本文将对这段时间看过的资料做一个简要的总结，整理出 MySQL 目前半同步存在的缺陷，PhxSQL 解决的问题以及 PhxSQL 的工作机制。">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/phxsql/MySQL%E5%8D%8A%E5%90%8C%E6%AD%A5%E8%BF%87%E7%A8%8B.png">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/phxsql/MySQL%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E5%88%86%E6%9E%90.png">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/phxsql/PhxSQL%20%E6%9E%B6%E6%9E%84.png">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/phxsql/PhxSQL%20%E5%86%99.png">
+<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/phxsql/PhxSQL%20%E8%AF%BB.png">
+<meta property="og:updated_time" content="2016-09-22T14:51:20.285Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我常用到的hexo命令">
-<meta name="twitter:description" content="Hexo常用命令1234567hexo generate #生成静态页面至public目录hexo serverhexo deploy #部署到Githubhexo cleanhexo s -g #组合命令，相当于hexo server -ghexo d -g #组合命令，相当于hexo deploy -ghexo new &amp;quot;新博客的名字&amp;quot;
-竟然忘了，还是记下来得了…T_T">
+<meta name="twitter:title" content="PhxSQL 总结">
+<meta name="twitter:description" content="前不久微信开源了它的 PhxSQL。最近也一直在看相关的文档，经过对它编译、安装、部署和测试之后，对它也有所了解。本文将对这段时间看过的资料做一个简要的总结，整理出 MySQL 目前半同步存在的缺陷，PhxSQL 解决的问题以及 PhxSQL 的工作机制。">
+<meta name="twitter:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/phxsql/MySQL%E5%8D%8A%E5%90%8C%E6%AD%A5%E8%BF%87%E7%A8%8B.png">
 
 
 
@@ -135,9 +138,9 @@
 
 
 
-  <link rel="canonical" href="http://chuzhiyan.com/2015/01/26/我常用到的hexo命令/"/>
+  <link rel="canonical" href="http://chuzhiyan.com/2016/09/22/PhxSQL-总结/"/>
 
-  <title> 我常用到的hexo命令 | Happy </title>
+  <title> PhxSQL 总结 | Happy </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -286,7 +289,7 @@
             
             
               
-                我常用到的hexo命令
+                PhxSQL 总结
               
             
           </h1>
@@ -298,8 +301,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-01-26T21:03:17+08:00" content="2015-01-26">
-              2015-01-26
+            <time itemprop="dateCreated" datetime="2016-09-22T22:37:43+08:00" content="2016-09-22">
+              2016-09-22
             </time>
           </span>
 
@@ -309,8 +312,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/01/26/我常用到的hexo命令/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/26/我常用到的hexo命令/" itemprop="commentsCount"></span>
+                <a href="/2016/09/22/PhxSQL-总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/22/PhxSQL-总结/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -320,7 +323,7 @@
 
           
           
-             <span id="/2015/01/26/我常用到的hexo命令/" class="leancloud_visitors" data-flag-title="我常用到的hexo命令">
+             <span id="/2016/09/22/PhxSQL-总结/" class="leancloud_visitors" data-flag-title="PhxSQL 总结">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -347,8 +350,68 @@
       
 
       
-        <h4 id="Hexo常用命令"><a href="#Hexo常用命令" class="headerlink" title="Hexo常用命令"></a>Hexo常用命令</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">hexo generate #生成静态页面至public目录</div><div class="line">hexo server</div><div class="line">hexo deploy #部署到Github</div><div class="line">hexo clean</div><div class="line">hexo s -g #组合命令，相当于hexo server -g</div><div class="line">hexo d -g #组合命令，相当于hexo deploy -g</div><div class="line">hexo new &quot;新博客的名字&quot;</div></pre></td></tr></table></figure>
-<p><strong>竟然忘了，还是记下来得了…T_T</strong></p>
+        <p>前不久微信开源了它的 PhxSQL。最近也一直在看相关的文档，经过对它编译、安装、部署和测试之后，对它也有所了解。本文将对这段时间看过的资料做一个简要的总结，整理出 MySQL 目前半同步存在的缺陷，PhxSQL 解决的问题以及 PhxSQL 的工作机制。</p>
+<a id="more"></a>
+<h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><p>MySQL 是一种常用的数据库系统。在实际应用中，通常搭建一主一备 MySQL 服务来保证可用性。主备之间就涉及到数据的一致性问题了，MySQL 现在有异步复制和半同步复制两种方式来同步两台主机上的 binlog ，保障数据一致。</p>
+<h4 id="MySQL-半同步复制"><a href="#MySQL-半同步复制" class="headerlink" title="MySQL 半同步复制"></a>MySQL 半同步复制</h4><p>MySQL 主备进行半同步复制的过程如图<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/blog/phxsql/MySQL%E5%8D%8A%E5%90%8C%E6%AD%A5%E8%BF%87%E7%A8%8B.png" alt="MySQL 半同步复制过程"></p>
+<blockquote>
+<p>MySQL的半同步复制和Master切换都存在一些不足。数据复制存在回滚难题，Master切换存在多Master难题。[1]</p>
+</blockquote>
+<p><img src="http://7xiijb.com1.z0.glb.clouddn.com/blog/phxsql/MySQL%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E5%88%86%E6%9E%90.png" alt="MySQL 半同步复制"><br>上图是根据<a href="https://zhuanlan.zhihu.com/p/22290294" target="_blank" rel="external">MySQL背后的数据一致性分析</a>整理出来的MySQL主从工作时的一些场景。</p>
+<h3 id="PhxSQL"><a href="#PhxSQL" class="headerlink" title="PhxSQL"></a>PhxSQL</h3><p>PhxSQL 是为解决<strong>MySQL 半同步复制的不足，使 MySQL 集群在 Master 切换过程中保证数据的一致</strong>而开发的。</p>
+<h4 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h4><blockquote>
+<p>PhxSQL 基于 Percona 5.6 开发。Percona 是 MySQL的一个分支，功能和实现与 MySQL 基本一致。[2]  </p>
+</blockquote>
+<h4 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h4><p>官方文档介绍 PhxSQL 有三个组件和一个插件组成的，它的架构图如下：  </p>
+<p>  <img src="http://7xiijb.com1.z0.glb.clouddn.com/blog/phxsql/PhxSQL%20%E6%9E%B6%E6%9E%84.png" alt="PhxSQL 架构">  </p>
+<p>PhxSQL 是在 MySQL 基础上了增加了两个模块（Phxbinlogsvr、Phxsqlproxy）和一个MySQL插件（Phxsync）。它们的作用分别是：</p>
+<blockquote>
+<ul>
+<li>Phxbinlogsvr负责处理MySQL的Binlog复制和Master管理</li>
+<li>Phxsqlproxy负责透传Client请求到Master</li>
+<li>Phxsync插件负责MySQL和Phxbinlogsvr的交互[2]  </li>
+</ul>
+</blockquote>
+<h4 id="读写流程"><a href="#读写流程" class="headerlink" title="读写流程"></a>读写流程</h4><blockquote class="blockquote-center"><p>Phxsqlproxy 负责透传 client 请求到 master 。</p>
+</blockquote>
+<ul>
+<li>写<br>  <img src="http://7xiijb.com1.z0.glb.clouddn.com/blog/phxsql/PhxSQL%20%E5%86%99.png" alt="写">  </li>
+</ul>
+<p>client 发出写请求到集群后，Phxsqlproxy 将该请求透传到 master 的读写端口。</p>
+<p>从读写端口，经过 phxsqlproxy 连接数据库，所有的请求都会被 phxsqlproxy 透传到 master 的 MySQL。所有的写的数据都将先在 master 的 MySQL 落地。<br>此时，如果位于 master 的 MySQL 服务挂掉，将出现什么状况？<br>经过测试发现：集群会重新选择 master ，然后 phxsqlproxy 会将所有的写请求转发到新的 master 的 MySQL 上。</p>
+<ul>
+<li>读<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/blog/phxsql/PhxSQL%20%E8%AF%BB.png" alt="读"></li>
+</ul>
+<p>在介绍读操作之前，需要知道一个配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/etc# cat phxsqlproxy.conf</div><div class="line">[Server]</div><div class="line">MasterForkProcCnt = 1</div><div class="line">MasterWorkerThread = 30</div><div class="line">MasterIORoutineCnt = 100</div><div class="line">SlaveForkProcCnt = 1</div><div class="line">SlaveWorkerThread = 30</div><div class="line">SlaveIORoutineCnt = 100</div><div class="line">MasterEnableReadPort = 0</div><div class="line">IP = 192.168.4.115</div><div class="line">Port = 54321</div><div class="line">LogLevel = 3</div><div class="line">LogFilePath = /tmp/data//log</div><div class="line">LogMaxSize = 1600</div></pre></td></tr></table></figure>
+<p>该配置文件是 master 所在主机的phxsqlproxy.conf。<code>MasterEnableReadPort</code> 配置项表示 master 只读端口是否可用。如果值为 1，则为可用；否则，不可用。<br>相应地，如果此值为 1，则集群收到客户端的读请求后，Phxsqlproxy 不会透传请求到其它主机；<br>如果此值为 0，且收到请求的机器为 master，Phxsqlproxy 将透传请求到非 master 主机；<br>如果此值为 0，且收到请求的机器非 master，Phxsqlproxy 不进行透传。  </p>
+<p>经过测试发现：如果一个读请求从只读端口经过 phxsqlproxy 连接到 master，且 phxsqlproxy 将该请求透传到其它备机上（假设为B）；那么读取的数据将是从 B 主机的数据库获得的。<br>不久后，如果 B 主机的 MySQL 服务停掉了，那么下一个读请求将返回错误信息。phxsqlproxy 也不会将请求转发到其它可用的备机上。<br>这种情况，需要客户端自己去选择可以提供服务的主机。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mysql&gt; select * from test_phxsql;</div><div class="line">No connection. Trying to reconnect...</div><div class="line">ERROR 2013 (HY000): Lost connection to MySQL server at &apos;reading initial communication packet&apos;, system error: 0</div><div class="line">ERROR:</div><div class="line">Can&apos;t connect to the server</div></pre></td></tr></table></figure>
+<p>proxy 其实只是负责请求转发到 master，而不是当作一个 vip 之类的路由器使用。</p>
+<p>针对常见的业务场景，PhxSQL 提供两个服务端口：强一致读写端口（ReadWritePort）和只读端口（ReadonlyPort）；对数据要求强一致的业务，通过ReadWritePort来读写；只要求能读取但不要求最新数据的读请求（比如一些定时对账业务），可以通过ReadonlyPort来读取。[3]  </p>
+<h4 id="一致性机制"><a href="#一致性机制" class="headerlink" title="一致性机制"></a>一致性机制</h4><blockquote class="blockquote-center"><p>PhxSQL的设计是为了解决MySQL半同步复制的不足，使MySQL集群在Master切换过程中保证数据的一致。 </p>
+</blockquote>
+<p>而MySQL半同步复制的不足是：在 Master 进行切换的场景下，数据难以保证一致。<br>PhxSQL 强调它是“强一致，高可用”的，那么它是怎样那保证一致性的呢？<br>PhxSQL 通过 Paxos 协议进行复制，使 Phxbinlogsvr 形成一个可靠的日志存储。PhxSQL 可以看成是为 MySQL 增加了一个用 Paxos 实现的可靠 Binlog  存储，只要集群中多数派机器存活，就可以解决半同步复制的回滚问题。[3]</p>
+<p>也就是说，PhxSQL 的数据一致性的保障来自于它能够保证多数派主机上的 binlog 是一致的。phxbinlogsvr 通过 paxos 协议进行同步 binlog，要等多数派的 ack 成功才进行 commit。</p>
+<blockquote>
+<p>在写入请求量很大的系统中，MySQL备机流水可能落后较多；如果这个时候主机死机，备机暂时无法提升成新主机，造成系统在一段时间内不可写。  </p>
+<p>为了保证线性一致性，对于要求读取最新数据的请求（通过ReadWritePort发起的读请求）也将失败；需要等至少一台备机追完流水，被提升为主机才能响应读取最新数据的请求。对于不需要读取最新数据的请求（通过ReadonlyPort发起的请求），可以从任意备机执行，但不保证线性一致性。（注意：PhxSQL保证无论MySQL主机流水领先MySQL备机多少，MySQL主机binlog流水和全局binlog流水是一致的，不会导致数据丢失和破坏线性一致性。）</p>
+</blockquote>
+<h4 id="master-切换"><a href="#master-切换" class="headerlink" title="master 切换"></a>master 切换</h4><p>集群中当前 master 不可用时将重新选举出新的 master 。当前 master 中的任一组件停止工作都将导致重新选举出新的 master。</p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
+<li><p>PhxSQL 能否退化成 MySQL。<br>PhxSQL 添加了两个组件和一个插件。组件都是以独立运行的进程来提供服务。假如 phxsqlproxy 或 binlogsvr 挂掉，phxssync 插件能够随时停止使用让 PhxSQL 变成 MySQL 来提供存储服务？</p>
+</li>
+<li><p>phxsqlproxy 作用是透传客户端过来的请求。<br>在业务中我们需要可用的存储服务。如果 phxsqlproxy 只是透传请求，那么业务层还需要可以判断集群中的主机是否在工作。如果 phxsqlproxy 能支持透传请求到可用的主机上，业务层就可以少去一些判断。</p>
+</li>
+<li><p>paxos 协议在 PhxSQL 中哪些地方起到了作用。<br>paxos 协议是一个确保一致性的协议。PhxSQL 提到的“强一致性”就有它的功劳。它是怎么在 PhxSQL 中发挥作用的？</p>
+</li>
+</ol>
+<p>本文有很多语句直接参考了 PhxSQL 的文档，为的是使表达更官方，更准确。如果有误，请多指教 :-)</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
+<li><a href="https://zhuanlan.zhihu.com/p/22290294" target="_blank" rel="external">MySQL背后的数据一致性分析</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/22290560" target="_blank" rel="external">高可用、强一致的MySQL集群-微信PhxSQL</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/22345242" target="_blank" rel="external">谈谈PhxSQL的设计和实现哲学（上）</a></li>
+</ol>
 
       
     </div>
@@ -369,28 +432,18 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Hexo/" rel="tag">#Hexo</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2014/12/19/第3章-表、栈和队列/" rel="next" title="第3章 表、栈和队列">
-                <i class="fa fa-chevron-left"></i> 第3章 表、栈和队列
+              <a href="/2016/09/18/PhxSQL-测试/" rel="next" title="PhxSQL 测试">
+                <i class="fa fa-chevron-left"></i> PhxSQL 测试
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/03/05/求长度的那些事/" rel="prev" title="求长度的那些事">
-                求长度的那些事 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -405,10 +458,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/01/26/我常用到的hexo命令/"
-     data-title="我常用到的hexo命令"
+        <div class="ds-share flat" data-thread-key="2016/09/22/PhxSQL-总结/"
+     data-title="PhxSQL 总结"
      data-content=""
-     data-url="http://chuzhiyan.com/2015/01/26/我常用到的hexo命令/">
+     data-url="http://chuzhiyan.com/2016/09/22/PhxSQL-总结/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -435,8 +488,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/01/26/我常用到的hexo命令/"
-           data-title="我常用到的hexo命令" data-url="http://chuzhiyan.com/2015/01/26/我常用到的hexo命令/">
+      <div class="ds-thread" data-thread-key="2016/09/22/PhxSQL-总结/"
+           data-title="PhxSQL 总结" data-url="http://chuzhiyan.com/2016/09/22/PhxSQL-总结/">
       </div>
     
   </div>
@@ -572,7 +625,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Hexo常用命令"><span class="nav-number">1.</span> <span class="nav-text">Hexo常用命令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL"><span class="nav-number">1.</span> <span class="nav-text">MySQL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL-半同步复制"><span class="nav-number">1.1.</span> <span class="nav-text">MySQL 半同步复制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PhxSQL"><span class="nav-number">2.</span> <span class="nav-text">PhxSQL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#版本"><span class="nav-number">2.1.</span> <span class="nav-text">版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#架构"><span class="nav-number">2.2.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读写流程"><span class="nav-number">2.3.</span> <span class="nav-text">读写流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一致性机制"><span class="nav-number">2.4.</span> <span class="nav-text">一致性机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#master-切换"><span class="nav-number">2.5.</span> <span class="nav-text">master 切换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">3.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
             
           </div>
         </section>
