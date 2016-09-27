@@ -1,0 +1,1110 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster:300,300italic,400,400italic,700,700italic|consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="C++, Linux" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="编译、安装后你还可以进行以下操作：
+
+
+若想打包二进制运行包（集群运行时所需要的所有文件和配置）make package  
+install完成后，二进制会生成到PhxSQL目录下的sbin目录，运行所需要的相关文件和配置会安装到PhxSQL目录下的install_package目录。打包二进制运行包会把install_package进行tar格式的打包，并生成phxsql.tar.gz。若想更改">
+<meta property="og:type" content="article">
+<meta property="og:title" content="部署 PhxSQL">
+<meta property="og:url" content="http://chuzhiyan.com/2016/09/08/部署-PhxSQL/index.html">
+<meta property="og:site_name" content="Happy">
+<meta property="og:description" content="编译、安装后你还可以进行以下操作：
+
+
+若想打包二进制运行包（集群运行时所需要的所有文件和配置）make package  
+install完成后，二进制会生成到PhxSQL目录下的sbin目录，运行所需要的相关文件和配置会安装到PhxSQL目录下的install_package目录。打包二进制运行包会把install_package进行tar格式的打包，并生成phxsql.tar.gz。若想更改">
+<meta property="og:updated_time" content="2016-09-27T04:30:11.783Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="部署 PhxSQL">
+<meta name="twitter:description" content="编译、安装后你还可以进行以下操作：
+
+
+若想打包二进制运行包（集群运行时所需要的所有文件和配置）make package  
+install完成后，二进制会生成到PhxSQL目录下的sbin目录，运行所需要的相关文件和配置会安装到PhxSQL目录下的install_package目录。打包二进制运行包会把install_package进行tar格式的打包，并生成phxsql.tar.gz。若想更改">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Hzlpy'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://chuzhiyan.com/2016/09/08/部署-PhxSQL/"/>
+
+  <title> 部署 PhxSQL | Happy </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83738416-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?6d76f69e75aa302278f6807f3b3ccfdb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Happy</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-visitor">
+          <a href="/visitor" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-male"></i> <br />
+            
+            访客
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                部署 PhxSQL
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-08T17:54:57+08:00" content="2016-09-08">
+              2016-09-08
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/08/部署-PhxSQL/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/08/部署-PhxSQL/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/09/08/部署-PhxSQL/" class="leancloud_visitors" data-flag-title="部署 PhxSQL">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>编译、安装后你还可以进行以下操作：</p>
+<blockquote>
+<ul>
+<li>若想打包二进制运行包（集群运行时所需要的所有文件和配置）make package  </li>
+<li>install完成后，二进制会生成到PhxSQL目录下的sbin目录，运行所需要的相关文件和配置会安装到PhxSQL目录下的install_package目录。打包二进制运行包会把install_package进行tar格式的打包，并生成phxsql.tar.gz。若想更改install的安装目录，可在sh autoinstall.sh 后加入-prefix=路径</li>
+</ul>
+</blockquote>
+<a id="more"></a>
+<h2 id="配置文件介绍"><a href="#配置文件介绍" class="headerlink" title="配置文件介绍"></a>配置文件介绍</h2><p>在部署之前先介绍一下 PhxSQL 的配置文件。<br>PhxSQL 提供三个配置文件，分别是：my.conf, phxbinlogsvr.conf, phxsqlproxy.conf。它们各自作用于 PhxSQL 的三个组件，如下：</p>
+<table>
+<thead>
+<tr>
+<th>配置文件</th>
+<th>作用于  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>my.conf</td>
+<td>MySQL</td>
+</tr>
+<tr>
+<td>phxbinlogsvr.conf</td>
+<td>phxbinlogsvr</td>
+</tr>
+<tr>
+<td>phxsqlproxy.conf</td>
+<td>phxsqlproxy</td>
+</tr>
+</tbody>
+</table>
+<p>phxbinlogsvr 负责 binlog 复制与 master 的管理，其配置文件的配置项如下：  </p>
+<table>
+<thead>
+<tr>
+<th>Section name</th>
+<th>Key name</th>
+<th>Value</th>
+<th>comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server</td>
+<td>IP</td>
+<td>本机IP</td>
+<td>Phxbinlogsvr 的监听 ip</td>
+</tr>
+<tr>
+<td></td>
+<td>Port</td>
+<td>17000</td>
+<td>Phxbinlogsvr 的监听端口</td>
+</tr>
+<tr>
+<td></td>
+<td>LogLevel</td>
+<td>3</td>
+<td>Phxbinlogsvr 的日志级别</td>
+</tr>
+<tr>
+<td></td>
+<td>LogFilePath</td>
+<td>/tmp/data/log</td>
+<td>Phxbinlogsvr 的日志目录</td>
+</tr>
+<tr>
+<td></td>
+<td>LogMaxSize</td>
+<td>1600</td>
+<td></td>
+</tr>
+<tr>
+<td>AgentOption</td>
+<td>AgentPort</td>
+<td>6000</td>
+<td>Phxbinlogsvr 监听 MySQL 访问的端口，用于 MySQL 和 binlogsvr 之间的通信</td>
+</tr>
+<tr>
+<td></td>
+<td>EventDataDir</td>
+<td>/tmp/data/phxbinlogsvr/event_data</td>
+<td>Phxbinlogsvr 数据存放目录</td>
+</tr>
+<tr>
+<td></td>
+<td>MaxFileSize　</td>
+<td>10000000</td>
+<td>Phxbinlogsvr 每个数据文件的大小，数据文件过大会导致启动过慢，数据文件过小会导致文件数过多，单位为 B</td>
+</tr>
+<tr>
+<td></td>
+<td>CheckStatusTime</td>
+<td>5</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>MasterLease</td>
+<td>20</td>
+<td>Phxbinlogsvr 的 master 租约时间，单位为 s</td>
+</tr>
+<tr>
+<td></td>
+<td>CheckPointTime</td>
+<td>3600</td>
+<td>Phxbinlogsvr 会删除 CheckPointTime 时间前的数据，但如果被删数据中存在其他 MySQL 还没学到的，则不会删除该部分数据，单位为分钟</td>
+</tr>
+<tr>
+<td></td>
+<td>MaxDeleteCheckPointFileNum　</td>
+<td>250</td>
+<td>Phxbinlogsvr 删数据时，每次删除的最大文件数</td>
+</tr>
+<tr>
+<td></td>
+<td>FollowIP</td>
+<td></td>
+<td>机器为 folloer 机器，只负责拉取 FollowIP 机器上的数据，不参与集群的投票</td>
+</tr>
+<tr>
+<td>PaxosOption</td>
+<td>PaxosLogPath</td>
+<td>/tmp/data/phxbinlogsvr/paxoslog</td>
+<td>Phxbinlogsvr中paxos库的数据目录</td>
+</tr>
+<tr>
+<td></td>
+<td>PaxosPort</td>
+<td>8001</td>
+<td>Phxbinlogsvr 中 paxos 库的通信端口</td>
+</tr>
+<tr>
+<td></td>
+<td>PacketMode</td>
+<td></td>
+<td>Phxbinlogsvr在 paxos 协议中是否增大包的大小限制， 1 为每个包的大小为 100m，但超时限制变为1分钟，0 为每个包的大小为 50m，超时限制 2s 起（动态变化）</td>
+</tr>
+</tbody>
+</table>
+<p>phxsqlproxy 负责透传客户端的请求，其配置文件的配置项如下：</p>
+<table>
+<thead>
+<tr>
+<th>Section name</th>
+<th>Key name</th>
+<th>Value</th>
+<th>comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server</td>
+<td>MasterForkProcCnt</td>
+<td>1</td>
+<td>master fork 出的进程数</td>
+</tr>
+<tr>
+<td></td>
+<td>MasterWorkerThread</td>
+<td>30</td>
+<td>master worker 的线程数</td>
+</tr>
+<tr>
+<td></td>
+<td>MasterIORoutineCnt</td>
+<td>100</td>
+<td>master IO 路由数</td>
+</tr>
+<tr>
+<td></td>
+<td>SlaveForkProcCnt</td>
+<td>1</td>
+<td>slave fork 出的进程数</td>
+</tr>
+<tr>
+<td></td>
+<td>SlaveWorkerThread</td>
+<td>30</td>
+<td>slave worker 的线程数</td>
+</tr>
+<tr>
+<td></td>
+<td>SlaveIORoutineCnt</td>
+<td>100</td>
+<td>slave IO 路由数</td>
+</tr>
+<tr>
+<td></td>
+<td>MasterEnableReadPort</td>
+<td>1</td>
+<td>master 只读端口是否可用</td>
+</tr>
+<tr>
+<td></td>
+<td>IP</td>
+<td>本机 IP</td>
+<td>phxsqlproxy 的监听 ip</td>
+</tr>
+<tr>
+<td></td>
+<td>Port</td>
+<td>54321</td>
+<td>phxsqlproxy 的监听（读写）端口</td>
+</tr>
+<tr>
+<td></td>
+<td>LogLevel</td>
+<td>3</td>
+<td>phxsqlproxy 的日志级别</td>
+</tr>
+<tr>
+<td></td>
+<td>LogFilePath</td>
+<td>/tmp/data/log</td>
+<td>phxsqlproxy 的日志目录</td>
+</tr>
+<tr>
+<td></td>
+<td>LogMaxSize</td>
+<td>1600</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><p>打包好之后便可以将它们拷贝到不同的主机部署了。本文主要记录在多台主机上部署 PhxSQL 与使用的过程。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python install.py -i&quot;IPB&quot; -p 54321 -g 6000 -y 11111 -P 17000 -a 8001 -f/tmp/data/</div></pre></td></tr></table></figure></p>
+<p>安装 PhxSQL。<br>注意：<code>install.py</code> 提供多组命令组合，比如：它可以安装整个 PhxSQL（包含 MySQL, phxbinlogsvr,phxsqlproxy），也可以只安装其中一个组件。详细使用方法可以通过 <code>--h</code> 查看。</p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f InitBinlogSvrMaster -h&quot;IPA,IPB&quot; -p 17000</div></pre></td></tr></table></figure></p>
+<p>即可。得到的提示却是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f InitBinlogSvrMaster -h&quot;IPA,IPB&quot; -p 17000</div><div class="line">get master  expire time 0</div><div class="line">get master  expire time 0</div><div class="line">init svr fail, ret -1</div></pre></td></tr></table></figure></p>
+<p>然后再次初始化，得到的结果是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f InitBinlogSvrMaster -h&quot;IPA,IPB&quot; -p 17000</div><div class="line">get master IPA expire time 1473300565</div><div class="line">machine IPA has been set master(IPA)</div></pre></td></tr></table></figure>
+<p>显然，集群中只有 IPA 这台机器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f GetMemberList -hIPA -p17000</div><div class="line">get master IPA expire time 1473300691</div><div class="line">ip IPA port 17000</div></pre></td></tr></table></figure>
+<p>执行<code>GetMemberList</code>得到的结果也印证了上一结论。</p>
+<p>那么，可以使用<code>AddMember</code>命令来将 IPB 这台机器加入集群吗？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">root@test-db:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f AddMember -h IPA -p 17000 -m IPB</div><div class="line">get master IPA expire time 1473300896</div><div class="line">AddMember IPB done</div></pre></td></tr></table></figure>
+<p>接下来，尝试从只读端口连接 IPC 的数据库。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">root@test-db:~/phxsql/sbin# mysql -uroot -hIPB -P54322</div><div class="line">Welcome to the MySQL monitor.  Commands end with ; or \g.</div><div class="line">Your MySQL connection id is 1317</div><div class="line">Server version: 5.6.31-77.0-log Source distribution</div><div class="line"></div><div class="line">Copyright (c) 2000, 2014, Oracle and/or its affiliates. All rights reserved.</div><div class="line"></div><div class="line">Oracle is a registered trademark of Oracle Corporation and/or its</div><div class="line">affiliates. Other names may be trademarks of their respective</div><div class="line">owners.</div><div class="line"></div><div class="line">Type &apos;help;&apos; or &apos;\h&apos; for help. Type &apos;\c&apos; to clear the current input statement.</div><div class="line"></div><div class="line">root@(none) 10:21&gt;</div></pre></td></tr></table></figure>
+<p>现在集群中有了 IPA 和 IPB 两台机器了。其中，IPA 作为 master。</p>
+<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><p>下面列出常用的一些命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">python install.py -i&quot;IPC&quot; -p 54321 -g 6000 -y 11111 -P 17000 -a 8001 -f/tmp/data/</div><div class="line"></div><div class="line">./phxbinlogsvr_tools_phxrpc -f InitBinlogSvrMaster -h&quot;IPA,IPB&quot; -p 17000</div><div class="line"></div><div class="line">./phxbinlogsvr_tools_phxrpc -f AddMember -hIPA -p17000 -mIPC</div><div class="line"></div><div class="line">./phxbinlogsvr_tools_phxrpc -f GetMemberList -hIPA -p17000</div><div class="line"></div><div class="line">show global variables like &apos;%uuid%&apos;</div><div class="line"></div><div class="line">./test_phxsql.sh 54321 IPA IPB</div><div class="line"></div><div class="line">mysql -uroot -h&quot;IPB&quot; -P54321</div><div class="line"></div><div class="line">./phxbinlogsvr_tools_phxrpc -f SetMySqlAdminInfo -hIPC -p17000 -uroot -d &apos;&apos; -Uhappy -Dhappy</div></pre></td></tr></table></figure>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><ol>
+<li><p>chown: invalid user: `user:mysql’</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">root@test-db:/home/happy/phxsql/tools# python install.py -i&quot;IPB&quot; -p 54321 -g 6000 -y 11111 -P 17000 -a 8001 -f/tmp/data/</div><div class="line">Namespace(agent_port=6000, base_dir=&apos;/home/happy/phxsql/&apos;, data_dir=&apos;/tmp/data/&apos;, inner_ip=&apos;IPB&apos;, ip_list=&apos;IPB&apos;, module_name=&apos;test&apos;, mysql_port=11111, paxos_port=8001, phxbinlogsvr_port=17000, phxsqlproxy_port=54321, process_name=&apos;all&apos;)</div><div class="line">kill all binaries success....</div><div class="line">generate all configs success....</div><div class="line">/tmp/data//phxbinlogsvr</div><div class="line">mkdir: cannot create directory `/tmp/data//log&apos;: File exists</div><div class="line">/tmp/data//percona.workspace</div><div class="line">chown: invalid user: `user:mysql&apos;</div><div class="line">cd /home/happy/phxsql//percona.src; ./scripts/mysql_install_db --defaults-file=/home/happy/phxsql//etc/my.cnf --user=mysql</div><div class="line">Installing MySQL system tables...2016-09-02 21:35:33 0 [Warning] &apos;THREAD_CONCURRENCY&apos; is deprecated and will be removed in a future release.</div><div class="line">2016-09-02 21:35:33 0 [Note] ./bin/mysqld (mysqld 5.6.31-77.0-log) starting as process 8228 ...</div><div class="line">FATAL ERROR: Error closing mysqld pipe: Broken pipe</div><div class="line">install mysql failed, ret 256</div><div class="line">install failed, exit......</div></pre></td></tr></table></figure>
+<p>尝试将配置文件中的<code>user=mysql</code>改为<code>user=root</code>，然后再执行<code>install.py</code>。  </p>
+</li>
+<li><p>init svr fail, ret -1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">root@Vm-template-100G:~/phxsql/sbin# ./phxbinlogsvr_tools_phxrpc -f InitBinlogSvrMaster -h&quot;IPA,IPB&quot; -p 17000</div><div class="line">get master  expire time 0</div><div class="line">get master  expire time 0</div><div class="line">init svr fail, ret -1</div></pre></td></tr></table></figure>
+<p>执行<code>InitBinlogSvrMaster</code>，偶尔会返回错误信息。</p>
+<p>更多内容请阅读<a href="https://github.com/tencent-wechat/phxsql/blob/master/README.zh_cn.md#phxsql部署和运行" target="_blank" rel="external">官方文档</a>。本文仅供参考，欢迎交流:)</p>
+</li>
+</ol>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://github.com/tencent-wechat/phxsql/blob/master/README.zh_cn.md#phxsql部署和运行" target="_blank" rel="external">PhxSQL部署和运行</a></li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/01/安装-PhxSQL-笔记/" rel="next" title="安装 PhxSQL 笔记">
+                <i class="fa fa-chevron-left"></i> 安装 PhxSQL 笔记
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/18/PhxSQL-测试/" rel="prev" title="PhxSQL 测试">
+                PhxSQL 测试 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/09/08/部署-PhxSQL/"
+     data-title="部署 PhxSQL"
+     data-content=""
+     data-url="http://chuzhiyan.com/2016/09/08/部署-PhxSQL/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/08/部署-PhxSQL/"
+           data-title="部署 PhxSQL" data-url="http://chuzhiyan.com/2016/09/08/部署-PhxSQL/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Happy.Zhang" />
+          <p class="site-author-name" itemprop="name">Happy.Zhang</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hzlpy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/ihzlpy" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/332506542" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/chuzhiyan" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://notes.iissnan.com/" title="iissnan note" target="_blank">iissnan note</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置文件介绍"><span class="nav-number">1.</span> <span class="nav-text">配置文件介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#部署"><span class="nav-number">2.</span> <span class="nav-text">部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">2.2.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用命令"><span class="nav-number">2.3.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题"><span class="nav-number">2.4.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Happy.Zhang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hzlpy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("QpdlWBCBfhqyNpozQK4yR0k3-gzGzoHsz", "dMMf8tip1dm9TeewqlUqToXc");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
