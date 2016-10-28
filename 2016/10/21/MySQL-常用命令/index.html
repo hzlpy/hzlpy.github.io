@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="C/C++," />
+  <meta name="keywords" content="MySQL," />
 
 
 
@@ -102,16 +102,28 @@
 
 
 
-<meta name="description" content="#include &amp;lt;&amp;gt; 只搜索系统目录；#include &amp;quot;&amp;quot;先搜索本地目录；如果在本地目录没有找到，再搜索系统目录；">
+<meta name="description" content="DDL
+create 创建一个数据库，用法如下：
+ 1create database dbname;
+ 创建一个表，用法如下：  
+ 1create table tbname(cname1 varchar(10), cname2 int(3));">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C++ 知识点记录">
-<meta property="og:url" content="http://chuzhiyan.com/2015/08/06/C-知识点记录/index.html">
+<meta property="og:title" content="MySQL 常用命令">
+<meta property="og:url" content="http://chuzhiyan.com/2016/10/21/MySQL-常用命令/index.html">
 <meta property="og:site_name" content="Happy">
-<meta property="og:description" content="#include &amp;lt;&amp;gt; 只搜索系统目录；#include &amp;quot;&amp;quot;先搜索本地目录；如果在本地目录没有找到，再搜索系统目录；">
-<meta property="og:updated_time" content="2016-08-23T12:28:10.420Z">
+<meta property="og:description" content="DDL
+create 创建一个数据库，用法如下：
+ 1create database dbname;
+ 创建一个表，用法如下：  
+ 1create table tbname(cname1 varchar(10), cname2 int(3));">
+<meta property="og:updated_time" content="2016-10-28T09:37:47.738Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C++ 知识点记录">
-<meta name="twitter:description" content="#include &amp;lt;&amp;gt; 只搜索系统目录；#include &amp;quot;&amp;quot;先搜索本地目录；如果在本地目录没有找到，再搜索系统目录；">
+<meta name="twitter:title" content="MySQL 常用命令">
+<meta name="twitter:description" content="DDL
+create 创建一个数据库，用法如下：
+ 1create database dbname;
+ 创建一个表，用法如下：  
+ 1create table tbname(cname1 varchar(10), cname2 int(3));">
 
 
 
@@ -132,9 +144,9 @@
 
 
 
-  <link rel="canonical" href="http://chuzhiyan.com/2015/08/06/C-知识点记录/"/>
+  <link rel="canonical" href="http://chuzhiyan.com/2016/10/21/MySQL-常用命令/"/>
 
-  <title> C++ 知识点记录 | Happy </title>
+  <title> MySQL 常用命令 | Happy </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -283,7 +295,7 @@
             
             
               
-                C++ 知识点记录
+                MySQL 常用命令
               
             
           </h1>
@@ -295,8 +307,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-08-06T09:23:55+08:00" content="2015-08-06">
-              2015-08-06
+            <time itemprop="dateCreated" datetime="2016-10-21T17:23:11+08:00" content="2016-10-21">
+              2016-10-21
             </time>
           </span>
 
@@ -306,8 +318,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/08/06/C-知识点记录/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/06/C-知识点记录/" itemprop="commentsCount"></span>
+                <a href="/2016/10/21/MySQL-常用命令/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/21/MySQL-常用命令/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -317,7 +329,7 @@
 
           
           
-             <span id="/2015/08/06/C-知识点记录/" class="leancloud_visitors" data-flag-title="C++ 知识点记录">
+             <span id="/2016/10/21/MySQL-常用命令/" class="leancloud_visitors" data-flag-title="MySQL 常用命令">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -344,42 +356,110 @@
       
 
       
-        <ol>
-<li><code>#include &lt;&gt;</code> 只搜索系统目录；<code>#include &quot;&quot;</code>先搜索本地目录；如果在本地目录没有找到，再搜索系统目录；</li>
+        <h2 id="DDL"><a href="#DDL" class="headerlink" title="DDL"></a>DDL</h2><ol>
+<li><p><strong>create</strong><br> 创建一个数据库，用法如下：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">create database dbname;</div></pre></td></tr></table></figure>
+<p> 创建一个表，用法如下：  </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">create table tbname(cname1 varchar(10), cname2 int(3));</div></pre></td></tr></table></figure>
+</li>
 </ol>
 <a id="more"></a>
 <ol>
-<li>深拷贝和浅拷贝可以简单地理解为：如果一个类拥有资源（堆，或者是其他系统资源），当这个类的对象发生复制过程的时候，这个过程可以叫做深拷贝；反之，对象存在资源，但复制过程并未复制资源的情况称为浅拷贝。</li>
-<li>如果类使用 <code>struct</code> 保留字定义的，则在第一个访问标号之前的成员是公有的 (<code>public</code>)；如果类似用 <code>class</code> 保留字定义的，则这些成员是私有的 (<code>private</code>)。使用 <code>struct</code> 保留字定义的类默认具有 <code>public</code> 继承；使用 <code>class</code> 保留字定义的类默认具有 <code>private</code> 继承。</li>
-<li><strong>引用</strong>与<strong>指针</strong>的区别<ul>
-<li>引用必须初始化，而指针不必；</li>
-<li>引用初始化之后不能被改变，而指针可以改变所指的对象；</li>
-<li>不存在指向空值的引用，而存在指向空值的指针；</li>
-</ul>
+<li><p><strong>drop</strong><br> 删除数据库，用法如下：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">drop database dbname;</div></pre></td></tr></table></figure>
+<p> 删除表，用法如下：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">drop table tbname;</div></pre></td></tr></table></figure>
 </li>
-<li><p>以下三种情况下需要使用初始化成员列表</p>
+<li><p><strong>alert</strong><br> 修改表类型，用法如下：  </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alter table tbname modify [column] column_definition [first | after col_name];</div></pre></td></tr></table></figure>
+<p> 增加表字段，用法如下：  </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alter table tbname add [column] column_definition [first | after col_name];</div></pre></td></tr></table></figure>
+<p> 删除表字段，用法如下：  </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alter table tbname drop [column] col_name;</div></pre></td></tr></table></figure>
+<p> 修改表字段，用法如下：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alter table tbname change [column] old_col_name column_definition [first | after col_name];</div></pre></td></tr></table></figure>
+<p> 修改表名，用法如下：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alter table tbname rename [to] new_taname;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>注</strong>：change 和 modify 都可以修改表的定义，不同的是 change 后面需要写两次列名，不方便。但是 change 的优点是可以修改列名称，modify 则不能。</p>
+<h2 id="DML"><a href="#DML" class="headerlink" title="DML"></a>DML</h2><ol>
+<li><p><strong>insert</strong><br>增加新纪录，用法如下：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">insert into tablename(field1, field2, ..., fieldn) values (v1, v2, ..., vn);</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>delete</strong><br>删除指定记录，用法如下：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">delect from tablename [where condition];</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>update</strong><br>更新指定记录，用法如下：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">update tablename set field1=v1, field2=v2,...,fieldn=vn [where condition]</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>select</strong><br>查询记录，用法如下：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from tablename [where condition]</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="DCL"><a href="#DCL" class="headerlink" title="DCL"></a>DCL</h2><ol>
+<li><p><strong>grant</strong><br>grant 用来授权，它的用法如下：  </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grant select, insert on test_sql.* to &apos;newuser&apos;@&apos;localhost&apos; identified by &apos;password&apos;; // ALL PRIVILEGES 所有权限</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>revoke</strong><br>revoke 用来回收权限，它的用法如下：  </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">revoke insert on test_sql.* from &apos;newuser&apos;@&apos;localhost&apos;;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><ol>
+<li><p><strong>mysql</strong></p>
 <ul>
-<li>需要初始化的数据成员是对象；</li>
-<li>需要初始化 <code>const</code> 修饰的类成员；</li>
-<li>需要初始化引用类型的成员数据；</li>
+<li><p>连接数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql -uroot -h192.168.4.115 -p&apos;123456&apos; -P54321</div></pre></td></tr></table></figure>
+<p>   其中，参数解释如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">-u, --user=name    // 指定用户名</div><div class="line">-p, --password=psw // 指定密码</div><div class="line">-h, --host=ip      // 指定主机 IP</div><div class="line">-P, --port=num     // 指定端口号</div></pre></td></tr></table></figure>
+</li>
+<li><p>导入数据  </p>
+<p>mysql 可以用来导入通过mysqldump导出的数据文件，还原数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysql -u -h -p -P &lt; alldb.sql</div></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
-<li><p>C++ 多态的实现原理<br>多态分为类的多态性与函数的多态性。类的多态是通过<code>虚函数</code>与<code>动态绑定</code>实现的，函数的多态是通过<code>重载</code>实现的。<br>存在虚函数的类都有一个一维的<code>虚函数表</code>叫做<code>虚表</code>。类的对象有一个指向虚表开始的指针。虚表是和类对应的，虚表指针是和对象对应的。</p>
-</li>
-<li><p>C++ <code>static</code> 关键字</p>
+<li><p><strong>mysqldump</strong></p>
 <ul>
-<li>在类中的 <code>static</code> 成员变量属于整个类所拥有，对类的所有对象只有一份拷贝；</li>
-<li>在类中的 <code>static</code> 成员函数属于整个类所拥有，这个函数不接收 <code>this</code> 指针，因而只能访问类的 <code>static</code> 成员变量；静态成员函数可以继承和覆盖,但无法是虚函数；</li>
-<li><code>static</code> 修饰的变量放在静态存储区，所以它具备持久性和默认值0，生命周期是程序的生命周期；（<code>static</code> 局部变量的“记忆性”与生存周期的“全局性”）</li>
+<li><p>备份所有数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqldump -u -p -h -P --all-database &gt; alldb.sql</div></pre></td></tr></table></figure>
+</li>
+<li><p>备份指定数据库</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqldump -u -p -h -P dbname &gt; db.sql</div></pre></td></tr></table></figure>
+</li>
+<li><p>备份指定数据库下的某个表</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqldump -u -p -h -P dbname tbname &gt; tb.sql</div></pre></td></tr></table></figure>
+</li>
+<li><p>导出指定数据库结构（即所有表结构且不含数据）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqldump -u -p -h -P -d dbname &gt; db.sql</div></pre></td></tr></table></figure>
+</li>
+<li><p>导出指定数据库表结构（不含数据）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqldump -u -p -h -P -d dbname tbname &gt; db.sql</div></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
-<li><p>C++ <code>const</code> 关键字</p>
+<li><p><strong>mysqlbinlog</strong><br>可以使用 mysqlbinlog 来查看 MySQL 产生的 binlog。</p>
+</li>
+<li><p><strong>show</strong><br> 连接数据库后，可以使用 show 来查看数据库的状态。  </p>
 <ul>
-<li>可以用来定义 <code>const</code> 常量。 <code>const int MAX = 100;</code></li>
-<li>便于进行类型检查。<code>const</code> 常量拥有数据类型，而宏常量没有数据类型。</li>
-<li>可以保护被修饰的变量。防止意外修改，增强程序的健壮性。</li>
-<li>为函数重载提供了一个参考。</li>
+<li><p>show grants</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show grants;</div><div class="line">+--------------------------------------------------------------------------------------------------------------------------------------------+</div><div class="line">| Grants for root@192.168.4.115                                                                                                              |</div><div class="line">+--------------------------------------------------------------------------------------------------------------------------------------------+</div><div class="line">| GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;192.168.4.115&apos; IDENTIFIED BY PASSWORD &apos;*6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9&apos; WITH GRANT OPTION |</div><div class="line">+--------------------------------------------------------------------------------------------------------------------------------------------+</div><div class="line">1 row in set (0.00 sec)</div><div class="line"></div><div class="line">mysql&gt; show grants for root;</div><div class="line">+--------------------------------------------------------------------------------------------------------------+</div><div class="line">| Grants for root@%                                                                                            |</div><div class="line">+--------------------------------------------------------------------------------------------------------------+</div><div class="line">| GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;%&apos; IDENTIFIED BY PASSWORD &apos;*6BB4837EB74329105EE4568DDA7DC67ED2CA2AD9&apos; |</div><div class="line">+--------------------------------------------------------------------------------------------------------------+</div><div class="line">1 row in set (0.00 sec)</div></pre></td></tr></table></figure>
+</li>
+<li><p>show binlog events<br>可以使用该命令查看 binlog</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show binlog events\G</div><div class="line">*************************** 1. row ***************************</div><div class="line">   Log_name: mysql-bin.000001</div><div class="line">        Pos: 4</div><div class="line"> Event_type: Format_desc</div><div class="line">  Server_id: 14016006</div><div class="line">End_log_pos: 120</div><div class="line">       Info: Server ver: 5.6.31-77.0-log, Binlog ver: 4</div><div class="line">*************************** 2. row ***************************</div><div class="line">   Log_name: mysql-bin.000001</div><div class="line">        Pos: 120</div><div class="line"> Event_type: Query</div><div class="line">  Server_id: 14016006</div><div class="line">End_log_pos: 1891</div></pre></td></tr></table></figure>
+</li>
+<li><p>show variables<br>可以使用该命令来查看变量的值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show variables like &apos;%read_only%&apos;;</div><div class="line">+------------------+-------+</div><div class="line">| Variable_name    | Value |</div><div class="line">+------------------+-------+</div><div class="line">| innodb_read_only | OFF   |</div><div class="line">| read_only        | ON    |</div><div class="line">| super_read_only  | ON    |</div><div class="line">| tx_read_only     | OFF   |</div><div class="line">+------------------+-------+</div><div class="line">4 rows in set (0.00 sec)</div></pre></td></tr></table></figure>
+</li>
 </ul>
+</li>
+</ol>
+<h2 id="Others"><a href="#Others" class="headerlink" title="Others"></a>Others</h2><ol>
+<li><p>show create tbname<br>显示创建表的语句，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show create table test_phxsql.test_phxsql\G</div><div class="line">*************************** 1. row ***************************</div><div class="line">       Table: test_phxsql</div><div class="line">Create Table: CREATE TABLE `test_phxsql` (</div><div class="line">  `name` varchar(80) DEFAULT NULL</div><div class="line">) ENGINE=InnoDB DEFAULT CHARSET=latin1</div><div class="line">1 row in set (0.00 sec)</div></pre></td></tr></table></figure>
+</li>
+<li><p>desc tbname<br>显示表结构，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql&gt; desc test_phxsql.test_phxsql\g</div><div class="line">+-------+-------------+------+-----+---------+-------+</div><div class="line">| Field | Type        | Null | Key | Default | Extra |</div><div class="line">+-------+-------------+------+-----+---------+-------+</div><div class="line">| name  | varchar(80) | YES  |     | NULL    |       |</div><div class="line">+-------+-------------+------+-----+---------+-------+</div><div class="line">1 row in set (0.00 sec)</div></pre></td></tr></table></figure>
 </li>
 </ol>
 
@@ -404,7 +484,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/C-C/" rel="tag">#C/C++</a>
+            <a href="/tags/MySQL/" rel="tag">#MySQL</a>
           
         </div>
       
@@ -413,17 +493,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/08/04/在-Ubuntu-14-10-上配置-JavaWeb-开发环境/" rel="next" title="在 Ubuntu 14.10 上配置 JavaWeb 开发环境">
-                <i class="fa fa-chevron-left"></i> 在 Ubuntu 14.10 上配置 JavaWeb 开发环境
+              <a href="/2016/10/11/PhxSQL-FAQ/" rel="next" title="PhxSQL FAQ">
+                <i class="fa fa-chevron-left"></i> PhxSQL FAQ
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/08/28/C-模板/" rel="prev" title="C++模板">
-                C++模板 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -438,10 +514,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/08/06/C-知识点记录/"
-     data-title="C++ 知识点记录"
+        <div class="ds-share flat" data-thread-key="2016/10/21/MySQL-常用命令/"
+     data-title="MySQL 常用命令"
      data-content=""
-     data-url="http://chuzhiyan.com/2015/08/06/C-知识点记录/">
+     data-url="http://chuzhiyan.com/2016/10/21/MySQL-常用命令/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -468,8 +544,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/08/06/C-知识点记录/"
-           data-title="C++ 知识点记录" data-url="http://chuzhiyan.com/2015/08/06/C-知识点记录/">
+      <div class="ds-thread" data-thread-key="2016/10/21/MySQL-常用命令/"
+           data-title="MySQL 常用命令" data-url="http://chuzhiyan.com/2016/10/21/MySQL-常用命令/">
       </div>
     
   </div>
@@ -605,7 +681,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#DDL"><span class="nav-number">1.</span> <span class="nav-text">DDL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DML"><span class="nav-number">2.</span> <span class="nav-text">DML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DCL"><span class="nav-number">3.</span> <span class="nav-text">DCL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tools"><span class="nav-number">4.</span> <span class="nav-text">Tools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Others"><span class="nav-number">5.</span> <span class="nav-text">Others</span></a></li></ol></div>
             
           </div>
         </section>
