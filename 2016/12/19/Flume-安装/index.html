@@ -102,22 +102,16 @@
 
 
 
-<meta name="description" content="什么是 ID 生成器全局唯一 ID 作为一种唯一标识来区分数据，它可以用作订单号、用户 ID 等。在一个大的系统中或者基础服务里，提供一种全局唯一 ID 十分重要。ID 生成器的作用就是生成全局唯一 ID 的工具，甚至它能作为一种基础服务为其他业务提供服务。">
+<meta name="description" content="本文将介绍在 Linux 下安装 Flume。Linux 系统为 Ubuntu 12.04，Flume 版本是 1.7.0。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我看 ID 生成器">
-<meta property="og:url" content="http://chuzhiyan.com/2016/08/18/我看-ID-生成器/index.html">
+<meta property="og:title" content="Flume 安装">
+<meta property="og:url" content="http://chuzhiyan.com/2016/12/19/Flume-安装/index.html">
 <meta property="og:site_name" content="Happy">
-<meta property="og:description" content="什么是 ID 生成器全局唯一 ID 作为一种唯一标识来区分数据，它可以用作订单号、用户 ID 等。在一个大的系统中或者基础服务里，提供一种全局唯一 ID 十分重要。ID 生成器的作用就是生成全局唯一 ID 的工具，甚至它能作为一种基础服务为其他业务提供服务。">
-<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B1.png-PicforBlog">
-<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B2.png-PicforBlog">
-<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/ID%20Range.png-PicforBlog">
-<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B3.png-PicforBlog">
-<meta property="og:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B4.png-PicforBlog">
-<meta property="og:updated_time" content="2016-08-23T12:27:04.099Z">
+<meta property="og:description" content="本文将介绍在 Linux 下安装 Flume。Linux 系统为 Ubuntu 12.04，Flume 版本是 1.7.0。">
+<meta property="og:updated_time" content="2016-12-19T13:04:46.038Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我看 ID 生成器">
-<meta name="twitter:description" content="什么是 ID 生成器全局唯一 ID 作为一种唯一标识来区分数据，它可以用作订单号、用户 ID 等。在一个大的系统中或者基础服务里，提供一种全局唯一 ID 十分重要。ID 生成器的作用就是生成全局唯一 ID 的工具，甚至它能作为一种基础服务为其他业务提供服务。">
-<meta name="twitter:image" content="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B1.png-PicforBlog">
+<meta name="twitter:title" content="Flume 安装">
+<meta name="twitter:description" content="本文将介绍在 Linux 下安装 Flume。Linux 系统为 Ubuntu 12.04，Flume 版本是 1.7.0。">
 
 
 
@@ -138,9 +132,9 @@
 
 
 
-  <link rel="canonical" href="http://chuzhiyan.com/2016/08/18/我看-ID-生成器/"/>
+  <link rel="canonical" href="http://chuzhiyan.com/2016/12/19/Flume-安装/"/>
 
-  <title> 我看 ID 生成器 | Happy </title>
+  <title> Flume 安装 | Happy </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -289,7 +283,7 @@
             
             
               
-                我看 ID 生成器
+                Flume 安装
               
             
           </h1>
@@ -301,8 +295,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-18T17:11:06+08:00" content="2016-08-18">
-              2016-08-18
+            <time itemprop="dateCreated" datetime="2016-12-19T19:34:47+08:00" content="2016-12-19">
+              2016-12-19
             </time>
           </span>
 
@@ -312,8 +306,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/18/我看-ID-生成器/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/18/我看-ID-生成器/" itemprop="commentsCount"></span>
+                <a href="/2016/12/19/Flume-安装/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/19/Flume-安装/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -323,7 +317,7 @@
 
           
           
-             <span id="/2016/08/18/我看-ID-生成器/" class="leancloud_visitors" data-flag-title="我看 ID 生成器">
+             <span id="/2016/12/19/Flume-安装/" class="leancloud_visitors" data-flag-title="Flume 安装">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -350,42 +344,37 @@
       
 
       
-        <h2 id="什么是-ID-生成器"><a href="#什么是-ID-生成器" class="headerlink" title="什么是 ID 生成器"></a>什么是 ID 生成器</h2><p>全局唯一 ID 作为一种唯一标识来区分数据，它可以用作订单号、用户 ID 等。在一个大的系统中或者基础服务里，提供一种全局唯一 ID 十分重要。ID 生成器的作用就是生成全局唯一 ID 的工具，甚至它能作为一种基础服务为其他业务提供服务。</p>
+        <p>本文将介绍在 Linux 下安装 Flume。Linux 系统为 Ubuntu 12.04，Flume 版本是 1.7.0。</p>
 <a id="more"></a>
-<h2 id="构建-ID"><a href="#构建-ID" class="headerlink" title="构建 ID"></a>构建 ID</h2><p>怎样去构建一个全局唯一的 ID ？获得唯一 ID 的方式有：带时间戳和不带时间戳两种。时间戳能很好的表达ID的唯一性。考虑到一秒或更小的时间单位内可能并发生成大量 ID，可以再添加序列号增加区分粒度。而不带时间戳的全局唯一 ID 主要是通过生成时的序列号来辨识了。</p>
-<h3 id="Snowflake"><a href="#Snowflake" class="headerlink" title="Snowflake"></a><a href="https://github.com/twitter/snowflake" target="_blank" rel="external">Snowflake</a></h3><p>Snowflake 算法就是带有时间戳的全局唯一 ID 生成算法。它有一套固定的ID格式，如下：</p>
-<blockquote>
-<p>41位的时间序列（精确到毫秒，41位的长度可以使用69年）<br>10位的机器标识（10位的长度最多支持部署1024个节点）<br>12位的计数顺序号（12位的计数顺序号支持每个节点每毫秒产生4096个ID序号）</p>
-</blockquote>
-<h3 id="Ticket-servers"><a href="#Ticket-servers" class="headerlink" title="Ticket servers"></a><a href="http://code.flickr.net/2010/02/08/ticket-servers-distributed-unique-primary-keys-on-the-cheap/" target="_blank" rel="external">Ticket servers</a></h3><p>MySQL 本身支持 auto_increment 操作，可以借助这个特性来构建ID。Flicker 的 Ticket servers 就利用了 MySQL 自增长特性。</p>
-<h2 id="构建-ID-生成器"><a href="#构建-ID-生成器" class="headerlink" title="构建 ID 生成器"></a>构建 ID 生成器</h2><p>除了使用带时间戳的 snowflake 算法，数据库自增特性来生成全局唯一 ID，还可以不带时间戳，不依靠数据库自增来生成。你可以自己构建一个 ID 生成器来实现它。没有时间戳的区分粒度，那么它只能靠生成 ID 时的序列号来唯一标识。</p>
-<h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><p>一个简单的ID生成器原型构成部分有：保存 ID 数据的数据库和分配 ID 的 worker 组成。worker 分配 ID 后存到数据库，下次再需要分配 ID 时，从数据库中查询到已分配的最大 ID，然后加1，作为新的ID分配出去。<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B1.png-PicforBlog" alt="原型"><br>这只是一个简单的生成器，可以为它添加一个对外服务的接口。其它程序调用这个接口就能发出申请ID的请求，worker接收到请求后分配ID。<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B2.png-PicforBlog" alt="原型2"></p>
-<h3 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h3><p>频繁地读取数据库带来的后果是整个程序的响应速度慢。同时，当有大量的请求过来时，会给数据库带来巨大压力。</p>
-<h4 id="减少访问数据库次数"><a href="#减少访问数据库次数" class="headerlink" title="减少访问数据库次数"></a>减少访问数据库次数</h4><p>其实，分配 ID 时可以不用每次都读写数据库。在服务器上用一段内存来保存最近一次分配的 ID。而且，已经被分配出去的 ID 也可以不用每次到保存到数据库，而是先存放在内存里面，然后一段一段的存到数据库。这两种方式有效地减少了数据库存取频率。<br>如果业务不需要保存已经分配出去的每个 ID，那么存到数据库中的数据可以不是 ID，而是 ID 段。ID 段指由多个 ID 组成的一个序列。假设某 ID 段[minID, maxID]，当前被分配的ID为curID，(maxID - minID = 500，ID 段容量)，即有 500 个可供分配的 ID。当 curID 分配到 maxID 时，就将 minID, maxID 保存到数据库。然后 worker 继续分配下一个ID段中的ID。<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/ID%20Range.png-PicforBlog" alt="ID Range"><br>如果 worker 因崩溃而停止服务，再次提供生成 ID 服务时，先访问内存获取已分配的最大 ID；如果 worker 所在主机宕机，导致保存在内存中的数据清空，那么再次提供生成 ID 服务时先读取数据库中最近保存的 ID 段信息，在 maxID 加上一定的余量（如：500）。加上余量的目的是避免分配出重复的 ID，会造成一部分 ID 浪费，一般余量为 ID 段容量的倍数。<br>如果 ID 段容量远大于 500，那么 maxID 加上余量会浪费很多的可用 ID 资源。假设 ID 段容量为 100000，每次 worker 宕机之后至少加上 100000，使 ID 资源利用率极低。为了使worker宕机重启后能提供正常服务且 ID 资源利用率高，可以引入一个检查点（checkpoint）。当 curID % 500 == 0 时，此 ID 被认为是检查点，将 curID，minID，maxID 一起保存到数据库。curID 每成为一个检查点，便插入或更新数据。</p>
-<h4 id="调整架构"><a href="#调整架构" class="headerlink" title="调整架构"></a>调整架构</h4><p>在原型中，worker 既担负了分配 ID 的服务，也负责管理 ID 段。可以进一步调整，分拆 worker，架构图如下：<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B3.png-PicforBlog" alt="原型3"><br>将 worker 拆分为 worker 和 manager。worker 专职分配 ID，manager 专职管理 ID 段。拆分的好处有：</p>
+<p>在安装 Flume 1.7.0 之前，先要了解它对系统的要求：</p>
 <ol>
-<li>各部分独立；</li>
-<li>方便后期扩展。</li>
+<li>Java 运行环境 Java 1.7 或更高版本</li>
+<li>足够的内存来配置 sources, channels 和 sinks</li>
+<li>足够的硬盘空间来配置 channels 和 sinks</li>
+<li>agent 有用到的目录的读/写权限</li>
 </ol>
-<p>架构调整后，ID 生成的整个流程为：</p>
+<h3 id="安装-Java"><a href="#安装-Java" class="headerlink" title="安装 Java"></a>安装 Java</h3><h4 id="在线安装-Java-7"><a href="#在线安装-Java-7" class="headerlink" title="在线安装 Java 7"></a>在线安装 Java 7</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo add-apt-repository ppa:webupd8team/java</div><div class="line">sudo apt-get update &amp;&amp; sudo apt-get install oracle-java7-installer</div></pre></td></tr></table></figure>
+<h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><p>编辑 /etc/profile，新增以下几行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">export JAVA_HOME=/usr/lib/jvm/java-7-oracle</div><div class="line">export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$PATH</div><div class="line">export CLASSPATH=$CLASSPATH:.:$JAVA_HOME/lib:$JAVA_HOME/jre/lib</div><div class="line">export FLUME_HOME=/home/happy.zhang/workspace/flume/apache-flume-1.7.0-bin</div><div class="line">export PATH=$PATH:FLUME_HOME/bin</div></pre></td></tr></table></figure></p>
+<p>修改后保存文件，然后执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">source profile</div></pre></td></tr></table></figure></p>
+<p>使修改生效。</p>
+<h3 id="安装-flume"><a href="#安装-flume" class="headerlink" title="安装 flume"></a>安装 flume</h3><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://mirrors.hust.edu.cn/apache/flume/1.7.0/apache-flume-1.7.0-bin.tar.gz</div></pre></td></tr></table></figure>
+<p>下载之后，对文件解压</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar -xzvf apache-flume-1.7.0-bin.tar.gz</div></pre></td></tr></table></figure>
+<p>即可。</p>
+<h3 id="简单示例"><a href="#简单示例" class="headerlink" title="简单示例"></a>简单示例</h3><p>解压完成以后，配置文件放在 conf 目录中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">apache-flume-1.7.0-bin# tree -L 1</div><div class="line">.</div><div class="line">├── bin</div><div class="line">├── CHANGELOG</div><div class="line">├── conf</div><div class="line">├── DEVNOTES</div><div class="line">├── doap_Flume.rdf</div><div class="line">├── docs</div><div class="line">├── lib</div><div class="line">├── LICENSE</div><div class="line">├── NOTICE</div><div class="line">├── README.md</div><div class="line">├── RELEASE-NOTES</div><div class="line">└── tools</div></pre></td></tr></table></figure>
+<p>在 conf 中新建 example.conf 文件，内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"># example.conf: A single-node Flume configuration</div><div class="line"></div><div class="line"># Name the components on this agent</div><div class="line">a1.sources = r1</div><div class="line">a1.sinks = k1</div><div class="line">a1.channels = c1</div><div class="line"></div><div class="line"># Describe/configure the source</div><div class="line">a1.sources.r1.type = netcat</div><div class="line">a1.sources.r1.bind = localhost</div><div class="line">a1.sources.r1.port = 44444</div><div class="line"></div><div class="line"># Describe the sink</div><div class="line">a1.sinks.k1.type = logger</div><div class="line"></div><div class="line"># Use a channel which buffers events in memory</div><div class="line">a1.channels.c1.type = memory</div><div class="line">a1.channels.c1.capacity = 1000</div><div class="line">a1.channels.c1.transactionCapacity = 100</div><div class="line"></div><div class="line"># Bind the source and sink to the channel</div><div class="line">a1.sources.r1.channels = c1</div><div class="line">a1.sinks.k1.channel = c1</div></pre></td></tr></table></figure></p>
+<p>编辑好配置文件后，在 apache-flume-1.7.0-bin 目录下启动 flume：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># ./bin/flume-ng agent --conf conf --conf-file ./conf/example.conf --name a1 -Dflume.root.logger=INFO,console</div></pre></td></tr></table></figure>
+<p>新开一个终端，执行以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># telnet localhost 44444</div><div class="line">Trying 127.0.0.1...</div><div class="line">Connected to localhost.</div><div class="line">Escape character is &apos;^]&apos;.</div><div class="line">haha</div></pre></td></tr></table></figure>
+<p>启动 flume 的终端中会输出一下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">2016-12-19 18:12:53,452 (SinkRunner-PollingRunner-DefaultSinkProcessor) [INFO - org.apache.flume.sink.LoggerSink.process(LoggerSink.java:95)] Event: &#123; headers:&#123;&#125; body: 68 61 68 61 0D                                  haha. &#125;</div></pre></td></tr></table></figure>
+<p>参考：</p>
 <ol>
-<li>proxy 发出申请 ID 请求；</li>
-<li>worker 接收到请求后开始处理。如果已经 ID 段中有可用资源，则返回 ID 给 proxy，ID 为检查点时保存数据到数据库；否则，worker 向 manager 申请新的 ID 段；</li>
-<li>manager 接收到申请后，分配新的 ID 段返回给 worker，并保存 ID 段信息到数据库。</li>
-</ol>
-<p>每申请一个 ID，proxy 与 worker 通信一次，而 worker 与 manager，worker 与 DB 和 manager 与 DB 只会在满足条件是进行通信，数据库的访问压力减小。<br>作为一种基础服务，它的可用性必须高。为了提高 ID 生成器的可用性，可以将 worker，manager 设计成分布式架构。<br><img src="http://7xiijb.com1.z0.glb.clouddn.com/blog/dis_id/%E5%8E%9F%E5%9E%8B4.png-PicforBlog" alt="原型4"></p>
-<p>如上图，增加了 worker 与 manager。多个 worker 与 manager 可以部署在不同的主机上，可以避免其中一台 worker 或 manager 暂停工作而导致ID生成器无法提供服务。增加 worker 后，它的职责不变，都是从内存中读取已分配到的 ID，然后加一或者去 manager 申请新的 ID 段；而增加 manager 后，确保 ID 唯一性，则需要保证多台 manager 上分配的 ID 段不相同。这个问题最简单的办法是：有两台 manager，以 maxID / (maxID - minID) 值的奇偶性来将不同的 ID 段分配到不同的 manager 中。<br>这种方法抽象出来就是设置步长的问题。先假设 ID 段容量为 10000，如果按照奇偶性来解决，那么 manager1 上管理的 ID 段将是 [1,10000]，[20001, 30000]…，manager2 上管理的 ID 段将是 [10001, 20000]，[30001, 40000]…。manager1 上的第一个 ID 段和 manager1 上的第二个 ID 段的对应 ID 相差 20000，可以认为此时 ID 段的步长为 20000，把它们分到两台机器上，即每台机器上的 ID 段容量为 10000。<br>如果想要不止 2 台 manager（暂假设为 N 台），且每台 manager 上的 ID 段容量依旧为 10000，那么可以将 ID 段的步长设置为 N*10000。这样一来，manager1 上的 ID 段会是 [1, 10000]，[30001, 40000]…，manager2 上的 ID 段会是 [10001, 20000]，[40001, 50000]…，manager3 上的 ID 段会是 [20001, 30000]，[50001, 60000]…。managerN 上的 ID 段依此类推。<br>添加多个 manager 之后，worker 就可能向不同的 manager 申请 ID 段。提高了 manager 的可用性，也需要有备用的 worker 来确保 worker 的高可用性。这种架构虽然可用性提高了，但还有一些缺陷：  </p>
-<ol>
-<li>如果 worker 一直向同一个 manager 申请 ID 段，那么 worker 返回给 proxy 的 ID 将呈现跳跃性，不利于 ID 资源的充分利用；</li>
-<li>如果 proxy 一直将申请 ID 的请求发送至同一台 worker，那么也会导致不用 worker 间的负载不均衡。</li>
-</ol>
-<p>这部分是一个自建 ID 生成器的大概方案，它还有很多可以完善的地方，比如：负载均衡，自动探测可用 worker，manager 等等。  </p>
-<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ol>
-<li><a href="http://www.lanindex.com/twitter-snowflake%EF%BC%8C64%E4%BD%8D%E8%87%AA%E5%A2%9Eid%E7%AE%97%E6%B3%95%E8%AF%A6%E8%A7%A3/" target="_blank" rel="external">Twitter-Snowflake，64位自增ID算法详解</a></li>
-<li><a href="http://my.oschina.net/u/142836/blog/174465" target="_blank" rel="external">MySQL分库分表环境下全局ID生成方案</a></li>
-<li><a href="http://mp.weixin.qq.com/s?__biz=MjM5ODYxMDA5OQ==&amp;mid=403837240&amp;idx=1&amp;sn=ae9f2bf0cc5b0f68f9a2213485313127&amp;scene=21#wechat_redirect" target="_blank" rel="external">细聊分布式ID生成方法</a></li>
-<li><a href="http://www.94geek.com/2015/idcreator.html" target="_blank" rel="external">腾讯文学内容中心id生成器的设计与实现</a></li>
-<li><a href="http://ericliang.info/what-kind-of-id-generator-we-need-in-business-systems/" target="_blank" rel="external">业务系统需要什么样的ID生成器</a></li>
+<li><a href="http://flume.apache.org/FlumeUserGuide.html#system-requirements" target="_blank" rel="external">System Requirements</a></li>
+<li><a href="https://segmentfault.com/q/1010000000261964" target="_blank" rel="external">ubuntu如何在线安装java7?</a></li>
+<li><a href="http://flume.apache.org/FlumeUserGuide.html#a-simple-example" target="_blank" rel="external">A simple example</a></li>
 </ol>
 
       
@@ -412,17 +401,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/11/如何使用-C-语言编写-PHP-扩展/" rel="next" title="如何使用 C 语言编写 PHP 扩展">
-                <i class="fa fa-chevron-left"></i> 如何使用 C 语言编写 PHP 扩展
+              <a href="/2016/10/21/MySQL-常用命令/" rel="next" title="MySQL 常用命令">
+                <i class="fa fa-chevron-left"></i> MySQL 常用命令
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/22/票务服务：廉价的分布式唯一主键/" rel="prev" title="票务服务：廉价的分布式唯一主键">
-                票务服务：廉价的分布式唯一主键 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -437,10 +422,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/08/18/我看-ID-生成器/"
-     data-title="我看 ID 生成器"
+        <div class="ds-share flat" data-thread-key="2016/12/19/Flume-安装/"
+     data-title="Flume 安装"
      data-content=""
-     data-url="http://chuzhiyan.com/2016/08/18/我看-ID-生成器/">
+     data-url="http://chuzhiyan.com/2016/12/19/Flume-安装/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -467,8 +452,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/18/我看-ID-生成器/"
-           data-title="我看 ID 生成器" data-url="http://chuzhiyan.com/2016/08/18/我看-ID-生成器/">
+      <div class="ds-thread" data-thread-key="2016/12/19/Flume-安装/"
+           data-title="Flume 安装" data-url="http://chuzhiyan.com/2016/12/19/Flume-安装/">
       </div>
     
   </div>
@@ -604,7 +589,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-ID-生成器"><span class="nav-number">1.</span> <span class="nav-text">什么是 ID 生成器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建-ID"><span class="nav-number">2.</span> <span class="nav-text">构建 ID</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Snowflake"><span class="nav-number">2.1.</span> <span class="nav-text">Snowflake</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ticket-servers"><span class="nav-number">2.2.</span> <span class="nav-text">Ticket servers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建-ID-生成器"><span class="nav-number">3.</span> <span class="nav-text">构建 ID 生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型"><span class="nav-number">3.1.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#改进"><span class="nav-number">3.2.</span> <span class="nav-text">改进</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#减少访问数据库次数"><span class="nav-number">3.2.1.</span> <span class="nav-text">减少访问数据库次数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调整架构"><span class="nav-number">3.2.2.</span> <span class="nav-text">调整架构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">3.3.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-Java"><span class="nav-number">1.</span> <span class="nav-text">安装 Java</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在线安装-Java-7"><span class="nav-number">1.1.</span> <span class="nav-text">在线安装 Java 7</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置环境变量"><span class="nav-number">1.2.</span> <span class="nav-text">配置环境变量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装-flume"><span class="nav-number">2.</span> <span class="nav-text">安装 flume</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#下载"><span class="nav-number">2.1.</span> <span class="nav-text">下载</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简单示例"><span class="nav-number">3.</span> <span class="nav-text">简单示例</span></a></li></ol></div>
             
           </div>
         </section>
