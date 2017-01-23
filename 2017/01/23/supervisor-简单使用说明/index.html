@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="C++, Linux" />
+  <meta name="keywords" content="Python," />
 
 
 
@@ -102,12 +102,16 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Happy">
-<meta property="og:url" content="http://chuzhiyan.com/archives/2014/12/index.html">
+<meta name="description" content="supervisor 是一个进程管理工具，不仅可以对单个进程的控制，还可以一次启动、关闭多个进程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="supervisor 简单使用说明">
+<meta property="og:url" content="http://chuzhiyan.com/2017/01/23/supervisor-简单使用说明/index.html">
 <meta property="og:site_name" content="Happy">
+<meta property="og:description" content="supervisor 是一个进程管理工具，不仅可以对单个进程的控制，还可以一次启动、关闭多个进程。">
+<meta property="og:updated_time" content="2017-01-23T09:48:54.980Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Happy">
+<meta name="twitter:title" content="supervisor 简单使用说明">
+<meta name="twitter:description" content="supervisor 是一个进程管理工具，不仅可以对单个进程的控制，还可以一次启动、关闭多个进程。">
 
 
 
@@ -128,9 +132,9 @@
 
 
 
-  <link rel="canonical" href="http://chuzhiyan.com/archives/2014/12/"/>
+  <link rel="canonical" href="http://chuzhiyan.com/2017/01/23/supervisor-简单使用说明/"/>
 
-  <title> 归档 | Happy </title>
+  <title> supervisor 简单使用说明 | Happy </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -170,7 +174,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -258,66 +262,180 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 30 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
 
-      
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                supervisor 简单使用说明
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-23T17:45:40+08:00" content="2017-01-23">
+              2017-01-23
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/23/supervisor-简单使用说明/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/23/supervisor-简单使用说明/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/01/23/supervisor-简单使用说明/" class="leancloud_visitors" data-flag-title="supervisor 简单使用说明">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
+        <p>supervisor 是一个进程管理工具，不仅可以对单个进程的控制，还可以一次启动、关闭多个进程。</p>
+<a id="more"></a>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>在 Ubuntu 中执行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">apt-get install supervisor</div></pre></td></tr></table></figure></p>
+<p>或者 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install supervisor</div></pre></td></tr></table></figure>
+<p>安装 supervisor。</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo_supervisord_conf &gt; /ect/supervisor/supervisord.conf</div></pre></td></tr></table></figure>
+<p>生成默认配置文件 supervisord.conf。    </p>
+<p>如果运行该命令提示如下错误：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">IOError: [Errno 2] No such file or directory: &apos;/usr/lib/pymodules/python2.7/supervisor/skel/sample.conf&apos;</div></pre></td></tr></table></figure>
+<p>可以尝试将<br><code>/usr/share/doc/supervisor/examples/sample.conf.gz</code> 文件解压后拷贝至 <code>/usr/lib/pymodules/python2.7/supervisor/skel/</code> 。</p>
+<p>如果 <code>skel</code> 目录不存在，则需要自行创建。 </p>
+<p>将需要管理的进程的配置文件都写到 supervisord.conf 文件里，或者通过 include 的方式把不同的程序（组）写到不同的配置文件里，再在 supervisord.conf 添加 include 。建议使用后者，具体如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[include]</div><div class="line">files = /etc/supervisor/conf.d/*.conf</div></pre></td></tr></table></figure></p>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">supervisord -c /etc/supervisor/supervisord.conf</div></pre></td></tr></table></figure>
+<p>，启动 supervisord。还可以通过执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">supervisorctl -c /etc/supervisor/supervisord.conf</div></pre></td></tr></table></figure>
+<p>来查看被管理的进程的状态。</p>
+
+      
+    </div>
+
+    <div>
+      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2014">2014</h2>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag">#Python</a>
+          
         </div>
       
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/19/Flume-安装/" rel="next" title="Flume 安装">
+                <i class="fa fa-chevron-left"></i> Flume 安装
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2014/12/19/第3章-表、栈和队列/" itemprop="url">
-              
-                <span itemprop="name">第3章 表、栈和队列</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2014-12-19T16:50:24+08:00"
-              content="2014-12-19" >
-          12-19
-        </time>
-      </div>
-
-    </header>
+      
+    </footer>
   </article>
 
 
 
-    
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/01/23/supervisor-简单使用说明/"
+     data-title="supervisor 简单使用说明"
+     data-content=""
+     data-url="http://chuzhiyan.com/2017/01/23/supervisor-简单使用说明/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
 
-  </section>
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
 
-  
-
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
 
 
           </div>
@@ -325,6 +443,14 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/23/supervisor-简单使用说明/"
+           data-title="supervisor 简单使用说明" data-url="http://chuzhiyan.com/2017/01/23/supervisor-简单使用说明/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -344,8 +470,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -440,6 +575,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动"><span class="nav-number">3.</span> <span class="nav-text">启动</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -552,11 +698,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   
