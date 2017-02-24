@@ -1,0 +1,859 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster:300,300italic,400,400italic,700,700italic|consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Protobuf," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="最近，项目中需要用到 Protobuf ，于是根据文档研究了一下，过程中遇到了几个问题，记录与此。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Protobuf tutorail demo">
+<meta property="og:url" content="http://chuzhiyan.com/2017/02/24/Protobuf-tutorail-demo/index.html">
+<meta property="og:site_name" content="Happy">
+<meta property="og:description" content="最近，项目中需要用到 Protobuf ，于是根据文档研究了一下，过程中遇到了几个问题，记录与此。">
+<meta property="og:updated_time" content="2017-02-24T11:35:40.627Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Protobuf tutorail demo">
+<meta name="twitter:description" content="最近，项目中需要用到 Protobuf ，于是根据文档研究了一下，过程中遇到了几个问题，记录与此。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Hzlpy'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://chuzhiyan.com/2017/02/24/Protobuf-tutorail-demo/"/>
+
+  <title> Protobuf tutorail demo | Happy </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-83738416-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?6d76f69e75aa302278f6807f3b3ccfdb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Happy</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-visitor">
+          <a href="/visitor" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-male"></i> <br />
+            
+            访客
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Protobuf tutorail demo
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-02-24T19:31:15+08:00" content="2017-02-24">
+              2017-02-24
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/02/24/Protobuf-tutorail-demo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/24/Protobuf-tutorail-demo/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/02/24/Protobuf-tutorail-demo/" class="leancloud_visitors" data-flag-title="Protobuf tutorail demo">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+              &nbsp; | &nbsp;
+              <span class="page-pv"><i class="fa fa-file-o"></i>
+              <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+              </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近，项目中需要用到 Protobuf ，于是根据文档研究了一下，过程中遇到了几个问题，记录与此。</p>
+<a id="more"></a>
+<h3 id="编写-proto-文件"><a href="#编写-proto-文件" class="headerlink" title="编写 .proto 文件"></a>编写 .proto 文件</h3><p>首先，需要编写一个 .proto 文件。addressbook.proto 来自<a href="https://developers.google.com/protocol-buffers/docs/proto" target="_blank" rel="external">官方文档</a>（有几处改动，见注释）。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">syntax = &quot;proto2&quot;;</div><div class="line">package tutorial;</div><div class="line"></div><div class="line">message Person &#123;</div><div class="line">    required string name = 1;</div><div class="line">    required int32 id= 2;</div><div class="line">    optional string email = 3;</div><div class="line"></div><div class="line">    enum PhoneType &#123;</div><div class="line">        MOBILE = 0;</div><div class="line">        HOME = 1;</div><div class="line">        WORK = 2;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    message PhoneNumber &#123;</div><div class="line">        required string number = 1;</div><div class="line">        optional PhoneType type = 2 [default = HOME];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    repeated PhoneNumber phone = 4;// 有改动</div><div class="line">&#125;</div><div class="line"></div><div class="line">message AddressBook &#123;</div><div class="line">    repeated Person person = 1;// 有改动</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>文件中需要指定 proto 的版本，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">syntax = &quot;proto2&quot;;</div></pre></td></tr></table></figure></p>
+<p>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">syntax = &quot;proto3&quot;;</div></pre></td></tr></table></figure></p>
+<h3 id="编译-proto-文件"><a href="#编译-proto-文件" class="headerlink" title="编译 .proto 文件"></a>编译 .proto 文件</h3><p>编译 addressbook.proto，生成 addressbook.pb.h 和 addressbook.pb.cc 。编译方法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">protoc -I=./ --cpp_out=./ ./addressbook.proto</div></pre></td></tr></table></figure></p>
+<h3 id="准备-demo-代码"><a href="#准备-demo-代码" class="headerlink" title="准备 demo 代码"></a>准备 demo 代码</h3><p>代码如下，可以从<a href="https://developers.google.com/protocol-buffers/docs/cpptutorial#why-use-protocol-buffers" target="_blank" rel="external">该处</a>拷贝。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div></pre></td><td class="code"><pre><div class="line">//wmsg.cpp </div><div class="line">#include&lt;iostream&gt;</div><div class="line">#include &lt;fstream&gt;</div><div class="line">#include &lt;string&gt;</div><div class="line">#include &quot;addressbook.pb.h&quot;</div><div class="line"></div><div class="line">using namespace std;</div><div class="line"></div><div class="line">void PromptForAddress(tutorial::Person* person) &#123;</div><div class="line">    cout &lt;&lt; &quot;Enter person ID number: &quot;;</div><div class="line">    int id;</div><div class="line">    cin &gt;&gt; id;</div><div class="line">    person-&gt;set_id(id);</div><div class="line">    cin.ignore(256, &apos;\n&apos;);</div><div class="line"></div><div class="line">    cout &lt;&lt; &quot;Enter name: &quot;;</div><div class="line">    getline(cin, *person-&gt;mutable_name());</div><div class="line"></div><div class="line">    cout &lt;&lt; &quot;Enter email address (blank for none): &quot;;</div><div class="line">    string email;</div><div class="line">    getline(cin, email);</div><div class="line">    if (!email.empty()) &#123;</div><div class="line">        person-&gt;set_email(email);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    while(true) &#123;</div><div class="line">        cout &lt;&lt; &quot;Enter a phone number (or leave blank to finish): &quot;; </div><div class="line">        string number;</div><div class="line">        getline(cin, number);</div><div class="line">        if (number.empty()) &#123;</div><div class="line">            break;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        tutorial::Person::PhoneNumber* phone_number = person-&gt;add_phone();</div><div class="line">        phone_number-&gt;set_number(number);</div><div class="line"></div><div class="line">        cout &lt;&lt; &quot;Is this a mobile, home, or work phone? &quot;;</div><div class="line">        string type;</div><div class="line">        getline(cin, type);</div><div class="line">        if (type == &quot;mobile&quot;) &#123;</div><div class="line">            phone_number-&gt;set_type(tutorial::Person::MOBILE);</div><div class="line">        &#125; else if (type == &quot;home&quot;) &#123;</div><div class="line">            phone_number-&gt;set_type(tutorial::Person::HOME);</div><div class="line">        &#125; else if (type == &quot;work&quot;) &#123;</div><div class="line">            phone_number-&gt;set_type(tutorial::Person::WORK);</div><div class="line">        &#125; else &#123;</div><div class="line">            cout &lt;&lt; &quot;Unknown phone type. Using default.&quot; &lt;&lt; endl;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main(int argc, char* argv[]) &#123;</div><div class="line">    GOOGLE_PROTOBUF_VERIFY_VERSION;</div><div class="line">    </div><div class="line">    if (argc != 2) &#123;</div><div class="line">        cerr &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0] &lt;&lt; &quot; ADDRESS_BOOK_FILE&quot; &lt;&lt; endl;</div><div class="line">        return -1;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    tutorial::AddressBook address_book;</div><div class="line"></div><div class="line">    &#123;</div><div class="line">        fstream input(argv[1], ios::in | ios:: binary);</div><div class="line">        if (!input) &#123;</div><div class="line">            cout &lt;&lt; argv[1] &lt;&lt; &quot;: File not found. Creating a new file.&quot; &lt;&lt; endl;</div><div class="line">        &#125; else if (!address_book.ParseFromIstream(&amp;input)) &#123;</div><div class="line">            cerr &lt;&lt; &quot;Failed to parse address book.&quot; &lt;&lt; endl;</div><div class="line">            return -1;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    PromptForAddress(address_book.add_person());</div><div class="line"></div><div class="line">    &#123;</div><div class="line">        fstream output(argv[1], ios::out | ios::trunc | ios::binary);</div><div class="line">        if (!address_book.SerializeToOstream(&amp;output)) &#123;</div><div class="line">            cerr &lt;&lt; &quot;Faild to write address book.&quot; &lt;&lt; endl;</div><div class="line">            return -1;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    google::protobuf::ShutdownProtobufLibrary();</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line">// rmsg</div><div class="line">#include&lt;iostream&gt;</div><div class="line">#include&lt;fstream&gt;</div><div class="line">#include&lt;string&gt;</div><div class="line">#include &quot;addressbook.pb.h&quot;</div><div class="line">using namespace std;</div><div class="line"></div><div class="line">void ListPeople(const tutorial::AddressBook&amp; address_book) &#123;</div><div class="line">    for (int i = 0; i &lt; address_book.person_size(); i++) &#123;</div><div class="line">        const tutorial::Person&amp; person = address_book.person(i);</div><div class="line"></div><div class="line">        cout &lt;&lt; &quot;Person ID: &quot; &lt;&lt; person.id() &lt;&lt; endl;</div><div class="line">        cout &lt;&lt; &quot; Name: &quot; &lt;&lt; person.name() &lt;&lt; endl;</div><div class="line"></div><div class="line">        if (person.has_email()) &#123;</div><div class="line">            cout &lt;&lt; &quot;Email address: &quot; &lt;&lt; person.email() &lt;&lt; endl;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        for (int j = 0; j &lt; person.phone_size(); j++) &#123;</div><div class="line">            const tutorial::Person::PhoneNumber&amp; phone_number = person.phone(i);</div><div class="line">            </div><div class="line">            switch (phone_number.type()) &#123;</div><div class="line">                case tutorial::Person::MOBILE:</div><div class="line">                    cout &lt;&lt; &quot;Mobile phone #: &quot;;</div><div class="line">                    break;</div><div class="line">                case tutorial::Person::HOME:</div><div class="line">                    cout &lt;&lt; &quot;Home phone #: &quot;;</div><div class="line">                    break;</div><div class="line">                case tutorial::Person::WORK:</div><div class="line">                    cout &lt;&lt; &quot;Work phone #: &quot;;</div><div class="line">                    break;</div><div class="line">            &#125;</div><div class="line">            cout &lt;&lt; phone_number.number() &lt;&lt; endl;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main(int argc, char* argv[]) &#123;</div><div class="line">    GOOGLE_PROTOBUF_VERSION;</div><div class="line">    </div><div class="line">    if (argc != 2) &#123;</div><div class="line">        cerr &lt;&lt; &quot;Usage: &quot; &lt;&lt; argv[0] &lt;&lt; &quot;ADDRESS_BOOK_FILE&quot; &lt;&lt; endl;</div><div class="line">        return -1;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    tutorial::AddressBook address_book;</div><div class="line">    &#123;</div><div class="line">        fstream input(argv[1], ios::in | ios::binary);</div><div class="line">        if (!address_book.ParseFromIstream(&amp;input)) &#123;</div><div class="line">            cerr &lt;&lt; &quot;Failed to parse address book.&quot; &lt;&lt; endl;</div><div class="line">            return -1;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    ListPeople(address_book);</div><div class="line"></div><div class="line">    google::protobuf::ShutdownProtobufLibrary();</div><div class="line"></div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>如何使用 rmsg.cpp 和 wmsg.cpp ？首先看如何编译这两个 .cpp 文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">g++ -o rmsg rmsg.cpp addressbook.pb.cc -lprotobuf</div><div class="line">g++ -o wmsg wmsg.cpp addressbook.pb.cc -lprotobuf</div></pre></td></tr></table></figure></p>
+<p>编译完后，先执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./wmsg test // 表示将 addressbook 里的信息写入到 test 文件中</div></pre></td></tr></table></figure>
+<p>而后，再执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./rmsg test</div></pre></td></tr></table></figure>
+<p>即可读出刚写入 test 文件中的信息。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Protobuf/" rel="tag">#Protobuf</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/23/supervisor-简单使用说明/" rel="next" title="supervisor 简单使用说明">
+                <i class="fa fa-chevron-left"></i> supervisor 简单使用说明
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/02/24/Protobuf-tutorail-demo/"
+     data-title="Protobuf tutorail demo"
+     data-content=""
+     data-url="http://chuzhiyan.com/2017/02/24/Protobuf-tutorail-demo/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/02/24/Protobuf-tutorail-demo/"
+           data-title="Protobuf tutorail demo" data-url="http://chuzhiyan.com/2017/02/24/Protobuf-tutorail-demo/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Happy.Zhang" />
+          <p class="site-author-name" itemprop="name">Happy.Zhang</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">31</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/hzlpy" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/ihzlpy" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/332506542" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/chuzhiyan" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://notes.iissnan.com/" title="iissnan note" target="_blank">iissnan note</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#编写-proto-文件"><span class="nav-number">1.</span> <span class="nav-text">编写 .proto 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译-proto-文件"><span class="nav-number">2.</span> <span class="nav-text">编译 .proto 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#准备-demo-代码"><span class="nav-number">3.</span> <span class="nav-text">准备 demo 代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">4.</span> <span class="nav-text">使用</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Happy.Zhang</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv"><i class="fa fa-user"></i><span class="busuanzi-value" id="busuanzi_value_site_uv"></span></span>
+  
+
+  
+    <span class="site-pv"><i class="fa fa-eye"></i><span class="busuanzi-value" id="busuanzi_value_site_pv"></span></span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"hzlpy"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("QpdlWBCBfhqyNpozQK4yR0k3-gzGzoHsz", "dMMf8tip1dm9TeewqlUqToXc");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script type="text/javascript" async src="//push.zhanzhang.baidu.com/push.js">
+</script>
+
+
+</body>
+</html>
